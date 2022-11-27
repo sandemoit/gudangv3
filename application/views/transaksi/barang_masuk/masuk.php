@@ -150,20 +150,20 @@
 </div><!-- .modal -->
 
 <!-- Edit Room-->
-<?php foreach ($barang as $b) : ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $b['id_barang'] ?>">
+<?php foreach ($barangmasuk as $bm) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $bm['id_barang'] ?>">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
                     <h5 class="modal-title">Edit barang</h5>
-                    <?= form_open('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
+                    <?= form_open('barang/edit', [], ['stok' => 0, 'id_barang' => $bm['id_barang']]); ?>
                     <div class="row g-gs">
                         <div class="row mt-5">
                             <div class="col">
                                 <div class="form-group">
                                     <label class="form-label" for="room-no-add">Nama Barang</label>
-                                    <input type="text" class="form-control" value="<?= $b['nama_barang'] ?>" name="nama_barang" id="nama_barang" placeholder="Nama barang">
+                                    <input type="text" class="form-control" value="<?= $bm['nama_barang'] ?>" name="nama_barang" id="nama_barang" placeholder="Nama barang">
                                 </div>
                             </div>
                         </div>
