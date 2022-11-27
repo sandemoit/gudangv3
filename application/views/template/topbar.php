@@ -35,8 +35,12 @@
                                         <em class="icon ni ni-user-alt"></em>
                                     </div>
                                     <div class="user-info d-none d-md-block">
-                                        <div class="user-status">Administrator</div>
-                                        <div class="user-name dropdown-indicator">Sandi Maulidika</div>
+                                        <?php if ($user['role'] == 'admin') : ?>
+                                            <div class="user-status">Administrator</div>
+                                        <?php else : ?>
+                                            <div class="user-status">Monitoring</div>
+                                        <?php endif ?>
+                                        <div class="user-name dropdown-indicator"><?= $user['name'] ?></div>
                                     </div>
                                 </div>
                             </a>
@@ -47,8 +51,8 @@
                                             <span>AB</span>
                                         </div>
                                         <div class="user-info">
-                                            <span class="lead-text">Abu Bin Ishtiyak</span>
-                                            <span class="sub-text">info@softnio.com</span>
+                                            <span class="lead-text"><?= $user['name'] ?></span>
+                                            <span class="sub-text"><?= $user['email'] ?></span>
                                         </div>
                                     </div>
                                 </div>

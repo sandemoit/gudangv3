@@ -16,7 +16,7 @@
                                 <ul class="nk-block-tools g-3">
                                     <li>
                                         <div class="drodown">
-                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em></a>
+                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add Barang Masuk</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -39,32 +39,34 @@
                                         <table class="datatable-init nowrap table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>ID Barang</th>
+                                                    <th>No. </th>
+                                                    <th>No Transaksi</th>
+                                                    <th>Tanggal Masuk</th>
+                                                    <th>Supplier</th>
                                                     <th>Nama Barang</th>
-                                                    <th>Jenis Barang</th>
-                                                    <th>Stok</th>
-                                                    <th>Satuan</th>
+                                                    <th>Jumlah Masuk</th>
+                                                    <th>Petugas</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $no = 1; ?>
-                                                <?php foreach ($barang as $s) : ?>
+                                                <?php foreach ($barangmasuk as $bm) : ?>
+                                                    <?php $no = 1; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $s['id_barang'] ?></td>
-                                                        <td><?= $s['nama_barang'] ?></td>
-                                                        <td><?= $s['nama_jenis'] ?></td>
-                                                        <td><?= $s['stok'] ?></td>
-                                                        <td><?= $s['nama_satuan'] ?></td>
+                                                        <td><?= $bm['id_bmasuk'] ?></td>
+                                                        <td><?= $bm['tanggal_masuk']  ?></td>
+                                                        <td><?= $bm['nama_supplier'] ?></td>
+                                                        <td><?= $bm['nama_barang'] ?></td>
+                                                        <td><?= $bm['jumlah_masuk'] ?></td>
+                                                        <td><?= $bm['name'] ?></td>
                                                         <td>
                                                             <div class="drodown">
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $s['id_barang'] ?>"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $s['id_barang'] ?>"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $bm['id_bmasuk'] ?>"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $bm['id_bmasuk'] ?>"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -110,8 +112,8 @@
                             <label class="form-label" for="room-no-add">Satuan barang</label>
                             <select name="id_satuan" id="id_satuan" class="form-select js-select2 js-select2-sm">
                                 <option selected disabled>Pilih Jenis Barang</option>
-                                <?php foreach ($satuan as $s) : ?>
-                                    <option <?= set_select('id_satuan', $s['id']) ?> value="<?= $s['id'] ?>"><?= $s['nama_satuan'] ?></option>
+                                <?php foreach ($bmatuan as $bm) : ?>
+                                    <option <?= set_select('id_satuan', $bm['id']) ?> value="<?= $bm['id'] ?>"><?= $bm['nama_satuan'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <p><a href="<?= site_url('satuan') ?>">+ Add Satuan Barang</a></p>
@@ -170,8 +172,8 @@
                                 <label class="form-label" for="room-no-add">Satuan barang</label>
                                 <select name="id_satuan" id="id_satuan" class="form-select js-select2 js-select2-sm">
                                     <option selected disabled>Pilih Satuan Barang</option>
-                                    <?php foreach ($satuan as $s) : ?>
-                                        <option <?= $b['id_satuan'] == $s['id'] ? 'selected' : '' ?> value="<?= $s['id']; ?>"><?= $s['nama_satuan']; ?></option>
+                                    <?php foreach ($bmatuan as $bm) : ?>
+                                        <option <?= $b['id_satuan'] == $bm['id'] ? 'selected' : '' ?> value="<?= $bm['id']; ?>"><?= $bm['nama_satuan']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <p><a href="<?= site_url('satuan') ?>">+ Add Jenis Barang</a></p>

@@ -37,7 +37,7 @@ class Auth extends CI_Controller
                         'email' => $user['email'],
                         'role' => $user['role']
                     ];
-                    $this->session->userdata($data);
+                    $this->session->set_userdata($data);
                     redirect('dashboard');
                 } else {
                     set_pesan('password salah!', false);

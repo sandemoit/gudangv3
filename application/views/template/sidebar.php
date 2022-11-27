@@ -63,6 +63,12 @@
                                     <span class="nk-menu-text">Barang Masuk</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
                             </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('barangkeluar') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-inbox-out-fill"></em></span>
+                                    <span class="nk-menu-text">Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->
                     </div><!-- .nk-sidebar-menu -->
                 </div><!-- .nk-sidebar-content -->

@@ -2,8 +2,7 @@
 function is_logged_in() //ini untuk mengecek apakah user sudah login atau belum
 {
     $ci = get_instance();
-    $ci->session->userdata('email');
-    redirect('auth');
+    $ci->session->userdata('email') || redirect('auth');
 }
 
 function set_pesan($message, $tipe = true) //ini untuk menampilkan message

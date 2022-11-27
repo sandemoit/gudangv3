@@ -58,15 +58,23 @@ class Barang extends CI_Controller
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
 
-        $data = [
-            'nama_barang' => $this->input->post('nama_barang'),
-            'id_jenis' => $this->input->post('id_jenis'),
-            'id_satuan' => $this->input->post('id_satuan')
-        ];
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar');
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/barang', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = [
+                'nama_barang' => $this->input->post('nama_barang'),
+                'id_jenis' => $this->input->post('id_jenis'),
+                'id_satuan' => $this->input->post('id_satuan')
+            ];
 
-        $this->Admin_model->update('barang', 'id_barang', $id, $data);
-        set_pesan('Data berhasil diubah!');
-        redirect('barang');
+            $this->Admin_model->update('barang', 'id_barang', $id, $data);
+            set_pesan('Data berhasil diubah!');
+            redirect('barang');
+        }
     }
 
     public function delete($id)
