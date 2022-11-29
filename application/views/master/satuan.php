@@ -55,8 +55,8 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $s['id'] ?>"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('satuan/delete/') . $s['id'] ?>"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $s['id'] ?>" class="text-primary"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('satuan/delete/') . $s['id'] ?>" class="text-danger"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

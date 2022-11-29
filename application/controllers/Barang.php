@@ -33,11 +33,12 @@ class Barang extends CI_Controller
             $this->load->view('template/sidebar');
             $this->load->view('template/topbar', $data);
             $this->load->view('master/barang', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
         } else {
             $data = [
                 'id_barang' => $this->input->post('id_barang'),
                 'nama_barang' => $this->input->post('nama_barang'),
+                'harga' => $this->input->post('harga'),
                 'id_jenis' => $this->input->post('id_jenis'),
                 'id_satuan' => $this->input->post('id_satuan')
             ];
@@ -63,7 +64,7 @@ class Barang extends CI_Controller
             $this->load->view('template/sidebar');
             $this->load->view('template/topbar', $data);
             $this->load->view('master/barang', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
         } else {
             $data = [
                 'nama_barang' => $this->input->post('nama_barang'),

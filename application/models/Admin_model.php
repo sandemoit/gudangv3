@@ -50,7 +50,6 @@ class Admin_model extends CI_Model
     public function getBarangMasuk($limit = null, $id_barang = null, $range = null)
     {
         $this->db->select('*');
-        $this->db->join('user u', 'barang_masuk.id_user = u.id');
         $this->db->join('suplier sp', 'barang_masuk.id_supplier = sp.id');
         $this->db->join('barang b', 'barang_masuk.barang_id = b.id_barang');
         $this->db->join('satuan s', 'b.id_satuan = s.id');
@@ -89,6 +88,6 @@ class Admin_model extends CI_Model
     public function cekStok($id)
     {
         $this->db->join('satuan s', 'b.id_satuan=s.id');
-        return $this->db->get_where('barang b', ['id' => $id])->row_array();
+        return $this->db->get_where('barang b', ['id_barang' => $id])->row_array();
     }
 }

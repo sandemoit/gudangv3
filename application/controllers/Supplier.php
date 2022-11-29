@@ -15,9 +15,24 @@ class Supplier extends CI_Controller
         $data['title'] = 'Supplier';
         $data['supplier'] = $this->Admin_model->get('suplier');
 
-        $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required|trim');
-        $this->form_validation->set_rules('nohp', 'No Telphone', 'required|trim');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required|trim|is_unique[suplier.nama_supplier]', [
+            'is_unique' => 'Nama Supplier sudah ada!'
+        ]);
+        $this->form_validation->set_rules(
+            'nohp',
+            'No Telphone',
+            'required|trim|numeric|min_length[10]|max_length[13]|is_unique[suplier.nohp]',
+            [
+                'is_unique' => 'No Telphone sudah ada!',
+                'numeric' => 'No Telphone harus angka!',
+                'min_length' => 'No Telphone minimal 10 angka!',
+                'max_length' => 'No Telphone maximal 13 angka!'
+            ]
+        );
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]|max_length[100]', [
+            'min_length' => 'Alamat minimal 10 karakter!',
+            'max_length' => 'Alamat maximal 100 karakter!'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);

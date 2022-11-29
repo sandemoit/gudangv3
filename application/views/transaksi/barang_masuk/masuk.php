@@ -16,7 +16,7 @@
                                 <ul class="nk-block-tools g-3">
                                     <li>
                                         <div class="drodown">
-                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add Barang Masuk</a>
+                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add <?= $title; ?></a>
                                         </div>
                                     </li>
                                 </ul>
@@ -59,16 +59,10 @@
                                                         <td><?= $bm['nama_supplier'] ?></td>
                                                         <td><?= $bm['nama_barang'] ?></td>
                                                         <td><?= $bm['jumlah_masuk'] ?></td>
-                                                        <td><?= $bm['name'] ?></td>
+                                                        <td><?= $bm['id_user'] ?></td>
                                                         <td>
-                                                            <div class="drodown">
-                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <ul class="link-list-opt no-bdr">
-                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $bm['id_bmasuk'] ?>"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $bm['id_bmasuk'] ?>"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
-                                                                    </ul>
-                                                                </div>
+                                                            <div class="tb-odr-btns d-none d-md-inline">
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barangmasuk/delete/') . $bm['id_bmasuk'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -86,112 +80,83 @@
     </div>
 </div>
 <!-- content @e -->
+
+
 <!-- Add Room-->
 <div class="modal fade" tabindex="-1" role="dialog" id="add">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
-                <h5 class="modal-title">Add barang</h5>
-                <?= form_open('', [], ['stok' => 0]); ?>
-                <div class="row g-gs">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">ID Barang</label>
-                            <input readonly type="text" value="<?= set_value('id_barang', $id_barang); ?>" class="form-control" name="id_barang" id="id_barang">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">Nama Barang</label>
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="Nama barang">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">Satuan barang</label>
-                            <select name="id_satuan" id="id_satuan" class="form-select js-select2 js-select2-sm">
-                                <option selected disabled>Pilih Jenis Barang</option>
-                                <?php foreach ($bmatuan as $bm) : ?>
-                                    <option <?= set_select('id_satuan', $bm['id']) ?> value="<?= $bm['id'] ?>"><?= $bm['nama_satuan'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <p><a href="<?= site_url('satuan') ?>">+ Add Satuan Barang</a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">Jenis barang</label>
-                            <select name="id_jenis" id="id_jenis" class="form-select js-select2 js-select2-sm">
-                                <option selected disabled>Pilih Jenis Barang</option>
-                                <?php foreach ($jenis as $j) : ?>
-                                    <option <?= set_select('id_jenis', $j['id']) ?> value="<?= $j['id'] ?>"><?= $j['nama_jenis'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <p><a href="<?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>
-                        </div>
-                    </div>
-                    <!--col-->
-                    <div class="col-12">
-                        <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                            <li>
-                                <button class="btn btn-primary" data-bs-dismiss="modal">Add barang</button>
-                            </li>
-                            <li>
-                                <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <?= form_close(); ?>
-            </div><!-- .modal-body -->
-        </div><!-- .modal-content -->
-    </div><!-- .modal-dialog -->
-</div><!-- .modal -->
-
-<!-- Edit Room-->
-<?php foreach ($barang as $b) : ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $b['id_barang'] ?>">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                <div class="modal-body modal-body-md">
-                    <h5 class="modal-title">Edit barang</h5>
-                    <?= form_open('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
+                <h5 class="modal-title">Add <?= $title; ?></h5>
+                <form action="<?= base_url('masuk') ?>" method="post">
+                    <input type="hidden" value="<?= $user['name']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
-                        <div class="row mt-5">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-label" for="room-no-add">Nama Barang</label>
-                                    <input type="text" class="form-control" value="<?= $b['nama_barang'] ?>" name="nama_barang" id="nama_barang" placeholder="Nama barang">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">ID Barang</label>
+                                <input readonly type="text" value="<?= $id_bmasuk; ?>" class="form-control" name="id_mbarang">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Tanggal Masuk</label>
+                                <input type="date" value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" class="form-control" name="tanggal_masuk" id="tanggal_masuk" placeholder="Nama barang">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Supplier</label>
+                                <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
+                                    <option selected disabled>Pilih Supplier</option>
+                                    <?php foreach ($supplier as $s) : ?>
+                                        <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p><a href="<?= site_url('supplier') ?>">+ Add Supplier</a></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Barang</label>
+                                <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
+                                    <option selected disabled>Pilih Barang</option>
+                                    <?php foreach ($barang as $b) : ?>
+                                        <option value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p><a href=" <?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-control-wrap">
+                                <label class="form-label" for="stok">Stok</label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="stok" class="form-control">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label" for="room-no-add">Satuan barang</label>
-                                <select name="id_satuan" id="id_satuan" class="form-select js-select2 js-select2-sm">
-                                    <option selected disabled>Pilih Satuan Barang</option>
-                                    <?php foreach ($bmatuan as $bm) : ?>
-                                        <option <?= $b['id_satuan'] == $bm['id'] ? 'selected' : '' ?> value="<?= $bm['id']; ?>"><?= $bm['nama_satuan']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <p><a href="<?= site_url('satuan') ?>">+ Add Jenis Barang</a></p>
+                                <label class="form-label" for="total_stok">Jumlah Masuk</label>
+                                <div class="form-control-wrap">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="jumlah_masuk" id="jumlah_masuk" placeholder="Jumlah Masuk">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="satuan">Satuan</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="room-no-add">Jenis barang</label>
-                                <select name="id_jenis" id="id_jenis" class="form-select js-select2 js-select2-sm">
-                                    <option selected disabled>Pilih Jenis Barang</option>
-                                    <?php foreach ($jenis as $j) : ?>
-                                        <option <?= $b['id_jenis'] == $j['id'] ? 'selected' : ''; ?> <?= set_select('id_jenis', $j['id']) ?> value="<?= $j['id'] ?>"><?= $j['nama_jenis'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <p><a href="<?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>
+                        <div class="col-md-4">
+                            <div class="form-control-wrap">
+                                <label class="form-label" for="basic-url">Total Stok</label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="total_stok" class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <!--col-->
                         <div class="col-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
@@ -203,9 +168,8 @@
                             </ul>
                         </div>
                     </div>
-                    <?= form_close(); ?>
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div><!-- .modal -->
-<?php endforeach; ?>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->

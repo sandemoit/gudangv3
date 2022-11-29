@@ -58,13 +58,13 @@
                                 <h6 class="overline-title text-primary-alt">Transaksi</h6>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
-                                <a href="<?= site_url('barangmasuk') ?>" class="nk-menu-link">
+                                <a href="<?= site_url('masuk') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-in-fill"></em></span>
                                     <span class="nk-menu-text">Barang Masuk</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
-                                <a href="<?= site_url('barangkeluar') ?>" class="nk-menu-link">
+                                <a href="<?= site_url('keluar') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-out-fill"></em></span>
                                     <span class="nk-menu-text">Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
