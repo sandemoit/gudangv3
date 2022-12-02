@@ -69,6 +69,27 @@
                                     <span class="nk-menu-text">Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
                             </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Lainnya</h6>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
+                                    <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('setting') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                                    <span class="nk-menu-text">Setting Aplication</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('setting/database') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-server"></em></span>
+                                    <span class="nk-menu-text">Back Up Database</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->
                     </div><!-- .nk-sidebar-menu -->
                 </div><!-- .nk-sidebar-content -->

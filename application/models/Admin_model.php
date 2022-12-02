@@ -87,7 +87,7 @@ class Admin_model extends CI_Model
 
     public function cekStok($id)
     {
-        $this->db->join('satuan s', 'b.id_satuan=s.id');
-        return $this->db->get_where('barang b', ['id_barang' => $id])->row_array();
+        $this->db->join('satuan s', 'barang.id_satuan=s.id');
+        return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
     }
 }

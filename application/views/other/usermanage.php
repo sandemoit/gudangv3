@@ -39,30 +39,42 @@
                                         <table class="datatable-init nowrap table">
                                             <thead>
                                                 <tr>
-                                                    <th>No. </th>
-                                                    <th>No Transaksi</th>
-                                                    <th>Tanggal Masuk</th>
-                                                    <th>Supplier</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Jumlah Masuk</th>
-                                                    <th>Petugas</th>
+                                                    <th>No </th>
+                                                    <th>Photo</th>
+                                                    <th>Nama</th>
+                                                    <th>User Dibuat</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Status</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($barangmasuk as $bm) : ?>
+                                                <?php foreach ($userm as $um) : ?>
                                                     <?php $no = 1; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $bm['id_bmasuk'] ?></td>
-                                                        <td><?= $bm['tanggal_masuk']  ?></td>
-                                                        <td><?= $bm['nama_supplier'] ?></td>
-                                                        <td><?= $bm['nama_barang'] ?></td>
-                                                        <td><?= $bm['jumlah_masuk'] ?></td>
-                                                        <td><?= $bm['id_user'] ?></td>
+                                                        <td>
+                                                            <div class="user-avatar">
+                                                                <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>" alt="">
+                                                            </div>
+                                                        </td>
+                                                        <td><?= $um['name']  ?></td>
+                                                        <td><?= date('d-m-Y', $um['date_created'])  ?></td>
+                                                        <td><?= $um['email']  ?></td>
+                                                        <td><?= $um['role']  ?></td>
+                                                        <td>
+                                                            <?php if ($user['is_active']) : ?>
+                                                                <span class="tb-status text-success">Active</span>
+                                                            <?php else : ?>
+                                                                <span class="tb-status text-danger">Deactive</span>
+                                                            <?php endif; ?>
+                                                        </td>
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
-                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('masuk/delete/') . $bm['id_bmasuk'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('usernamemanage/toggle/') . $um['id'] ?>" class="btn btn-sm btn-secondary"><em class="icon ni ni-user-cross-fill"></em></a>
+                                                                <a href="<?= base_url('usernamemanage/edit/') . $um['id'] ?>" class="btn btn-sm btn-warning"><em class="icon ni ni-pen"></em></a>
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('usernamemanage/delete/') . $um['id'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em></a>
                                                             </div>
                                                         </td>
                                                     </tr>

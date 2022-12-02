@@ -14,6 +14,7 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Sistem Informasi Gudang';
+            $data['setting'] = $this->db->get('setting')->row_array();
             $this->load->view('auth', $data);
         } else {
             // validasi sukses

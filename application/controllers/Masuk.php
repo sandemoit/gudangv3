@@ -46,15 +46,15 @@ class Masuk extends CI_Controller
             ];
             $this->db->insert('barang_masuk', $data);
             set_pesan('Data berhasil disimpan.');
-            redirect('barangmasuk');
+            redirect('masuk');
         }
     }
 
-    public function delete($id)
+    public function delete($getId)
     {
-        $id = encode_php_tags($id);
+        $id = encode_php_tags($getId);
         $this->Admin_model->delete('barang_masuk', 'id_bmasuk', $id);
         set_pesan('Data berhasil dihapus!');
-        redirect('barangmasuk');
+        redirect('masuk');
     }
 }
