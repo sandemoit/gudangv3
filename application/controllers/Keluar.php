@@ -6,6 +6,7 @@ class Keluar extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        is_logged_in();
         $this->load->model('Admin_model');
     }
     public function index()

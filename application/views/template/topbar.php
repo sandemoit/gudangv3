@@ -29,10 +29,10 @@
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav">
                         <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle" data-bs-toggle="dropdown">
                                 <div class="user-toggle">
                                     <div class="user-avatar sm">
-                                        <em class="icon ni ni-user-alt"></em>
+                                        <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>" alt="">
                                     </div>
                                     <div class="user-info d-none d-md-block">
                                         <?php if ($user['role'] == 'admin') : ?>
@@ -48,7 +48,7 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar">
-                                            <span>AB</span>
+                                            <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>" alt="">
                                         </div>
                                         <div class="user-info">
                                             <span class="lead-text"><?= $user['name'] ?></span>
@@ -58,10 +58,10 @@
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                        <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                        <li><a href="<?= site_url('profile') ?>"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                        <!-- <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                         <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                        <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                        <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> -->
                                     </ul>
                                 </div>
                                 <div class="dropdown-inner">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </li><!-- .dropdown -->
-                        <li class="dropdown notification-dropdown me-n1">
+                        <!-- <li class="dropdown notification-dropdown me-n1">
                             <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                                 <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
                             </a>
@@ -136,13 +136,13 @@
                                                 <div class="nk-notification-time">2 hrs ago</div>
                                             </div>
                                         </div>
-                                    </div><!-- .nk-notification -->
-                                </div><!-- .nk-dropdown-body -->
+                                    </div>
+                                </div>
                                 <div class="dropdown-foot center">
                                     <a href="#">View All</a>
                                 </div>
                             </div>
-                        </li><!-- .dropdown -->
+                        </li> -->
                     </ul><!-- .nk-quick-nav -->
                 </div><!-- .nk-header-tools -->
             </div><!-- .nk-header-wrap -->

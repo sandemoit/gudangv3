@@ -72,16 +72,20 @@
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Lainnya</h6>
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
-                                    <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                </a>
-                            </li><!-- .nk-menu-item -->
+
+                            <?php if (is_admin()) : ?>
+                                <li class="nk-menu-item">
+                                    <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
+                                        <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                            <?php endif; ?>
+
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('setting') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
-                                    <span class="nk-menu-text">Setting Aplication</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Setting Aplikasi</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">

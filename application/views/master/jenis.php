@@ -117,7 +117,7 @@
                 <div class="modal-body modal-body-md">
                     <h5 class="modal-title">Edit jenis</h5>
                     <form action="<?= site_url('jenis/edit') ?>" method="POST" class="mt-2">
-                        <input type="hidden" class="form-control" name="id" value="<?= $s['id'] ?>" placeholder="Bed Capacity">
+                        <input type="hidden" name="id" value="<?= $s['id'] ?>">
                         <div class="row g-gs">
                             <div class="col">
                                 <div class="form-group">

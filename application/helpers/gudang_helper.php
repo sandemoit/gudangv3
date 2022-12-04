@@ -2,7 +2,30 @@
 function is_logged_in() //ini untuk mengecek apakah user sudah login atau belum
 {
     $ci = get_instance();
-    $ci->session->userdata('email') || redirect('auth');
+    $ci->session->get_userdata('email') || redirect('auth');
+}
+
+function is_admin()
+{
+    $ci = get_instance();
+    $role = $ci->session->get_userdata('login_session')['role'];
+
+    $status  = true;
+
+    if ($role != 'admin') {
+        $status = false;
+    }
+
+    return $status;
+}
+
+function userdata($field)
+{
+    $ci = get_instance();
+    $ci->load->model('Admin_model', 'admin');
+
+    $userId = $ci->session->userdata('login_session')['user'];
+    return $ci->admin->get('user', ['id' => $userId])[$field];
 }
 
 function set_pesan($message, $tipe = true) //ini untuk menampilkan message
