@@ -10,9 +10,9 @@
                                 <div class="nk-block-head nk-block-head-lg">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h4 class="nk-block-title">Personal Information</h4>
+                                            <h4 class="nk-block-title">Informasi pribadi</h4>
                                             <div class="nk-block-des">
-                                                <p>Basic info, like your name and address, that you use on Nio Platform.</p>
+                                                <p>Info dasar, seperti nama dan alamat Anda, yang Anda gunakan di PT Anda.</p>
                                             </div>
                                         </div>
                                         <div class="nk-block-head-content align-self-start d-lg-none">
@@ -20,6 +20,7 @@
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
+                                <?= $this->session->flashdata('message'); ?>
                                 <div class="nk-block">
                                     <div class="nk-data data-list">
                                         <div class="data-head">
@@ -28,13 +29,6 @@
                                         <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                                             <div class="data-col">
                                                 <span class="data-label">Nama Lengkap</span>
-                                                <span class="data-value"><?= $user['name'] ?></span>
-                                            </div>
-                                            <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
-                                        </div><!-- data-item -->
-                                        <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
-                                            <div class="data-col">
-                                                <span class="data-label">Nama</span>
                                                 <span class="data-value"><?= $user['name'] ?></span>
                                             </div>
                                             <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
@@ -49,7 +43,11 @@
                                         <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                                             <div class="data-col">
                                                 <span class="data-label">Phone Number</span>
-                                                <span class="data-value text-soft">Not add yet</span>
+                                                <?php if ($user['nohp'] == null) : ?>
+                                                    <span class="data-value text-soft">Belum menambahkan</span>
+                                                <?php else : ?>
+                                                    <span class="data-value text-soft"><?= $user['nohp'] ?></span>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                                         </div><!-- data-item -->
@@ -96,10 +94,10 @@
                                     </div><!-- .card-inner -->
                                     <div class="card-inner p-0">
                                         <ul class="link-list-menu">
-                                            <li><a class="active" href="javascript:;"><em class="icon ni ni-user-fill-c"></em><span>Personal Infomation</span></a></li>
-                                            <li><a href="html/user-profile-notification.html"><em class="icon ni ni-bell-fill"></em><span>Notifications</span></a></li>
+                                            <li><a class="active" href="javascript:;"><em class="icon ni ni-user-fill-c"></em><span>Informasi Pribadi</span></a></li>
+                                            <!-- <li><a href="html/user-profile-notification.html"><em class="icon ni ni-bell-fill"></em><span>Notifications</span></a></li> -->
                                             <li><a href="javascript:;"><em class="icon ni ni-activity-round-fill"></em><span>Account Activity</span></a></li>
-                                            <li><a href="<?= site_url('profile/changepassword') ?>"><em class="icon ni ni-lock-alt-fill"></em><span>Security Settings</span></a></li>
+                                            <li><a href="<?= site_url('profile/changepassword') ?>"><em class="icon ni ni-lock-alt-fill"></em><span>Pengaturan keamanan</span></a></li>
                                         </ul>
                                     </div><!-- .card-inner -->
                                 </div><!-- .card-inner-group -->
@@ -113,133 +111,57 @@
 </div>
 <!-- content @e -->
 
-<?php foreach ($user as $u) : ?>
-    <!-- @@ Profile Edit Modal @e -->
-    <div class="modal fade" role="dialog" id="profile-edit">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <button class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></button>
-                <div class="modal-body modal-body-lg">
-                    <h5 class="title">Update Profile</h5>
-                    <ul class="nk-nav nav nav-tabs">
-                    </ul><!-- .nav-tabs -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="personal">
-                            <form action="<?= site_url('profile') ?>" method="POST">
-                                <input type="hidden" name="id" value="<?= $u['id'] ?>">
-                                <div class="row gy-4">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="full-name">Nama Lengkap</label>
-                                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="<?= $u['name'] ?>" placeholder="Enter Nama Lengkap">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="display-name">Display Name</label>
-                                            <input type="text" class="form-control form-control-lg" id="display-name" value="<?= $u['name'] ?>" placeholder="Enter display name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="phone-no">Phone Number</label>
-                                            <input type="text" class="form-control form-control-lg" id="phone-no" value="+880" placeholder="Phone Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="birth-day">Date of Birth</label>
-                                            <input type="text" class="form-control form-control-lg date-picker" id="birth-day" placeholder="Enter your birth date">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="latest-sale">
-                                            <label class="custom-control-label" for="latest-sale">Use full name to display </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                            <li>
-                                                <button type="submit" class="btn btn-lg btn-primary">Update Profile</button>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+<!-- @@ Profile Edit Modal @e -->
+<div class="modal fade" role="dialog" id="profile-edit">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <button class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></button>
+            <div class="modal-body modal-body-sm">
+                <h5 class="title">Update Profile</h5>
+                <ul class="nk-nav nav nav-tabs">
+                </ul><!-- .nav-tabs -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="personal">
+                        <form action="<?= site_url('profile/edit') ?>" method="POST">
+                            <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label" for="full-name">Email</label>
+                                    <input readonly type="email" class="form-control form-control-lg" value="<?= $user['email'] ?>">
                                 </div>
-                            </form>
-                        </div><!-- .tab-pane -->
-                    </div><!-- .tab-content -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div><!-- .modal -->
-<?php endforeach; ?>
-
-<!-- edit password -->
-<?php foreach ($user as $u) : ?>
-    <!-- @@ Profile Edit Modal @e -->
-    <div class="modal fade" role="dialog" id="password-edit">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <button class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></button>
-                <div class="modal-body modal-body-lg">
-                    <h5 class="title">Update Password</h5>
-                    <ul class="nk-nav nav nav-tabs">
-                    </ul><!-- .nav-tabs -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="password">
-                            <form action="<?= site_url('profile') ?>" method="POST">
-                                <input type="hidden" name="id" value="<?= $u['id'] ?>">
-                                <div class="row gy-4">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="full-name">Nama Lengkap</label>
-                                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="<?= $u['name'] ?>" placeholder="Enter Nama Lengkap">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="display-name">Display Name</label>
-                                            <input type="text" class="form-control form-control-lg" id="display-name" value="<?= $u['name'] ?>" placeholder="Enter display name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="phone-no">Phone Number</label>
-                                            <input type="text" class="form-control form-control-lg" id="phone-no" value="+880" placeholder="Phone Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="birth-day">Date of Birth</label>
-                                            <input type="text" class="form-control form-control-lg date-picker" id="birth-day" placeholder="Enter your birth date">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="latest-sale">
-                                            <label class="custom-control-label" for="latest-sale">Use full name to display </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                            <li>
-                                                <button type="submit" class="btn btn-lg btn-primary">Update Profile</button>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label" for="full-name">Role</label>
+                                    <input readonly type="text" class="form-control form-control-lg" value="<?= $user['role'] ?>">
                                 </div>
-                            </form>
-                        </div><!-- .tab-pane -->
-                    </div><!-- .tab-content -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div><!-- .modal -->
-<?php endforeach; ?>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label" for="display-name">Nama Lengkap</label>
+                                    <input type="text" class="form-control form-control-lg" name="name" value="<?= $user['name'] ?>" placeholder="Enter Nama Lengkap">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label" for="display-name">No HP</label>
+                                    <input type="text" class="form-control form-control-lg" name="nohp" value="<?= $user['nohp'] ?>" placeholder="Enter No HP">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                    <li>
+                                        <button type="submit" class="btn btn-lg btn-primary">Update Profile</button>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div><!-- .tab-pane -->
+                </div><!-- .tab-content -->
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
