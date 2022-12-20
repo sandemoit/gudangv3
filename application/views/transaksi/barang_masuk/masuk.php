@@ -125,7 +125,7 @@
                                         <option value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <p><a href=" <?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>
+                                <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -160,7 +160,7 @@
                         <div class="col-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">Add barang</button>
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                                 </li>
                                 <li>
                                     <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>

@@ -35,6 +35,31 @@ class Profile extends CI_Controller
         redirect('profile');
     }
 
+    public function image()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $upload_image = $_FILES['image']['name'];
+        if ($upload_image) {
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 2048;
+            $config['upload_path'] = './assets/images/avatar/';
+            $config['encrypt_name'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $new_image = $this->upload->data('file_name');
+                $this->db->set('image', $new_image);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+
+        set_pesan('Photo berhasil diupdate');
+        redirect('profile');
+    }
+
     public function changepassword()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

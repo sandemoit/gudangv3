@@ -69,7 +69,7 @@ class Admin_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->join('user u', 'barang_keluar.id_user = u.id');
-        $this->db->join('barang b', 'barang_keluar.id_barang = b.id_barang');
+        $this->db->join('barang b', 'barang_keluar.barang_id = b.id_barang');
         $this->db->join('satuan s', 'b.id_satuan = s.id');
         if ($id_barang != null) {
             $this->db->where('id_barang', $id_barang);

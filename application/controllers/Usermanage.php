@@ -17,6 +17,7 @@ class Usermanage extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'User Management';
         $data['userm'] = $this->Admin_model->get('user');
+        $this->db->where('id !=', 1);
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');

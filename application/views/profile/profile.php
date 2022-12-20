@@ -51,12 +51,12 @@
                                             </div>
                                             <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                                         </div><!-- data-item -->
-                                        <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
+                                        <div class="data-item">
                                             <div class="data-col">
                                                 <span class="data-label">Role</span>
                                                 <span class="data-value text-soft"><b><?= $user['role'] ?></b></span>
                                             </div>
-                                            <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                                            <div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-lock-alt"></em></span></div>
                                         </div><!-- data-item -->
                                         <!-- <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit" data-tab-target="#address">
                                             <div class="data-col">
@@ -84,7 +84,7 @@
                                                     <button class="btn btn-icon btn-trigger me-n2" data-bs-toggle="dropdown"><em class="icon ni ni-more-v"></em></button>
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
-                                                            <li><a href="#"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
+                                                            <li><a data-bs-toggle="modal" href="#photo"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
                                                             <li><a data-bs-toggle="modal" data-bs-target="#profile-edit" href="javascript:;"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
                                                         </ul>
                                                     </div>
@@ -158,6 +158,48 @@
                                     </li>
                                 </ul>
                             </div>
+                        </form>
+                    </div><!-- .tab-pane -->
+                </div><!-- .tab-content -->
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+
+<!-- @@ Profile Edit Modal @e -->
+<div class="modal fade" role="dialog" id="photo">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <button class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></button>
+            <div class="modal-body modal-body-sm">
+                <h5 class="title">Update Profile</h5>
+                <ul class="nk-nav nav nav-tabs">
+                </ul><!-- .nav-tabs -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="personal">
+                        <?php echo form_open_multipart('profile/image'); ?>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label" for="customFileLabel">Upload Foto</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-file">
+                                        <input type="file" class="form-file-input" id="image" name="image">
+                                        <label class="form-file-label" for="customFile">Choose foto</label>
+                                        <p class="text-orange"><em>Minimal upload 2 MB & Format JPG, PNG.</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button type="submit" class="btn btn-lg btn-primary">Update Photo</button>
+                                </li>
+                                <li>
+                                    <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
                         </form>
                     </div><!-- .tab-pane -->
                 </div><!-- .tab-content -->

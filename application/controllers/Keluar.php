@@ -12,15 +12,23 @@ class Keluar extends CI_Controller
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['title'] = 'Barang Masuk';
+        $data['title'] = 'Barang Keluar';
         $data['barangkeluar'] = $this->Admin_model->getBarangKeluar();
+        $data['barang'] = $this->db->get('barang')->result_array();
 
-        $this->form_validation->set_rules('tanggal_masuk', 'Tanggal Masuk', 'required|trim');
-        $this->form_validation->set_rules('supplier', 'Supplier', 'required|trim');
+        $this->form_validation->set_rules('tanggal_keluar', 'Tanggal keluar', 'required|trim');
         $this->form_validation->set_rules('barang_id', 'Barang', 'required|trim');
-        $this->form_validation->set_rules('jumlah_masuk', 'Barang', 'required|trim');
+        $this->form_validation->set_rules('jumlah_keluar', 'Barang', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+
+            $kode = 'T-BK-' . date('dmY');
+            $kode_terakhir = $this->Admin_model->getMax('barang_keluar', 'id_bkeluar', $kode);
+            $kode_tambah = substr($kode_terakhir, -4, 4);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
+            $data['id_bkeluar'] = $kode . $number;
+
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');
             $this->load->view('template/topbar', $data);
@@ -28,14 +36,23 @@ class Keluar extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'tanggal_masuk' => $this->input->post('tanggal_masuk'),
-                'supplier' => $this->input->post('supplier'),
+                'id_bkeluar' => $this->input->post('id_bkeluar'),
+                'id_user' => $this->input->post('id_user'),
                 'barang_id' => $this->input->post('barang_id'),
-                'jumlah_masuk' => $this->input->post('jumlah_masuk')
+                'jumlah_keluar' => $this->input->post('jumlah_keluar'),
+                'tanggal_keluar' => $this->input->post('tanggal_keluar')
             ];
-            $this->db->insert('barang_masuk', $data);
+            $this->db->insert('barang_keluar', $data);
             set_pesan('data berhasil disimpan.');
-            redirect('barangmasuk');
+            redirect('keluar');
         }
+    }
+
+    public function delete($getId)
+    {
+        $id = encode_php_tags($getId);
+        $this->Admin_model->delete('barang_keluar', 'id_bkeluar', $id);
+        set_pesan('Data berhasil dihapus!');
+        redirect('keluar');
     }
 }
