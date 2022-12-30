@@ -117,14 +117,14 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="full-name">Password Lama</label>
-                                            <input type="password" class="form-control form-control-lg" id="baru_1" name="baru_1" placeholder="Password Lama">
+                                            <label class="form-label" for="full-name">Password Baru</label>
+                                            <input type="password" class="form-control form-control-lg" id="baru_1" name="baru_1" placeholder="Password Baru">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="full-name">Password Lama</label>
-                                            <input type="password" class="form-control form-control-lg" id="baru_2" name="baru_2" placeholder="Password Lama">
+                                            <label class="form-label" for="full-name">Konfrimasi Password</label>
+                                            <input type="password" class="form-control form-control-lg" id="baru_2" name="baru_2" placeholder="Konfrimasi Password">
                                         </div>
                                     </div>
                                     <div class="col-12">

@@ -20,7 +20,7 @@ class Masuk extends CI_Controller
         $this->form_validation->set_rules('tanggal_masuk', 'Tanggal Masuk', 'required|trim');
         $this->form_validation->set_rules('id_supplier', 'Supplier', 'required|trim');
         $this->form_validation->set_rules('barang_id', 'Barang', 'required|trim');
-        $this->form_validation->set_rules('jumlah_masuk', 'Barang', 'required|trim');
+        $this->form_validation->set_rules('jumlah_masuk', 'Barang', 'required|trim|numeric|greater_than[0]');
 
         if ($this->form_validation->run() == false) {
             // mendapatkan menggenerate otomatis kode transaksi

@@ -73,11 +73,12 @@
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
                                                                 <a onclick="return confirm('Yakin ingin aktif/nonaktifkan?')" href="<?= base_url('usermanage/toggle/') . $um['id'] ?>" class="btn btn-sm btn-secondary"><em class="icon ni ni-user-cross-fill"></em>
-
                                                                 </a>
+
                                                                 <a href="<?= base_url('usermanage/edit/') . $um['id'] ?>" class="btn btn-sm btn-warning"><em class="icon ni ni-pen"></em></a>
 
-                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('usermanage/delete/') . $um['id'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em></a>
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('usermanage/delete/') . $um['id'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>
+                                                                </a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -114,6 +115,21 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label class="form-label" for="room-no-add">Role</label>
+                            <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
+                                <option value="admin">Admin</option>
+                                <option value="gudang">Gudang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="form-label" for="room-no-add">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label class="form-label" for="room-no-add">Password</label>
                             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
                         </div>
@@ -124,24 +140,8 @@
                             <input type="password" class="form-control" id="password2" name="password2" placeholder="konfirmasi Password">
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">Role</label>
-                            <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
-                                <option value="admin">Admin</option>
-                                <option value="gudang">Gudang</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="form-label" for="room-no-add">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap">
-                        </div>
-                    </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-lg btn-primary">Save Informations</button>
+                        <button type="submit" class="btn btn-lg btn-primary">Add Users</button>
                     </div>
                 </div>
                 </form>

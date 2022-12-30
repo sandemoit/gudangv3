@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-control-wrap">
-                                <label class="form-label" for="basic-url">Total Stok</label>
+                                <label class="form-label" for="basic-url">Sisa Stok</label>
                                 <div class="input-group">
                                     <input readonly type="number" id="total_stok" class="form-control">
                                 </div>

@@ -51,6 +51,7 @@
                 }, 5000);
             </script>
             <script type="text/javascript">
+                // hitung stok
                 let hal = '<?= $this->uri->segment(1); ?>';
 
                 let satuan = $('#satuan');

@@ -70,6 +70,21 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Laporan</h6>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('laporan') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
+                                    <span class="nk-menu-text">Laporan</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('laporanperiode') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-printer"></em></span>
+                                    <span class="nk-menu-text">Laporan Periode</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Lainnya</h6>
                             </li><!-- .nk-menu-item -->
 
