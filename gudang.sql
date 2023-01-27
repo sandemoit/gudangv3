@@ -1,474 +1,179 @@
--- phpMyAdmin SQL Dump
+SET foreign_key_checks = 0;
+#
+# TABLE STRUCTURE FOR: barang
+#
+
+DROP TABLE IF EXISTS `barang`;
+
+CREATE TABLE `barang` (
+  `id_barang` char(7) NOT NULL,
+  `nama_barang` varchar(128) NOT NULL,
+  `stok` int(11) NOT NULL,
+  `harga` varchar(128) NOT NULL,
+  `id_satuan` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
+  PRIMARY KEY (`id_barang`),
+  KEY `id_jenis` (`id_jenis`),
+  KEY `id_satuan` (`id_satuan`),
+  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000001', 'Citatos Rasa New', 12, '50000', 1, 1);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000002', 'Biskuit Roma', 12, '50000', 3, 1);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000003', 'Garry Salut', 0, '50000', 1, 2);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000004', 'Teh Kotak', 0, '50000', 2, 2);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000005', 'Susu Milo', 0, '50000', 2, 2);
+
+
+#
+# TABLE STRUCTURE FOR: barang_keluar
+#
+
+DROP TABLE IF EXISTS `barang_keluar`;
+
+CREATE TABLE `barang_keluar` (
+  `id_bkeluar` char(16) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `barang_id` char(7) NOT NULL,
+  `jumlah_keluar` int(11) NOT NULL,
+  `tanggal_keluar` date NOT NULL,
+  PRIMARY KEY (`id_bkeluar`),
+  KEY `id_user` (`id_user`),
+  KEY `id_barang` (`barang_id`),
+  KEY `barang_id` (`barang_id`),
+  CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+#
+# TABLE STRUCTURE FOR: barang_masuk
+#
+
+DROP TABLE IF EXISTS `barang_masuk`;
+
+CREATE TABLE `barang_masuk` (
+  `id_bmasuk` varchar(16) NOT NULL,
+  `id_supplier` int(11) NOT NULL,
+  `id_user` varchar(50) NOT NULL,
+  `barang_id` char(7) NOT NULL,
+  `jumlah_masuk` int(11) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  PRIMARY KEY (`id_bmasuk`),
+  KEY `id_supplier` (`id_supplier`),
+  KEY `id_barang` (`barang_id`),
+  CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `suplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `barang_masuk_ibfk_3` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+#
+# TABLE STRUCTURE FOR: jenis
+#
+
+DROP TABLE IF EXISTS `jenis`;
+
+CREATE TABLE `jenis` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_jenis` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `jenis` (`id`, `nama_jenis`) VALUES (1, 'Snack');
+INSERT INTO `jenis` (`id`, `nama_jenis`) VALUES (2, 'Minuman');
+
+
+#
+# TABLE STRUCTURE FOR: last_login
+#
+
+DROP TABLE IF EXISTS `last_login`;
+
+CREATE TABLE `last_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `browser` varchar(100) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+#
+# TABLE STRUCTURE FOR: satuan
+#
 
--- version 5.1.1deb5ubuntu1
+DROP TABLE IF EXISTS `satuan`;
 
--- https://www.phpmyadmin.net/
+CREATE TABLE `satuan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_satuan` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
---
+INSERT INTO `satuan` (`id`, `nama_satuan`) VALUES (1, 'Pack');
+INSERT INTO `satuan` (`id`, `nama_satuan`) VALUES (2, 'Botol');
+INSERT INTO `satuan` (`id`, `nama_satuan`) VALUES (3, 'Unit');
 
--- Host: localhost:3306
 
--- Generation Time: Nov 27, 2022 at 09:14 AM
+#
+# TABLE STRUCTURE FOR: setting
+#
 
--- Server version: 8.0.31-0ubuntu0.22.04.1
+DROP TABLE IF EXISTS `setting`;
 
--- PHP Version: 8.1.13
+CREATE TABLE `setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_aplikasi` varchar(128) NOT NULL,
+  `nama_perusahaan` varchar(128) NOT NULL,
+  `alamat` text NOT NULL,
+  `image` varchar(80) NOT NULL,
+  `notelpon` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+INSERT INTO `setting` (`id`, `nama_aplikasi`, `nama_perusahaan`, `alamat`, `image`, `notelpon`, `email`) VALUES (1, 'Aplikasi Inventori Barang', 'PT SANDEMO', 'Palembang, Ulu 2 NO 76', 'cb7601a5ac41330c3a2e44d590264bcd.png', '087801751656', 'infosandemo@gmail.com');
 
-START TRANSACTION;
 
-SET time_zone = "+00:00";
+#
+# TABLE STRUCTURE FOR: suplier
+#
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+DROP TABLE IF EXISTS `suplier`;
 
-;
+CREATE TABLE `suplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_supplier` varchar(128) NOT NULL,
+  `nohp` varchar(128) NOT NULL,
+  `alamat` varchar(225) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (1, 'Sandi Maulidika', '087801751656', 'Palembang, Muara Enim');
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (9, 'Voni', '087801751633', 'Palembang, Gelumbang');
 
-;
 
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+#
+# TABLE STRUCTURE FOR: user
+#
 
-;
+DROP TABLE IF EXISTS `user`;
 
-/*!40101 SET NAMES utf8mb4 */
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `role` enum('gudang','admin') NOT NULL,
+  `nohp` varchar(128) NOT NULL,
+  `image` varchar(128) NOT NULL,
+  `password` varchar(225) NOT NULL,
+  `date_created` int(11) NOT NULL,
+  `last_change_pw` int(11) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
-;
+INSERT INTO `user` (`id`, `name`, `email`, `role`, `nohp`, `image`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (1, 'Sandi Maulidika', 'sandimaulidika@gmail.com', 'admin', '087801751656', 'default.jpg', '$2y$10$jPtj2JoIn0oH8jaq2txH1.OWH.KsRVZ6OXOLD4IDjKfQM9UO5Wqa2', 1661189930, 1670397987, 1);
+INSERT INTO `user` (`id`, `name`, `email`, `role`, `nohp`, `image`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (11, 'Robi Ciputra', 'sandi@gmail.com', 'gudang', '', 'default.jpg', '$2y$10$xcy94NnkVN8K2Q90pg.nvO80AIaD42mr/lKh3O0Sz7bVkYPBVDeWC', 1670087736, 1671570271, 1);
 
---
 
--- Database: `gudang`
-
---
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `barang`
-
---
-
-CREATE TABLE
-    `barang` (
-        `id_barang` char(7) NOT NULL,
-        `nama_barang` varchar(128) NOT NULL,
-        `stok` int NOT NULL,
-        `id_satuan` int NOT NULL,
-        `id_jenis` int NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `barang`
-
---
-
-INSERT INTO
-    `barang` (
-        `id_barang`,
-        `nama_barang`,
-        `stok`,
-        `id_satuan`,
-        `id_jenis`
-    )
-VALUES (
-        'B000001',
-        'Citatos Rasa New',
-        0,
-        1,
-        1
-    ), (
-        'B000002',
-        'Biskuit Roma',
-        0,
-        3,
-        1
-    ), (
-        'B000003',
-        'Garry Salut',
-        0,
-        1,
-        2
-    ), ('B000004', 'Teh Kotak', 0, 2, 2), ('B000005', 'Susu Milo', 0, 2, 2);
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `barang_keluar`
-
---
-
-CREATE TABLE
-    `barang_keluar` (
-        `id_bkeluar` char(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-        `id_user` int NOT NULL,
-        `id_barang` char(7) NOT NULL,
-        `jumlah_keluar` int NOT NULL,
-        `tanggal_keluar` date NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `barang_masuk`
-
---
-
-CREATE TABLE
-    `barang_masuk` (
-        `id_bmasuk` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-        `id_supplier` int NOT NULL,
-        `id_user` int NOT NULL,
-        `barang_id` char(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-        `jumlah_masuk` int NOT NULL,
-        `tanggal_masuk` date NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `barang_masuk`
-
---
-
-INSERT INTO
-    `barang_masuk` (
-        `id_bmasuk`,
-        `id_supplier`,
-        `id_user`,
-        `barang_id`,
-        `jumlah_masuk`,
-        `tanggal_masuk`
-    )
-VALUES (
-        'T-BM-20111100001',
-        1,
-        1,
-        'B000001',
-        5,
-        '2022-11-26'
-    );
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `jenis`
-
---
-
-CREATE TABLE
-    `jenis` (
-        `id` int NOT NULL,
-        `nama_jenis` varchar(128) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `jenis`
-
---
-
-INSERT INTO
-    `jenis` (`id`, `nama_jenis`)
-VALUES (1, 'Snack'), (2, 'Minuman');
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `satuan`
-
---
-
-CREATE TABLE
-    `satuan` (
-        `id` int NOT NULL,
-        `nama_satuan` varchar(128) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `satuan`
-
---
-
-INSERT INTO
-    `satuan` (`id`, `nama_satuan`)
-VALUES (1, 'Pack'), (2, 'Botol'), (3, 'Unit');
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `suplier`
-
---
-
-CREATE TABLE
-    `suplier` (
-        `id` int NOT NULL,
-        `nama_supplier` varchar(128) NOT NULL,
-        `nohp` varchar(128) NOT NULL,
-        `alamat` varchar(225) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `suplier`
-
---
-
-INSERT INTO
-    `suplier` (
-        `id`,
-        `nama_supplier`,
-        `nohp`,
-        `alamat`
-    )
-VALUES (
-        1,
-        'Sandi Maulidika',
-        '087801751656',
-        'Palembang, Muara Enim'
-    );
-
--- --------------------------------------------------------
-
---
-
--- Table structure for table `user`
-
---
-
-CREATE TABLE
-    `user` (
-        `id` int NOT NULL,
-        `name` varchar(128) NOT NULL,
-        `email` varchar(128) NOT NULL,
-        `role` enum('gudang', 'admin') NOT NULL,
-        `image` varchar(128) NOT NULL,
-        `password` varchar(225) NOT NULL,
-        `date_created` int NOT NULL,
-        `last_change_pw` int NOT NULL,
-        `is_active` tinyint(1) NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
---
-
--- Dumping data for table `user`
-
---
-
-INSERT INTO
-    `user` (
-        `id`,
-        `name`,
-        `email`,
-        `role`,
-        `image`,
-        `password`,
-        `date_created`,
-        `last_change_pw`,
-        `is_active`
-    )
-VALUES (
-        1,
-        'Sandi Maulidika',
-        'sandimaulidika@gmail.com',
-        'admin',
-        'SanSan.jpg',
-        '$2y$10$L8tdxLF2Ol76VWGz3AObEeosDlOIhNPfVbY0K0ft/bOI0kBIb5b9.',
-        1661189930,
-        1661189930,
-        1
-    );
-
---
-
--- Indexes for dumped tables
-
---
-
---
-
--- Indexes for table `barang`
-
---
-
-ALTER TABLE `barang`
-ADD
-    PRIMARY KEY (`id_barang`),
-ADD
-    KEY `id_jenis` (`id_jenis`),
-ADD
-    KEY `id_satuan` (`id_satuan`);
-
---
-
--- Indexes for table `barang_keluar`
-
---
-
-ALTER TABLE `barang_keluar`
-ADD
-    PRIMARY KEY (`id_bkeluar`),
-ADD
-    KEY `id_user` (`id_user`),
-ADD
-    KEY `id_barang` (`id_barang`);
-
---
-
--- Indexes for table `barang_masuk`
-
---
-
-ALTER TABLE `barang_masuk`
-ADD
-    PRIMARY KEY (`id_bmasuk`),
-ADD
-    KEY `id_supplier` (`id_supplier`),
-ADD
-    KEY `id_user` (`id_user`),
-ADD
-    KEY `id_barang` (`barang_id`);
-
---
-
--- Indexes for table `jenis`
-
---
-
-ALTER TABLE `jenis` ADD PRIMARY KEY (`id`);
-
---
-
--- Indexes for table `satuan`
-
---
-
-ALTER TABLE `satuan` ADD PRIMARY KEY (`id`);
-
---
-
--- Indexes for table `suplier`
-
---
-
-ALTER TABLE `suplier` ADD PRIMARY KEY (`id`);
-
---
-
--- Indexes for table `user`
-
---
-
-ALTER TABLE `user` ADD PRIMARY KEY (`id`);
-
---
-
--- AUTO_INCREMENT for dumped tables
-
---
-
---
-
--- AUTO_INCREMENT for table `jenis`
-
---
-
-ALTER TABLE
-    `jenis` MODIFY `id` int NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 4;
-
---
-
--- AUTO_INCREMENT for table `satuan`
-
---
-
-ALTER TABLE
-    `satuan` MODIFY `id` int NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 5;
-
---
-
--- AUTO_INCREMENT for table `suplier`
-
---
-
-ALTER TABLE
-    `suplier` MODIFY `id` int NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 9;
-
---
-
--- AUTO_INCREMENT for table `user`
-
---
-
-ALTER TABLE
-    `user` MODIFY `id` int NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 8;
-
---
-
--- Constraints for dumped tables
-
---
-
---
-
--- Constraints for table `barang`
-
---
-
-ALTER TABLE `barang`
-ADD
-    CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-    CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-
--- Constraints for table `barang_keluar`
-
---
-
-ALTER TABLE `barang_keluar`
-ADD
-    CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-    CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-
--- Constraints for table `barang_masuk`
-
---
-
-ALTER TABLE `barang_masuk`
-ADD
-    CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-    CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`id_supplier`) REFERENCES `suplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-    CONSTRAINT `barang_masuk_ibfk_3` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
-
-;
-
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
-
-;
-
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
-
-;
+SET foreign_key_checks = 1;
