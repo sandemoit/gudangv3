@@ -8,12 +8,14 @@ class Supplier extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
+        $this->load->model('Other_model');
     }
 
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Supplier';
+        $data['setting'] = $this->Other_model->getSetting();
         $data['supplier'] = $this->Admin_model->get('suplier');
 
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required|trim|is_unique[suplier.nama_supplier]', [

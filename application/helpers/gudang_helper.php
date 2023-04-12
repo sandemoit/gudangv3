@@ -2,7 +2,7 @@
 function is_logged_in() //ini untuk mengecek apakah user sudah login atau belum
 {
     $ci = get_instance();
-    $ci->session->get_userdata('email') || redirect('auth');
+    $ci->session->userdata('email') || redirect('auth');
 }
 
 function is_admin()

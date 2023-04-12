@@ -177,29 +177,30 @@
                 </ul><!-- .nav-tabs -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="personal">
-                        <?php echo form_open_multipart('profile/image'); ?>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label" for="customFileLabel">Upload Foto</label>
-                                <div class="form-control-wrap">
-                                    <div class="form-file">
-                                        <input type="file" class="form-file-input" id="image" name="image">
-                                        <label class="form-file-label" for="customFile">Choose foto</label>
-                                        <p class="text-orange"><em>Minimal upload 2 MB & Format JPG, PNG.</em></p>
+                        <form action="<?= base_url('profile/image'); ?>" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label" for="customFileLabel">Upload Foto</label>
+                                    <div class="form-control-wrap">
+                                        <div class="form-file">
+                                            <input type="file" class="form-file-input" id="image" name="image">
+                                            <label class="form-file-label" for="customFile">Choose foto</label>
+                                            <p class="text-orange"><em>Minimal upload 2 MB & Format JPG, PNG.</em></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                <li>
-                                    <button type="submit" class="btn btn-lg btn-primary">Update Photo</button>
-                                </li>
-                                <li>
-                                    <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="col-12 mt-3">
+                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                    <li>
+                                        <button type="submit" class="btn btn-lg btn-primary">Update Photo</button>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </form>
                     </div><!-- .tab-pane -->
                 </div><!-- .tab-content -->

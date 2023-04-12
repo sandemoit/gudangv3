@@ -82,12 +82,20 @@ class Admin_model extends CI_Model
         return $limit != null ? $this->db->get('barang_keluar', $limit)->result_array() : $this->db->get('barang_keluar')->result_array();
     }
 
-
-
-
     public function cekStok($id)
     {
         $this->db->join('satuan s', 'barang.id_satuan=s.id');
         return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
+    }
+
+    public function get_low_stock_products()
+    {
+        $this->db->select('*');
+        $this->db->from('barang');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->where('barang.stok <', 3);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 }

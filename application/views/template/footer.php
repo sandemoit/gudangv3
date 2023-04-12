@@ -2,7 +2,7 @@
             <div class="nk-footer">
                 <div class="container-fluid">
                     <div class="nk-footer-wrap">
-                        <div class="nk-footer-copyright"> &copy; 2022 DashLite. Template by <a href="https://softnio.com" target="_blank">Softnio</a>
+                        <div class="nk-footer-copyright"> &copy; <?= date('Y') ?> Sandemo ID <a href="https://sandemo.id" target="_blank"></a>
                         </div>
                     </div>
                 </div>
@@ -60,13 +60,9 @@
                 let jumlah = hal == 'barangmasuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
 
                 $(document).on('change', '#barang_id', function() {
-                    let url = '<?= base_url('barang/getstok/'); ?>' + this.value;
-                    $.getJSON(url, function(data) {
-                        satuan.html(data.nama_satuan);
-                        stok.val(data.stok);
-                        total.val(data.stok);
-                        jumlah.focus();
-                    });
+                    let stok = $(this).find(':selected').data('stok');
+
+                    $('#stok').val(stok);
                 });
 
                 $(document).on('keyup', '#jumlah_masuk', function() {

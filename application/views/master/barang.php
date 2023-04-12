@@ -65,8 +65,14 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a data-bs-toggle="modal" href="#edit<?= $s['id_barang'] ?>" class="text-primary"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                        <li><a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $s['id_barang'] ?>" class="text-danger"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                        <li>
+                                                                            <a data-bs-toggle="modal" href="#edit<?= $s['id_barang'] ?>" class="text-primary"><em class="icon ni ni-edit"></em><span>Edit</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $s['id_barang'] ?>" class="text-danger"><em class="icon ni ni-trash"></em><span>Delete</span>
+                                                                            </a>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -131,7 +137,7 @@
                             <label class="form-label" for="room-no-add">Jenis barang</label>
                             <select name="id_jenis" id="id_jenis" class="form-select js-select2 js-select2-sm">
                                 <option selected disabled>Pilih Jenis Barang</option>
-                                <?php foreach ($jenis as $j) : ?>
+                                <?php foreach ($barang as $j) : ?>
                                     <option <?= set_select('id_jenis', $j['id']) ?> value="<?= $j['id'] ?>"><?= $j['nama_jenis'] ?></option>
                                 <?php endforeach; ?>
                             </select>

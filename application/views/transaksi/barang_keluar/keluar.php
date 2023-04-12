@@ -108,7 +108,7 @@
                                 <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
                                     <option selected disabled>Pilih Barang</option>
                                     <?php foreach ($barang as $b) : ?>
-                                        <option value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
+                                        <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
@@ -124,10 +124,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="total_stok">Jumlah Keluar</label>
+                                <label class="form-label" for="jumlah_keluar">Jumlah Keluar</label>
                                 <div class="form-control-wrap">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="jumlah_keluar" id="jumlah_keluar" placeholder="Jumlah Keluar">
+                                        <input type="number" class="form-control" for="jumlah_keluar" name="jumlah_keluar" id="jumlah_keluar" placeholder="Jumlah Keluar">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="satuan">Satuan</span>
                                         </div>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-control-wrap">
-                                <label class="form-label" for="basic-url">Sisa Stok</label>
+                                <label class="form-label" for="total_stok">Sisa Stok</label>
                                 <div class="input-group">
                                     <input readonly type="number" id="total_stok" class="form-control">
                                 </div>

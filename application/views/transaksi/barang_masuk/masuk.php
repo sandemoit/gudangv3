@@ -42,23 +42,23 @@
                                                     <th>No. </th>
                                                     <th>No Transaksi</th>
                                                     <th>Tanggal Masuk</th>
-                                                    <th>Supplier</th>
                                                     <th>Nama Barang</th>
                                                     <th>Jumlah Masuk</th>
+                                                    <th>Supplier</th>
                                                     <th>Petugas</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php $no = 1; ?>
                                                 <?php foreach ($barangmasuk as $bm) : ?>
-                                                    <?php $no = 1; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $bm['id_bmasuk'] ?></td>
                                                         <td><?= $bm['tanggal_masuk']  ?></td>
-                                                        <td><?= $bm['nama_supplier'] ?></td>
                                                         <td><?= $bm['nama_barang'] ?></td>
                                                         <td><?= $bm['jumlah_masuk'] ?></td>
+                                                        <td><?= $bm['nama_supplier'] ?></td>
                                                         <td><?= $bm['id_user'] ?></td>
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
@@ -122,7 +122,7 @@
                                 <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
                                     <option selected disabled>Pilih Barang</option>
                                     <?php foreach ($barang as $b) : ?>
-                                        <option value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
+                                        <option <?= $this->uri->segment(2) == $b['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $b['id_barang']) ?> data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang'] ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>

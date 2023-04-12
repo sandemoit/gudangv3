@@ -10,8 +10,8 @@
                 </div>
                 <div class="nk-sidebar-brand">
                     <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="<?= base_url('assets') ?>/images/logo.png" srcset="<?= base_url('assets') ?>/images/logo2x.png 2x" alt="logo">
-                        <img class="logo-dark logo-img" src="<?= base_url('assets') ?>/images/logo-dark.png" srcset="<?= base_url('assets') ?>/images/logo-dark2x.png 2x" alt="logo-dark">
+                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo">
+                        <img class="logo-dark logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo-dark">
                     </a>
                 </div>
             </div><!-- .nk-sidebar-element -->
@@ -20,12 +20,27 @@
                     <div class="nk-sidebar-menu" data-simplebar>
                         <ul class="nk-menu">
                             <li class="nk-menu-heading">
-                                <h6 class="overline-title text-primary-alt">Dashboards</h6>
+                                <h6 class="overline-title text-primary-alt">Main Menu</h6>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('dashboard') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
                                     <span class="nk-menu-text">Dashboard</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <?php if (is_admin()) : ?>
+                                <li class="nk-menu-item">
+                                    <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
+                                        <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                            <?php endif; ?>
+
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('setting') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                                    <span class="nk-menu-text">Setting Aplikasi</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
@@ -70,41 +85,33 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
-                                <h6 class="overline-title text-primary-alt">Laporan</h6>
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a href="<?= site_url('laporan') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
-                                    <span class="nk-menu-text">Laporan</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                </a>
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a href="<?= site_url('laporanperiode') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-printer"></em></span>
-                                    <span class="nk-menu-text">Laporan Periode</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                </a>
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Lainnya</h6>
                             </li><!-- .nk-menu-item -->
-
-                            <?php if (is_admin()) : ?>
-                                <li class="nk-menu-item">
-                                    <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
-                                        <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-                            <?php endif; ?>
-
-                            <li class="nk-menu-item">
-                                <a href="<?= site_url('setting') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
-                                    <span class="nk-menu-text">Setting Aplikasi</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></em></span>
+                                    <span class="nk-menu-text">Laporan</span>
                                 </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item">
+                                        <a href="<?= site_url('laporan/databarang') ?>" class="nk-menu-link">
+                                            <span class="nk-menu-text">Data Barang</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    <li class="nk-menu-item">
+                                        <a href="<?= site_url('laporan/trxbarangmasuk') ?>" class="nk-menu-link">
+                                            <span class="nk-menu-text">Transaksi Barang Masuk</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    <li class="nk-menu-item">
+                                        <a href="<?= site_url('laporan/trxbarangkeluar') ?>" class="nk-menu-link">
+                                            <span class="nk-menu-text">Transaksi Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
-                                <a href="<?= site_url('setting/database') ?>" class="nk-menu-link">
+                                <a href="<?= site_url('database') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-server"></em></span>
                                     <span class="nk-menu-text">Back Up Database</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>

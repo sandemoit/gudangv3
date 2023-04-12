@@ -7,6 +7,7 @@ class Usermanage extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
+        $this->load->model('Other_model');
         is_logged_in();
         if (!is_admin()) {
             redirect('dashboard');
@@ -15,9 +16,10 @@ class Usermanage extends CI_Controller
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->db->where('email !=', 'sandimaulidika@gmail.com');
         $data['title'] = 'User Management';
+        $data['setting'] = $this->Other_model->getSetting();
         $data['userm'] = $this->Admin_model->get('user');
-        $this->db->where('id !=', 1);
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
@@ -37,6 +39,7 @@ class Usermanage extends CI_Controller
                 'name' => $this->input->post('name', true),
                 'image' => 'default.jpg',
                 'date_created' => time(),
+                'role' => $this->input->post('role', true),
                 'is_active' => 1
             ];
 
@@ -49,6 +52,27 @@ class Usermanage extends CI_Controller
             }
             redirect('usermanage');
         }
+    }
+
+    public function edit()
+    {
+        $id = intval($this->input->post('id'));
+
+        $data = [
+            'email' => filter_var($this->input->post('email'), FILTER_SANITIZE_EMAIL),
+            'role' => filter_var($this->input->post('role'), FILTER_SANITIZE_STRING),
+            'name' => filter_var($this->input->post('name'), FILTER_SANITIZE_STRING)
+        ];
+
+        if ($id > 0 && !empty($data)) {
+            if ($this->Admin_model->update('user', 'id', $id, $data)) {
+                set_pesan('Data berhasil diubah!');
+            } else {
+                set_pesan('Terjadi kesalahan saat menyimpan data.', FALSE);
+            }
+        }
+
+        redirect('usermanage');
     }
 
     public function toggle($getId)

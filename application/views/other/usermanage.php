@@ -75,7 +75,8 @@
                                                                 <a onclick="return confirm('Yakin ingin aktif/nonaktifkan?')" href="<?= base_url('usermanage/toggle/') . $um['id'] ?>" class="btn btn-sm btn-secondary"><em class="icon ni ni-user-cross-fill"></em>
                                                                 </a>
 
-                                                                <a href="<?= base_url('usermanage/edit/') . $um['id'] ?>" class="btn btn-sm btn-warning"><em class="icon ni ni-pen"></em></a>
+                                                                <a href="#edit<?= $um['id'] ?>" class="btn btn-sm btn-warning" data-bs-toggle="modal"><em class="icon ni ni-pen"></em>
+                                                                </a>
 
                                                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('usermanage/delete/') . $um['id'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>
                                                                 </a>
@@ -116,7 +117,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="room-no-add">Role</label>
-                            <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
+                            <select name="role" id="role" class="form-select js-select2 js-select2-sm">
                                 <option value="admin">Admin</option>
                                 <option value="gudang">Gudang</option>
                             </select>
@@ -149,3 +150,60 @@
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
+
+<!-- Edit Room-->
+<?php foreach ($userm as $um) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $um['id'] ?>">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-md">
+                    <h5 class="modal-title">Add <?= $title; ?></h5>
+                    <form action="<?= site_url('usermanage/edit') ?>" method="POST">
+                        <input type="hidden" name="id" value="<?= $um['id'] ?>">
+                        <div class="row g-gs">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Email</label>
+                                    <input type="text" disabled class="form-control" id="email" name="email" value="<?= $um['email'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Role</label>
+                                    <select name="role" id="role" class="form-select js-select2 js-select2-sm">
+                                        <option selected disabled value="<?= $um['role'] ?>"><?= $um['role'] ?></option>
+                                        <option value="admin">Admin</option>
+                                        <option value="gudang">Gudang</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?= $um['name'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Password</label>
+                                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
+                                    <p class="text-danger"><em>Kosongkan jika tidak ganti password</em></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">konfirmasi Password</label>
+                                    <input type="password" class="form-control" id="password2" name="password2" placeholder="konfirmasi Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-lg btn-primary">Edit User</button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+<?php endforeach; ?>

@@ -8,6 +8,7 @@ class Barang extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
+        $this->load->model('Other_model');
     }
 
     public function index()
@@ -15,6 +16,7 @@ class Barang extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Data Barang";
         $data['barang'] = $this->Admin_model->getBarang();
+        $data['setting'] = $this->Other_model->getSetting();
         $data['jenis'] = $this->Admin_model->get('jenis');
         $data['satuan'] = $this->Admin_model->get('satuan');
 
@@ -52,31 +54,16 @@ class Barang extends CI_Controller
     public function edit()
     {
         $id = $this->input->post('id_barang');
-        $data['barang'] = $this->Admin_model->get('barang', ['id_barang' => $id]);
-        $data['jenis'] = $this->Admin_model->get('jenis');
-        $data['satuan'] = $this->Admin_model->get('satuan');
 
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
-        $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
-        $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
+        $data = [
+            'nama_barang' => $this->input->post('nama_barang'),
+            'id_jenis' => $this->input->post('id_jenis'),
+            'id_satuan' => $this->input->post('id_satuan')
+        ];
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar');
-            $this->load->view('template/topbar', $data);
-            $this->load->view('master/barang', $data);
-            $this->load->view('template/footer', $data);
-        } else {
-            $data = [
-                'nama_barang' => $this->input->post('nama_barang'),
-                'id_jenis' => $this->input->post('id_jenis'),
-                'id_satuan' => $this->input->post('id_satuan')
-            ];
-
-            $this->Admin_model->update('barang', 'id_barang', $id, $data);
-            set_pesan('Data berhasil diubah!');
-            redirect('barang');
-        }
+        $this->Admin_model->update('barang', 'id_barang', $id, $data);
+        set_pesan('Data berhasil diubah!');
+        redirect('barang');
     }
 
     public function delete($id)

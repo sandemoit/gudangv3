@@ -8,11 +8,13 @@ class Masuk extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
+        $this->load->model('Other_model');
     }
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Barang Masuk';
+        $data['setting'] = $this->Other_model->getSetting();
         $data['barangmasuk'] = $this->Admin_model->getBarangMasuk();
         $data['supplier'] = $this->db->get('suplier')->result_array();
         $data['barang'] = $this->db->get('barang')->result_array();

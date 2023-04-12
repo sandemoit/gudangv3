@@ -8,13 +8,14 @@ class Profile extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
+        $this->load->model('Other_model');
     }
 
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Profile';
-
+        $data['setting'] = $this->Other_model->getSetting();
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar', $data);
@@ -39,21 +40,32 @@ class Profile extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $upload_image = $_FILES['image']['name'];
-        if ($upload_image) {
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 2048;
-            $config['upload_path'] = './assets/images/avatar/';
-            $config['encrypt_name'] = TRUE;
+        $config['upload_path'] = './assets/images/avatar';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 2014;
+        $config['max_width'] = 0;
+        $config['max_height'] = 0;
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload', $config);
 
-            $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('image')) {
+            // Handle upload errors
+            $error_msg = $this->upload->display_errors();
+            set_pesan('Photo gagal diupdate: ' . $error_msg, FALSE);
+            redirect('profile');
+        }
 
-            if ($this->upload->do_upload('image')) {
-                $new_image = $this->upload->data('file_name');
-                $this->db->set('image', $new_image);
-            } else {
-                echo $this->upload->display_errors();
-            }
+        $_data = array('upload_data' => $this->upload->data());
+
+        $data = array(
+            'image' => $_data['upload_data']['file_name'],
+        );
+
+        $this->db->where('email', $this->session->userdata('email'));
+        if (!$this->db->update('user', $data)) {
+            // Handle update errors
+            set_pesan('Gagal mengupdate data user.', FALSE);
+            redirect('profile');
         }
 
         set_pesan('Photo berhasil diupdate');
