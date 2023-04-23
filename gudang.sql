@@ -19,9 +19,9 @@ CREATE TABLE `barang` (
   CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000001', 'Citatos Rasa New', 50, '50000', 1, 1);
-INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000002', 'Biskuit Roma', 100, '50000', 3, 1);
-INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000003', 'Garry Salut', 70, '50000', 1, 2);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000001', 'Citatos Rasa New', 2, '50000', 1, 1);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000002', 'Biskuit Roma', 30, '50000', 3, 1);
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000003', 'Garry Salut', 57, '50000', 1, 2);
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000004', 'Teh Kotak', 90, '50000', 2, 2);
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `id_satuan`, `id_jenis`) VALUES ('B000005', 'Susu Milo', 100, '50000', 2, 2);
 
@@ -47,6 +47,8 @@ CREATE TABLE `barang_keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES ('T-BK-110420230001', 1, 'B000002', 10, '2023-04-11');
+INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES ('T-BK-120420230001', 1, 'B000001', 48, '2023-04-12');
+INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES ('T-BK-120420230002', 19, 'B000003', 13, '2023-04-12');
 
 
 #
@@ -71,7 +73,6 @@ CREATE TABLE `barang_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES ('T-BM-110420230001', 1, 'Sandi Maulidika', 'B000001', 50, '2023-04-11');
-INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES ('T-BM-110420230002', 1, 'Sandi Maulidika', 'B000002', 70, '2023-04-11');
 INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES ('T-BM-110420230003', 1, 'Sandi Maulidika', 'B000005', 100, '2023-04-11');
 INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES ('T-BM-110420230004', 2, 'Sandi Maulidika', 'B000002', 40, '2023-04-11');
 INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES ('T-BM-110420230005', 1, 'Sandi Maulidika', 'B000004', 90, '2023-04-11');
@@ -159,7 +160,7 @@ CREATE TABLE `setting` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `setting` (`id`, `nama_aplikasi`, `nama_perusahaan`, `alamat`, `image`, `notelpon`, `email`, `low_stok`) VALUES (1, 'Aplikasi Inventori Barang', 'PT SANDEMO', 'Palembang, Ulu 2 NO 76', '436b05b78d11b87924589ce1cad6998f.png', '087801751656', 'infosandemo@gmail.com', '3');
+INSERT INTO `setting` (`id`, `nama_aplikasi`, `nama_perusahaan`, `alamat`, `image`, `notelpon`, `email`, `low_stok`) VALUES (1, 'Aplikasi Stok Barang', 'CV. SANDEMO', 'Palembang, Ulu 2 NO 76', '436b05b78d11b87924589ce1cad6998f.png', '087801751656', 'infosandemo@gmail.com', '3');
 
 
 #
@@ -174,10 +175,11 @@ CREATE TABLE `suplier` (
   `nohp` varchar(128) NOT NULL,
   `alamat` varchar(225) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (1, 'Sandi Maulidika', '087801751656', 'Palembang, Muara Enim');
-INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (2, 'Voni', '087801751633', 'Palembang, Gelumbang');
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (1, 'Sandi Maulidika', '087801751656', 'Jambi');
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (2, 'Voni', '087801751633', 'Bandung');
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES (10, 'Rian', '081271838821', 'Jakarta Selatan');
 
 
 #
@@ -191,17 +193,18 @@ CREATE TABLE `user` (
   `name` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `role` enum('gudang','admin') NOT NULL,
-  `nohp` varchar(128) NOT NULL,
   `image` varchar(128) NOT NULL,
+  `nohp` varchar(50) NOT NULL,
   `password` varchar(225) NOT NULL,
   `date_created` int NOT NULL,
   `last_change_pw` int NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `user` (`id`, `name`, `email`, `role`, `nohp`, `image`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (1, 'Sandi Maulidika', 'sandimaulidika@gmail.com', 'admin', '087801751656', 'default.jpg', '$2y$10$jPtj2JoIn0oH8jaq2txH1.OWH.KsRVZ6OXOLD4IDjKfQM9UO5Wqa2', 1661189930, 1670397987, 1);
-INSERT INTO `user` (`id`, `name`, `email`, `role`, `nohp`, `image`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (17, 'Dika', 'dika@gmail.com', 'gudang', '', 'default.jpg', '$2y$10$sSjCjNeE6MWEFTNAYe6ezemsr2MO.oTI7klVUcmSNzQvz1y8kVLE2', 1681205553, 0, 1);
+INSERT INTO `user` (`id`, `name`, `email`, `role`, `image`, `nohp`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (1, 'Sandi Maulidika', 'sandimaulidika@gmail.com', 'admin', 'default.jpg', '081271838892', '$2y$10$jPtj2JoIn0oH8jaq2txH1.OWH.KsRVZ6OXOLD4IDjKfQM9UO5Wqa2', 1661189930, 1670397987, 1);
+INSERT INTO `user` (`id`, `name`, `email`, `role`, `image`, `nohp`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (18, 'Administrators', 'admin@gmail.com', 'admin', 'default.jpg', '', '$2y$10$0z4o4Ky//pZDC1oBAkGPFO0uh069t0MK/1q35FpfHWp2Qsf6qOeTa', 1681284332, 0, 1);
+INSERT INTO `user` (`id`, `name`, `email`, `role`, `image`, `nohp`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES (19, 'Voni', 'voni@gmail.com', 'gudang', 'default.jpg', '', '$2y$10$4Y7oaxu0L66c.ZuqytG6h.p/PbSgaF1wqK..aFwvn/BRb7N1da0xu', 1681284644, 0, 1);
 
 
 SET foreign_key_checks = 1;

@@ -19,6 +19,11 @@
                                             <a href="<?= base_url('laporan/cetak_data_barang') ?>" class="btn btn-icon btn-primary"><em class="icon ni ni-plus"></em></a>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="drodown">
+                                            <a href="<?= base_url('export/export_data_barang') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-plus"></em></a>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->

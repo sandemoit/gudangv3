@@ -34,12 +34,12 @@ class Usermanage extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'email' => $this->input->post('email', true),
-                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'name' => $this->input->post('name', true),
+                'email' => htmlspecialchars($this->input->post('email', true)),
+                'password' => htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT)),
+                'name' => htmlspecialchars($this->input->post('name', true)),
                 'image' => 'default.jpg',
                 'date_created' => time(),
-                'role' => $this->input->post('role', true),
+                'role' => htmlspecialchars($this->input->post('role', true)),
                 'is_active' => 1
             ];
 
