@@ -2,7 +2,7 @@
             <div class="nk-footer">
                 <div class="container-fluid">
                     <div class="nk-footer-wrap">
-                        <div class="nk-footer-copyright"> &copy; <?= date('Y') ?> Sandemo ID <a href="https://sandemo.id" target="_blank"></a>
+                        <div class="nk-footer-copyright"> &copy; <?= date('Y') ?> <a href="https://sandemoindoteknologi.co.id" target="_blank"><?= $setting['nama_aplikasi'] ?></a>
                         </div>
                     </div>
                 </div>

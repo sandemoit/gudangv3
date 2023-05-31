@@ -16,7 +16,17 @@
                                 <ul class="nk-block-tools g-3">
                                     <li>
                                         <div class="drodown">
-                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em></a>
+                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em> Tambah Barang</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="drodown">
+                                            <a href="<?= base_url('laporan/cetak_data_barang') ?>" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> Cetak PDF </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="drodown">
+                                            <a href="<?= base_url('export/export_data_barang') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Export EXCEL</a>
                                         </div>
                                     </li>
                                 </ul>

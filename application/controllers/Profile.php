@@ -76,6 +76,7 @@ class Profile extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Change Password';
+        $data['setting'] = $this->Other_model->getSetting();
 
         $this->form_validation->set_rules('password_lama', 'Password Lama', 'required|trim|min_length[3]');
         $this->form_validation->set_rules('baru_1', 'Password Baru', 'required|trim|min_length[3]|matches[baru_2]');

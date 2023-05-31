@@ -65,22 +65,40 @@ class Admin_model extends CI_Model
     }
 
     // barang keluar
-    public function getBarangKeluar($limit = null, $id_barang = null, $range = null)
+    public function getBarangKeluar($limit = null, $id_barang = null, $date_range = null)
     {
-        $this->db->select('*');
+        $this->db->select('barang_keluar.*, u.*, b.*, s.*');
         $this->db->join('user u', 'barang_keluar.id_user = u.id');
         $this->db->join('barang b', 'barang_keluar.barang_id = b.id_barang');
         $this->db->join('satuan s', 'b.id_satuan = s.id');
-        if ($id_barang != null) {
+        if ($id_barang) {
             $this->db->where('id_barang', $id_barang);
         }
-        if ($range != null) {
-            $this->db->where('tanggal_keluar >=', $range['start']);
-            $this->db->where('tanggal_keluar <=', $range['end']);
+        if ($date_range) {
+            $this->db->where('tanggal_keluar >=', $date_range['start']);
+            $this->db->where('tanggal_keluar <=', $date_range['end']);
         }
         $this->db->order_by('tanggal_keluar', 'desc');
-        return $limit != null ? $this->db->get('barang_keluar', $limit)->result_array() : $this->db->get('barang_keluar')->result_array();
+        $query = $this->db->get('barang_keluar', $limit);
+        return $query->result_array();
     }
+
+    // public function getBarangKeluar($limit = null, $id_barang = null, $range = null)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->join('user u', 'barang_keluar.id_user = u.id');
+    //     $this->db->join('barang b', 'barang_keluar.barang_id = b.id_barang');
+    //     $this->db->join('satuan s', 'b.id_satuan = s.id');
+    //     if ($id_barang != null) {
+    //         $this->db->where('id_barang', $id_barang);
+    //     }
+    //     if ($range != null) {
+    //         $this->db->where('tanggal_keluar >=', $range['start']);
+    //         $this->db->where('tanggal_keluar <=', $range['end']);
+    //     }
+    //     $this->db->order_by('tanggal_keluar', 'desc');
+    //     return $limit != null ? $this->db->get('barang_keluar', $limit)->result_array() : $this->db->get('barang_keluar')->result_array();
+    // }
 
     public function cekStok($id)
     {

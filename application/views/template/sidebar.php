@@ -11,7 +11,6 @@
                 <div class="nk-sidebar-brand">
                     <a href="html/index.html" class="logo-link nk-sidebar-logo">
                         <img class="logo-light logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo">
-                        <img class="logo-dark logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo-dark">
                     </a>
                 </div>
             </div><!-- .nk-sidebar-element -->
@@ -87,28 +86,11 @@
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Lainnya</h6>
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></em></span>
-                                    <span class="nk-menu-text">Laporan</span>
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('laporan') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
+                                    <span class="nk-menu-text">Laporan Transaksi</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                 </a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="<?= site_url('laporan/databarang') ?>" class="nk-menu-link">
-                                            <span class="nk-menu-text">Data Barang</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                        </a>
-                                    </li><!-- .nk-menu-item -->
-                                    <li class="nk-menu-item">
-                                        <a href="<?= site_url('laporan/trxbarangmasuk') ?>" class="nk-menu-link">
-                                            <span class="nk-menu-text">Transaksi Barang Masuk</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                        </a>
-                                    </li><!-- .nk-menu-item -->
-                                    <li class="nk-menu-item">
-                                        <a href="<?= site_url('laporan/trxbarangkeluar') ?>" class="nk-menu-link">
-                                            <span class="nk-menu-text">Transaksi Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                        </a>
-                                    </li><!-- .nk-menu-item -->
-                                </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('database') ?>" class="nk-menu-link">

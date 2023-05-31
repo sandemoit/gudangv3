@@ -28,10 +28,15 @@ class Masuk extends CI_Controller
             // mendapatkan menggenerate otomatis kode transaksi
             $kode = 'T-BM-' . date('dmY');
             $kode_terakhir = $this->Admin_model->getMax('barang_masuk', 'id_bmasuk', $kode);
-            $kode_tambah = substr($kode_terakhir, -4, 4);
-            $kode_tambah++;
+            if ($kode_terakhir) {
+                $kode_tambah = substr($kode_terakhir, -4, 4);
+                $kode_tambah++;
+            } else {
+                $kode_tambah = 1;
+            }
             $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
             $data['id_bmasuk'] = $kode . $number;
+
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');

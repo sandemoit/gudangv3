@@ -26,10 +26,17 @@ class Keluar extends CI_Controller
 
             $kode = 'T-BK-' . date('dmY');
             $kode_terakhir = $this->Admin_model->getMax('barang_keluar', 'id_bkeluar', $kode);
-            $kode_tambah = substr($kode_terakhir, -4, 4);
-            $kode_tambah++;
+
+            if ($kode_terakhir) {
+                $kode_tambah = substr($kode_terakhir, -4, 4);
+                $kode_tambah++;
+            } else {
+                $kode_tambah = 1;
+            }
+
             $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
             $data['id_bkeluar'] = $kode . $number;
+
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');

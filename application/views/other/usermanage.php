@@ -172,12 +172,13 @@
                                 <div class="form-group">
                                     <label class="form-label" for="room-no-add">Role</label>
                                     <select name="role" id="role" class="form-select js-select2 js-select2-sm">
-                                        <option selected disabled value="<?= $um['role'] ?>"><?= $um['role'] ?></option>
-                                        <option value="admin">Admin</option>
-                                        <option value="gudang">Gudang</option>
+                                        <option disabled>Select role</option>
+                                        <option value="admin" <?php echo ($um['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                                        <option value="gudang" <?php echo ($um['role'] == 'gudang') ? 'selected' : ''; ?>>Gudang</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label" for="room-no-add">Nama Lengkap</label>
