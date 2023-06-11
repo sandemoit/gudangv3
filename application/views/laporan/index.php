@@ -14,32 +14,36 @@
                             </div>
                         </div>
                     </div>
-                    <?= form_open(); ?>
+                    <?php echo form_open('laporan/generate'); ?>
                     <div class="card card-bordered card-preview col-md-6 ">
                         <div class="card-inner">
                             <div class="row form-group">
-                                <label class="col-md-5 text-md-right form-label" for="transaksi">Laporan Transaksi</label>
                                 <div class="col-md">
-                                    <div class="custom-control custom-radio">
-                                        <input value="barang_masuk" type="radio" id="barang_masuk" name="transaksi" class="custom-control-input">
-                                        <label class="custom-control-label" for="barang_masuk">Barang Masuk</label>
+                                    <div class="form-group"><label class="form-label">Tanggal Awal</label>
+                                        <div class="form-control-wrap focused">
+                                            <div class="form-icon form-icon-left"><em class="icon ni ni-calendar"></em></div>
+                                            <input type="text" name="tanggal_awal" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-radio">
-                                        <input value="barang_keluar" type="radio" id="barang_keluar" name="transaksi" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio1">Barang Keluar</label>
+                                </div>
+                                <?= form_error('transaksi', '<span class="text-danger small">', '</span>'); ?>
+                                <div class="col-md">
+                                    <div class="form-group"><label class="form-label">Tanggal Akhir</label>
+                                        <div class="form-control-wrap focused">
+                                            <div class="form-icon form-icon-left"><em class="icon ni ni-calendar"></em></div>
+                                            <input type="text" name="tanggal_akhir" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                        </div>
                                     </div>
                                 </div>
                                 <?= form_error('transaksi', '<span class="text-danger small">', '</span>'); ?>
                             </div>
-                            <div class="row form-group">
-                                <label class="col-md-5 text-md-right form-label" for="transaksi">Tanggal</label>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-booking-fill"></em></div>
-                                        <input value="<?= set_value('tanggal'); ?>" name="tanggal" id="tanggal" type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <?= form_error('transaksi', '<span class="text-danger small">', '</span>'); ?>
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Jenis Laporan</label>
+                                <select name="jenis_laporan" required class="form-select js-select2 js-select2-sm">
+                                    <option selected disabled>-- Pilih Jenis Laporan --</option>
+                                    <option value="Barang Masuk">Barang Masuk</option>
+                                    <option value="Barang Keluar">Barang Keluar</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-icon btn-primary"><em class="icon ni ni-printer-fill"></em> Cetak</button>
                         </div>
