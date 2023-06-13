@@ -21,7 +21,7 @@
                                     </li>
                                     <li>
                                         <div class="drodown">
-                                            <a href="<?= base_url('laporan/cetak_data_barang') ?>" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> Cetak PDF </a>
+                                            <a href="<?= base_url('barang/cetak') ?>" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> Cetak PDF </a>
                                         </div>
                                     </li>
                                     <li>
@@ -147,8 +147,8 @@
                             <label class="form-label" for="room-no-add">Jenis barang</label>
                             <select name="id_jenis" id="id_jenis" class="form-select js-select2 js-select2-sm">
                                 <option selected disabled>Pilih Jenis Barang</option>
-                                <?php foreach ($barang as $j) : ?>
-                                    <option <?= set_select('id_jenis', $j['id']) ?> value="<?= $j['id'] ?>"><?= $j['nama_jenis'] ?></option>
+                                <?php foreach ($jenis as $key) : ?>
+                                    <option value="<?= $key['id'] ?>"><?= $key['nama_jenis'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <p><a href="<?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>

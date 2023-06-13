@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Barang extends CI_Controller
 {
@@ -27,6 +31,12 @@ class Barang extends CI_Controller
         $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
         $data['id_barang'] = 'B' . $number;
 
+
+        $harga = $this->input->post('harga', true);
+
+        // Menghapus karakter selain angka
+        $harga = filter_var($harga, FILTER_SANITIZE_NUMBER_INT);
+
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
@@ -41,7 +51,7 @@ class Barang extends CI_Controller
             $data = [
                 'id_barang' => $this->input->post('id_barang'),
                 'nama_barang' => $this->input->post('nama_barang'),
-                'harga' => $this->input->post('harga'),
+                'harga' => $harga,
                 'id_jenis' => $this->input->post('id_jenis'),
                 'id_satuan' => $this->input->post('id_satuan')
             ];
@@ -79,5 +89,32 @@ class Barang extends CI_Controller
         $id = encode_php_tags($getId);
         $query = $this->admin->cekStok($id);
         output_json($query);
+    }
+
+    public function cetak()
+    {
+
+
+        // Memanggil model untuk mendapatkan data laporan
+        // $data['query'] = $this->Laporan_model->getLaporan($jenis_laporan, $tanggal_awal, $tanggal_akhir);
+
+        // Load view untuk generate HTML
+        $data['barang'] = $this->Admin_model->cetak();
+        $html = $this->load->view('master/cetak', $data, true);
+
+        // Buat instance Dompdf
+        $dompdf = new Dompdf();
+
+        // Load HTML ke Dompdf
+        $dompdf->loadHtml($html);
+
+        // Render HTML ke PDF
+        $dompdf->render();
+
+        // Set nama file PDF yang akan di-download
+        $filename = 'laporan_data_barang.pdf';
+
+        // Outputkan file PDF ke browser untuk di-download
+        $dompdf->stream($filename, array('Attachment' => 0));
     }
 }

@@ -99,4 +99,14 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function cetak()
+    {
+        $this->db->select('barang.*, satuan.nama_satuan, jenis.nama_jenis');
+        $this->db->from('barang');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
