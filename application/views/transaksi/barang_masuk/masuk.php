@@ -121,8 +121,8 @@
                                 <label class="form-label" for="room-no-add">Barang</label>
                                 <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
                                     <option selected disabled>Pilih Barang</option>
-                                    <?php foreach ($barang as $b) : ?>
-                                        <option <?= $this->uri->segment(2) == $b['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $b['id_barang']) ?> data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang'] ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang'] ?></option>
+                                    <?php foreach ($barang as $key) : ?>
+                                        <option <?= $this->uri->segment(2) == $key['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>

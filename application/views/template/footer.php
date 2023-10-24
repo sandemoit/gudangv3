@@ -52,12 +52,12 @@
             </script>
             <script type="text/javascript">
                 // hitung stok
-                let hal = '<?= $this->uri->segment(1); ?>';
+                let page = '<?= $this->uri->segment(1); ?>';
 
                 let satuan = $('#satuan');
                 let stok = $('#stok');
                 let total = $('#total_stok');
-                let jumlah = hal == 'barangmasuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
+                let jumlah = page == 'barangmasuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
 
                 $(document).on('change', '#barang_id', function() {
                     let stok = $(this).find(':selected').data('stok');

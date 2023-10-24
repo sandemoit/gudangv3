@@ -91,11 +91,18 @@ class Admin_model extends CI_Model
 
     public function get_low_stock_products()
     {
+        // Ambil nilai low_stok dari tabel setting
+        $query_setting = $this->db->get('setting');
+        $setting_data = $query_setting->row();
+        $low_stok_value = $setting_data->low_stok;
+
+        // Buat query utama dengan kondisi berdasarkan low_stok
         $this->db->select('*');
         $this->db->from('barang');
         $this->db->join('jenis', 'barang.id_jenis = jenis.id');
         $this->db->join('satuan', 'barang.id_satuan = satuan.id');
-        $this->db->where('barang.stok <', 3);
+        $this->db->where('barang.stok <', $low_stok_value);
+
         $query = $this->db->get();
         return $query->result_array();
     }

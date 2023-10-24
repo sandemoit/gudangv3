@@ -82,7 +82,7 @@
                                 </div>
                             </div><!-- .card -->
                         </div><!-- .col -->
-                        <div class="col-xxl-4">
+                        <div class="col-lg-12">
                             <div class="card card-bordered card-full">
                                 <div class="nk-block">
                                     <div class="card card-bordered card-stretch">

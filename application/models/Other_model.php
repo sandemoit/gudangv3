@@ -14,9 +14,9 @@ class Other_model extends CI_Model
         $this->db->update($table, $data);
     }
 
-    public function getDataById($id)
+    public function getSettingById($where)
     {
-        $this->db->where('id', $id);
+        $this->db->where('id', $where);
         $query = $this->db->get('setting');
         return $query->row_array();
     }

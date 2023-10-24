@@ -38,41 +38,34 @@ class Setting extends CI_Controller
                 'alamat' => $this->input->post('alamat'),
             ];
 
-            // Mendapatkan data gambar yang diunggah
-            $uploadedImage = $_FILES['image']['name'];
+            // cek jika ada gambar yang akan diupload
+            $upload_image = $_FILES['image']['name'];
 
-            if (!empty($uploadedImage)) {
-                // Konfigurasi upload image
-                $config['upload_path'] = './assets/images/';
-                $config['allowed_types'] = 'jpg|jpeg|png';
-                $config['max_size'] = 2048; // Ukuran maksimum dalam kilobita
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = FCPATH . 'assets/images/';
                 $config['file_name'] = uniqid(); // Menghasilkan nama unik untuk file
 
-                $this->upload->initialize($config); // Initialize the upload class with config options
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
-                    // Menghapus image lama (jika ada)
-                    $oldImage = $this->Other_model->getDataById($id)['image'];
-                    if (!empty($oldImage)) {
-                        unlink('./assets/images/' . $oldImage); // add slash between folder name and filename
+                    if ($old_image = $this->Other_model->getSettingById(1)['image']) {
+                        unlink(FCPATH . 'assets/images/' . $old_image);
                     }
-
-                    // Mengupdate data dengan nama image baru
-                    $data['image'] = $this->upload->data('file_name');
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
                 } else {
                     // Menangani jika terjadi kesalahan saat upload image
                     $error = $this->upload->display_errors();
                     set_pesan($error, FALSE); // handle error
+                    redirect('setting');
                 }
             }
 
             // jika validasi lolos
-            $save = $this->Admin_model->update('setting', 'id', $id, $data);
-            if ($save) {
-                set_pesan('Data berhasil diubah');
-            } else {
-                set_pesan('Data gagal diubah', FALSE);
-            }
+            $this->Admin_model->update('setting', 'id', 1, $data);
+            set_pesan('Data berhasil diubah');
             redirect('setting');
         }
     }
