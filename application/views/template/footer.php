@@ -21,14 +21,17 @@
             <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
             <script>
                 let scanner = new Instascan.Scanner({
-                    video: document.getElementById('preview')
+                    video: document.getElementById('preview'),
+                    mirror: false,
                 });
 
                 Instascan.Camera.getCameras().then(function(cameras) {
-                    if (cameras.length > 0) {
-                        scanner.start(cameras[0]);
+                    const backCamera = cameras.filter(camera => camera.name.toLowerCase().includes('back'));
+
+                    if (backCameras.length > 0) {
+                        scanner.start(backCameras[0]);
                     } else {
-                        alert('Camera tidak di temukan');
+                        alert('Kamera belakang tidak ditemukan');
                     }
                 }).catch(function(e) {
                     console.error(e);
