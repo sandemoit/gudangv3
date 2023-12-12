@@ -28,7 +28,8 @@
 
                 Instascan.Camera.getCameras().then(function(cameras) {
                     if (cameras.length > 0) {
-                        scanner.start(cameras[0]);
+                        let backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back'));
+                        scanner.start(backCamera[0]);
                     } else {
                         alert('Camera tidak di temukan');
                     }
