@@ -15,47 +15,32 @@
             <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
 
-            <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.2/html5-qrcode.min.js"></script>
+
             <script>
-                let scanner = new Instascan.Scanner({
-                    video: document.getElementById('preview'),
-                    mirror: true,
-                    backgroundScan: false,
-                });
-
-                Instascan.Camera.getCameras().then(function(cameras) {
-                    if (cameras.length > 0) {
-                        let backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back'));
-                        scanner.start(backCamera[0]);
-                    } else {
-                        alert('Camera tidak di temukan');
-                    }
-                }).catch(function(e) {
-                    console.error(e);
-                });
-
-                scanner.addListener('scan', function(content) {
-                    // Set nilai input ID Barang dengan hasil pemindaian QR code
-                    document.getElementById('barang_id').value = content;
-
-                    // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
-                    let option = $('#barang_id option[value="' + content + '"]');
-
-                    // Periksa apakah option ditemukan
-                    if (option.length > 0) {
-                        // Pilih option yang sesuai
-                        option.prop('selected', true);
-                    } else {
-                        // Tampilkan pesan jika ID Barang tidak ditemukan
-                        alert('ID Barang tidak ditemukan: ' + content);
-                    }
-
-                    // Sembunyikan modal QR Code Scanner (ganti dengan id modal yang benar)
-                    $('#modal').modal('hide');
-                });
+                startQRCodeScanner();
+            </script>
+            <script>
+                function startQRCodeScanner() {
+                    const html5QrCode = new Html5Qrcode("qr-reader");
+                    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                        console.log(`QR Code decoded successfully. Text: ${decodedText}`, decodedResult);
+                        html5QrCode.stop().then((ignore) => {
+                            console.log('QR Code scanner stopped.');
+                        }).catch((err) => {
+                            console.log('Stop QR Code scanner failed.', err);
+                        });
+                    };
+                    const qrCodeErrorCallback = (error) => {
+                        console.log('Error occurred in QR Code scanner:', error);
+                    };
+                    html5QrCode.start({
+                        facingMode: 'environment'
+                    }, qrCodeSuccessCallback, qrCodeErrorCallback).catch((err) => {
+                        console.log('Start QR Code scanner failed.', err);
+                    });
+                }
             </script>
 
             <script>
