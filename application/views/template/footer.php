@@ -17,32 +17,28 @@
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
             <script src="https://unpkg.com/html5-qrcode"></script>
             <script>
-                function domRaedy(fn) {
-                    if (document.readyState === 'complete' || document.readyState === "interactive") {
-                        setTimeout(fn, 1)
-                    } else {
-                        document.addEventListener("DOMContentLoaded", fn)
-                    }
+                function onScanSuccess(decodedText, decodedResult) {
+                    // handle the scanned code as you like, for example:
+                    console.log(`Code matched = ${decodedText}`, decodedResult);
                 }
-                domRaedy(function() {
-                    var myqr = document.getElementById('result')
 
-                    function onScanSuccess(decodedText, decodedResult) {
-                        if (decodedText !== lastResult) {
-                            ++countResults;
-                            lastResult = decodedText;
-                            // Handle on success condition with the decoded message.
-                            alert("Scan result : " + decodedText, decodedResult);
-                            myqr.innerHTML = ` you scan ${countResults} : ${decodedText}`
+                function onScanFailure(error) {
+                    // handle scan failure, usually better to ignore and keep scanning.
+                    // for example:
+                    console.warn(`Code scan error = ${error}`);
+                }
+
+                let html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", {
+                        fps: 10,
+                        qrbox: {
+                            width: 250,
+                            height: 250
                         }
-                    }
-                    var html5QrcodeScanner = new Html5QrcodeScanner(
-                        "reader", {
-                            fps: 10,
-                            qrbox: 250
-                        });
-                    html5QrcodeScanner.render(onScanSuccess);
-                })
+                    },
+                    /* verbose= */
+                    false);
+                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
             </script>
             <script>
                 function resetDates() {
