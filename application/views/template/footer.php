@@ -22,17 +22,20 @@
             <script>
                 let scanner;
 
-                // Fungsi untuk membuka modalL
+                // Fungsi untuk membuka modal dan memulai pemindaian QR code
                 function openModal() {
                     scanner = new Instascan.Scanner({
-                        video: document.getElementById('preview')
+                        video: document.getElementById('preview'),
+                        mirror: false, // Tidak menggunakan mode cermin agar menggunakan kamera belakang
                     });
 
                     Instascan.Camera.getCameras().then(function(cameras) {
-                        if (cameras.length > 0) {
-                            scanner.start(cameras[0]);
+                        const backCameras = cameras.filter(camera => camera.name.toLowerCase().includes('back'));
+
+                        if (backCameras.length > 0) {
+                            scanner.start(backCameras[0]);
                         } else {
-                            alert('Camera tidak di temukan');
+                            alert('Kamera belakang tidak ditemukan');
                         }
                     }).catch(function(e) {
                         console.error(e);
@@ -59,7 +62,7 @@
                     });
                 }
 
-                // Fungsi untuk menutup modal
+                // Fungsi untuk menutup modal dan menghentikan pemindaian kamera
                 function closeModal() {
                     // Hentikan pemindaian kamera
                     if (scanner) {
