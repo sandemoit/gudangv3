@@ -20,59 +20,38 @@
 
             <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
             <script>
-                let scanner;
+                let scanner = new Instascan.Scanner({
+                    video: document.getElementById('preview')
+                });
 
-                // Fungsi untuk membuka modalL
-                function openModal() {
-                    scanner = new Instascan.Scanner({
-                        video: document.getElementById('preview')
-                    });
-
-                    Instascan.Camera.getCameras().then(function(cameras) {
-                        if (cameras.length > 0) {
-                            scanner.start(cameras[0]);
-                        } else {
-                            alert('Camera tidak di temukan');
-                        }
-                    }).catch(function(e) {
-                        console.error(e);
-                    });
-
-                    scanner.addListener('scan', function(content) {
-                        // Set nilai input ID Barang dengan hasil pemindaian QR code
-                        document.getElementById('barang_id').value = content;
-
-                        // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
-                        let option = $('#barang_id option[value="' + content + '"]');
-
-                        // Periksa apakah option ditemukan
-                        if (option.length > 0) {
-                            // Pilih option yang sesuai
-                            option.prop('selected', true);
-                        } else {
-                            // Tampilkan pesan jika ID Barang tidak ditemukan
-                            alert('ID Barang tidak ditemukan: ' + content);
-                        }
-
-                        // Sembunyikan modal QR Code Scanner (ganti dengan id modal yang benar)
-                        $('#modal').modal('hide');
-                    });
-                }
-
-                // Fungsi untuk menutup modal
-                function closeModal() {
-                    // Hentikan pemindaian kamera
-                    if (scanner) {
-                        scanner.stop();
+                Instascan.Camera.getCameras().then(function(cameras) {
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[0]);
+                    } else {
+                        alert('Camera tidak di temukan');
                     }
-                }
+                }).catch(function(e) {
+                    console.error(e);
+                });
 
-                // Fungsi untuk mengatasi perubahan halaman atau penutupan modal
-                window.addEventListener('beforeunload', function() {
-                    // Hentikan pemindaian kamera saat meninggalkan halaman
-                    if (scanner) {
-                        scanner.stop();
+                scanner.addListener('scan', function(content) {
+                    // Set nilai input ID Barang dengan hasil pemindaian QR code
+                    document.getElementById('barang_id').value = content;
+
+                    // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
+                    let option = $('#barang_id option[value="' + content + '"]');
+
+                    // Periksa apakah option ditemukan
+                    if (option.length > 0) {
+                        // Pilih option yang sesuai
+                        option.prop('selected', true);
+                    } else {
+                        // Tampilkan pesan jika ID Barang tidak ditemukan
+                        alert('ID Barang tidak ditemukan: ' + content);
                     }
+
+                    // Sembunyikan modal QR Code Scanner (ganti dengan id modal yang benar)
+                    $('#modal').modal('hide');
                 });
             </script>
 
