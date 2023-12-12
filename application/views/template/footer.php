@@ -13,28 +13,47 @@
             <script src="<?= base_url('assets') ?>/js/bundle.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/scripts.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
-            <script src="<?= base_url('assets') ?>/js/instascan.min.js"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
 
-            <!-- <script src="https://unpkg.com/html5-qrcode"></script> -->
+            <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
             <script>
                 let scanner = new Instascan.Scanner({
                     video: document.getElementById('preview'),
                     mirror: true,
                     backgroundScan: false,
                 });
-                scanner.addListener('scan', function(content) {
-                    console.log(content);
-                });
+
                 Instascan.Camera.getCameras().then(function(cameras) {
                     if (cameras.length > 0) {
                         scanner.start(cameras[0]);
                     } else {
-                        console.error('No cameras found.');
+                        alert('Camera tidak di temukan');
                     }
                 }).catch(function(e) {
                     console.error(e);
+                });
+
+                scanner.addListener('scan', function(content) {
+                    // Set nilai input ID Barang dengan hasil pemindaian QR code
+                    document.getElementById('barang_id').value = content;
+
+                    // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
+                    let option = $('#barang_id option[value="' + content + '"]');
+
+                    // Periksa apakah option ditemukan
+                    if (option.length > 0) {
+                        // Pilih option yang sesuai
+                        option.prop('selected', true);
+                    } else {
+                        // Tampilkan pesan jika ID Barang tidak ditemukan
+                        alert('ID Barang tidak ditemukan: ' + content);
+                    }
+
+                    // Sembunyikan modal QR Code Scanner (ganti dengan id modal yang benar)
+                    $('#modal').modal('hide');
                 });
             </script>
 
