@@ -168,6 +168,7 @@
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
                             <video id="reader" style="width: 100%; height: 100%"></video>
+                            <div id="result"></div>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12">

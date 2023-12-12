@@ -15,38 +15,35 @@
             <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.2/html5-qrcode.min.js"></script>
-
-            <script type="text/javascript">
-                function onScanSuccess(qrCodeMessage) {
-                    // Set nilai input ID Barang dengan hasil pemindaian QR code
-                    document.getElementById('barang_id').value = content;
-
-                    // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
-                    let option = $('#barang_id option[value="' + content + '"]');
-
-                    // Periksa apakah option ditemukan
-                    if (option.length > 0) {
-                        // Pilih option yang sesuai
-                        option.prop('selected', true);
+            <script src="https://unpkg.com/html5-qrcode"></script>
+            <script>
+                function domRaedy(fn) {
+                    if (document.readyState === 'complete' || document.readyState === "interactive") {
+                        setTimeout(fn, 1)
                     } else {
-                        // Tampilkan pesan jika ID Barang tidak ditemukan
-                        alert('ID Barang tidak ditemukan: ' + content);
+                        document.addEventListener("DOMContentLoaded", fn)
                     }
                 }
+                domRaedy(function() {
+                    var myqr = document.getElementById('result')
 
-                function onScanError(errorMessage) {
-                    //handle scan error
-                }
-                var html5QrcodeScanner = new Html5QrcodeScanner(
-                    "reader", {
-                        fps: 10,
-                        qrbox: 250
-                    });
-                html5QrcodeScanner.render(onScanSuccess, onScanError);
+                    function onScanSuccess(decodedText, decodedResult) {
+                        if (decodedText !== lastResult) {
+                            ++countResults;
+                            lastResult = decodedText;
+                            // Handle on success condition with the decoded message.
+                            alert("Scan result : " + decodedText, decodedResult);
+                            myqr.innerHTML = ` you scan ${countResults} : ${decodedText}`
+                        }
+                    }
+                    var html5QrcodeScanner = new Html5QrcodeScanner(
+                        "reader", {
+                            fps: 10,
+                            qrbox: 250
+                        });
+                    html5QrcodeScanner.render(onScanSuccess);
+                })
             </script>
-
             <script>
                 function resetDates() {
                     document.getElementsByName('start_date')[0].value = '';
