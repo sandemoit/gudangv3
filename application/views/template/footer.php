@@ -18,29 +18,33 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.2/html5-qrcode.min.js"></script>
 
-            <script>
-                startQRCodeScanner();
-            </script>
-            <script>
-                function startQRCodeScanner() {
-                    const html5QrCode = new Html5Qrcode("qr-reader");
-                    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-                        console.log(`QR Code decoded successfully. Text: ${decodedText}`, decodedResult);
-                        html5QrCode.stop().then((ignore) => {
-                            console.log('QR Code scanner stopped.');
-                        }).catch((err) => {
-                            console.log('Stop QR Code scanner failed.', err);
-                        });
-                    };
-                    const qrCodeErrorCallback = (error) => {
-                        console.log('Error occurred in QR Code scanner:', error);
-                    };
-                    html5QrCode.start({
-                        facingMode: 'environment'
-                    }, qrCodeSuccessCallback, qrCodeErrorCallback).catch((err) => {
-                        console.log('Start QR Code scanner failed.', err);
-                    });
+            <script type="text/javascript">
+                function onScanSuccess(qrCodeMessage) {
+                    // Set nilai input ID Barang dengan hasil pemindaian QR code
+                    document.getElementById('barang_id').value = content;
+
+                    // Cari elemen option dengan nilai sesuai dengan hasil pemindaian
+                    let option = $('#barang_id option[value="' + content + '"]');
+
+                    // Periksa apakah option ditemukan
+                    if (option.length > 0) {
+                        // Pilih option yang sesuai
+                        option.prop('selected', true);
+                    } else {
+                        // Tampilkan pesan jika ID Barang tidak ditemukan
+                        alert('ID Barang tidak ditemukan: ' + content);
+                    }
                 }
+
+                function onScanError(errorMessage) {
+                    //handle scan error
+                }
+                var html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", {
+                        fps: 10,
+                        qrbox: 250
+                    });
+                html5QrcodeScanner.render(onScanSuccess, onScanError);
             </script>
 
             <script>
