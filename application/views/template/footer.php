@@ -13,33 +13,28 @@
             <script src="<?= base_url('assets') ?>/js/bundle.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/scripts.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
+            <script src="<?= base_url('assets') ?>/js/instascan.min.js"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
-            <script src="https://unpkg.com/html5-qrcode"></script>
+            <!-- <script src="https://unpkg.com/html5-qrcode"></script> -->
             <script>
-                var resultContainer = document.getElementById('qr-reader-results');
-                var lastResult, countResults = 0;
-
-                function onScanSuccess(decodedText, decodedResult) {
-                    // Mengisi nilai dropdown berdasarkan QR code yang terbaca
-                    const selectedOption = $('#barang_id option').filter(function() {
-                        return $(this).text().includes(content);
-                    });
-
-                    if (selectedOption.length > 0) {
-                        $('#barang_id').val(selectedOption.val());
+                let scanner = new Instascan.Scanner({
+                    video: document.getElementById('preview'),
+                    mirror: false,
+                });
+                scanner.addListener('scan', function(content) {
+                    console.log(content);
+                });
+                Instascan.Camera.getCameras().then(function(cameras) {
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[0]);
                     } else {
-                        alert('ID Barang tidak ditemukan.');
+                        console.error('No cameras found.');
                     }
-                }
-
-                var html5QrcodeScanner = new Html5QrcodeScanner(
-                    "qr-reader", {
-                        fps: 10,
-                        qrbox: 250
-                    });
-                html5QrcodeScanner.render(onScanSuccess);
+                }).catch(function(e) {
+                    console.error(e);
+                });
             </script>
 
             <script>
