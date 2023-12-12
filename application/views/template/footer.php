@@ -22,7 +22,7 @@
             <script>
                 let scanner;
 
-                // Fungsi untuk membuka modal
+                // Fungsi untuk membuka modalL
                 function openModal() {
                     scanner = new Instascan.Scanner({
                         video: document.getElementById('preview')
