@@ -91,7 +91,7 @@
                 <h5 class="modal-title">Add <?= $title; ?></h5>
                 <form action="<?= base_url('masuk') ?>" method="post">
                     <input type="hidden" value="<?= $user['name']; ?>" class="form-control" name="id_user">
-                    <div class="row">
+                    <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
@@ -170,7 +170,7 @@
                             <video id="preview" style="width: 100%; height: 100%"></video>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">Save</button>
