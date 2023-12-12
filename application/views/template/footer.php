@@ -21,7 +21,8 @@
             <script>
                 let scanner = new Instascan.Scanner({
                     video: document.getElementById('preview'),
-                    mirror: false,
+                    mirror: true,
+                    backgroundScan: false,
                 });
                 scanner.addListener('scan', function(content) {
                     console.log(content);
