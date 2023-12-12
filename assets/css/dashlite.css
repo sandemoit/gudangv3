@@ -13365,7 +13365,7 @@ a.alert:hover {
 }
 .btn-icon:not([class*=btn-icon-break]), .dt-buttons .btn-secondary:not([class*=btn-icon-break]) {
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 8px;
 }
 .btn-icon .icon, .dt-buttons .btn-secondary .icon {
   width: 2.125rem;

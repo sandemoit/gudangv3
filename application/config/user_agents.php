@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | and the array values are used to set the actual name of the item.
 */
 $platforms = array(
+	'windows nt 11.0'	=> 'Windows 11',
 	'windows nt 10.0'	=> 'Windows 10',
 	'windows nt 6.3'	=> 'Windows 8.1',
 	'windows nt 6.2'	=> 'Windows 8',
@@ -27,7 +28,7 @@ $platforms = array(
 	'win98'				=> 'Windows 98',
 	'windows 95'		=> 'Windows 95',
 	'win95'				=> 'Windows 95',
-	'windows phone'			=> 'Windows Phone',
+	'windows phone'		=> 'Windows Phone',
 	'windows'			=> 'Unknown Windows OS',
 	'android'			=> 'Android',
 	'blackberry'		=> 'BlackBerry',
@@ -93,19 +94,19 @@ $browsers = array(
 $mobiles = array(
 	// legacy array, old values commented out
 	'mobileexplorer'	=> 'Mobile Explorer',
-//  'openwave'			=> 'Open Wave',
-//	'opera mini'		=> 'Opera Mini',
-//	'operamini'			=> 'Opera Mini',
-//	'elaine'			=> 'Palm',
+	//  'openwave'			=> 'Open Wave',
+	//	'opera mini'		=> 'Opera Mini',
+	//	'operamini'			=> 'Opera Mini',
+	//	'elaine'			=> 'Palm',
 	'palmsource'		=> 'Palm',
-//	'digital paths'		=> 'Palm',
-//	'avantgo'			=> 'Avantgo',
-//	'xiino'				=> 'Xiino',
+	//	'digital paths'		=> 'Palm',
+	//	'avantgo'			=> 'Avantgo',
+	//	'xiino'				=> 'Xiino',
 	'palmscape'			=> 'Palmscape',
-//	'nokia'				=> 'Nokia',
-//	'ericsson'			=> 'Ericsson',
-//	'blackberry'		=> 'BlackBerry',
-//	'motorola'			=> 'Motorola'
+	//	'nokia'				=> 'Nokia',
+	//	'ericsson'			=> 'Ericsson',
+	//	'blackberry'		=> 'BlackBerry',
+	//	'motorola'			=> 'Motorola'
 
 	// Phones and Manufacturers
 	'motorola'		=> 'Motorola',

@@ -25,9 +25,9 @@
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                         <div class="brand-logo pb-4 text-center">
-                            <a href="<?= site_url('') ?>" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg" src="<?= base_url('assets/images/') ?>logo.png" srcset="<?= base_url('assets') ?>/images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="<?= base_url('assets') ?>/images/logo-dark.png" srcset="<?= base_url('assets') ?>/images/logo-dark2x.png 2x" alt="logo-dark">
+                            <a href="<?= site_url('/') ?>" class="logo-link">
+                                <img class="logo-light logo-img logo-img-lg" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?> 2x" alt="logo">
+                                <img class="logo-dark logo-img logo-img-lg" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?> 2x" alt="logo-dark">
                             </a>
                         </div>
                         <div class="card card-bordered">
@@ -54,7 +54,6 @@
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="password">Password</label>
-                                            <!-- <a class="link link-primary link-sm" href="javascript:;">Forgot Code?</a> -->
                                         </div>
                                         <div class="form-control-wrap">
                                             <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">

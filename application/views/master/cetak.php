@@ -80,7 +80,6 @@
                 <th>Stok</th>
                 <th>Satuan</th>
                 <th>Jenis Barang</th>
-                <th>Harga</th>
             </tr>
         </thead>
         <tbody>
@@ -94,12 +93,6 @@
                     <td><?= $row['stok'] ?></td>
                     <td><?= $row['nama_satuan'] ?></td>
                     <td><?= $row['nama_jenis'] ?></td>
-                    <td>
-                        <?php $angka = $row['harga'];
-                        $rupiah = "Rp " . number_format($angka, 2, ',', '.');
-                        echo $rupiah;
-                        ?>
-                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

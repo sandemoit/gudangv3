@@ -31,12 +31,6 @@ class Barang extends CI_Controller
         $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
         $data['id_barang'] = 'B' . $number;
 
-
-        $harga = $this->input->post('harga', true);
-
-        // Menghapus karakter selain angka
-        $harga = filter_var($harga, FILTER_SANITIZE_NUMBER_INT);
-
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
@@ -49,11 +43,11 @@ class Barang extends CI_Controller
             $this->load->view('template/footer', $data);
         } else {
             $data = [
-                'id_barang' => $this->input->post('id_barang'),
-                'nama_barang' => $this->input->post('nama_barang'),
-                'harga' => $harga,
-                'id_jenis' => $this->input->post('id_jenis'),
-                'id_satuan' => $this->input->post('id_satuan')
+                'id_barang' => $this->input->post('id_barang', true),
+                'nama_barang' => $this->input->post('nama_barang', true),
+                'stok_awal' => $this->input->post('stok_awal', true),
+                'id_jenis' => $this->input->post('id_jenis', true),
+                'id_satuan' => $this->input->post('id_satuan', true)
             ];
             $this->Admin_model->insert('barang', $data);
             set_pesan('data berhasil ditambah!');
@@ -68,6 +62,7 @@ class Barang extends CI_Controller
         $data = [
             'nama_barang' => $this->input->post('nama_barang'),
             'id_jenis' => $this->input->post('id_jenis'),
+            'stok_awal' => $this->input->post('stok_awal'),
             'id_satuan' => $this->input->post('id_satuan')
         ];
 
@@ -93,8 +88,6 @@ class Barang extends CI_Controller
 
     public function cetak()
     {
-
-
         // Memanggil model untuk mendapatkan data laporan
         // $data['query'] = $this->Laporan_model->getLaporan($jenis_laporan, $tanggal_awal, $tanggal_akhir);
 

@@ -11,17 +11,19 @@ class Laporan extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Admin_model');
         $this->load->model('Other_model');
-        $this->load->model('Laporan_model');
         $this->load->library('Dompdf_gen');
     }
 
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['title'] = 'Laporan Barang Masuk';
+        $data['title'] = 'Laporan Barang Masuk & Keluar';
         $data['setting'] = $this->Other_model->getSetting();
+
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
@@ -30,49 +32,160 @@ class Laporan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function generate()
+    public function excel()
+    {
+        // Dapatkan nilai start_date dan end_date dari permintaan GET
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        // Ambil data laporan dari model
+        if ($start_date !== null && $end_date !== null) {
+            $laporan = $this->Other_model->getLaporanData($start_date, $end_date);
+        } else {
+            $laporan = $this->Other_model->getAllLaporanData();
+        }
+
+        // Load library PHPSpreadsheet
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Setel header kolom
+        $headerColumns = ['No', 'ID Barang', 'Nama Barang', 'Stok Awal', 'Jumlah Masuk', 'Jumlah Keluar', 'Total Stok'];
+        foreach ($headerColumns as $key => $header) {
+            $column = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+            $sheet->setCellValue($column . '1', $header);
+
+            // Terapkan gaya header
+            $sheet->getStyle($column . '1')->applyFromArray([
+                'font' => ['bold' => true],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ],
+                'borders' => [
+                    'top' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'right' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'bottom' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
+                ]
+            ]);
+        }
+
+        // Isi data ke dalam Spreadsheet
+        $row = 2;
+        foreach ($laporan as $key => $item) {
+            $sheet->setCellValue('A' . $row, $key + 1);
+            $sheet->setCellValue('B' . $row, $item['id_barang']);
+            $sheet->setCellValue('C' . $row, $item['nama_barang']);
+            $sheet->setCellValue('D' . $row, $item['stok_awal']);
+            $sheet->setCellValue('E' . $row, $item['jumlah_masuk']);
+            $sheet->setCellValue('F' . $row, $item['jumlah_keluar']);
+            $sheet->setCellValue('G' . $row, $item['stok_awal'] + $item['jumlah_masuk'] - $item['jumlah_keluar']);
+
+            // Terapkan gaya baris
+            $style_row = [
+                'alignment' => ['vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER],
+                'borders' => [
+                    'top' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'right' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'bottom' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
+                ]
+            ];
+            $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray($style_row);
+
+            $row++;
+        }
+
+        // Set lebar kolom
+        foreach (range('A', 'G') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        // Set orientasi kertas jadi LANDSCAPE
+        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+        // Atur header untuk file Excel
+        $filename = 'data-barang.xlsx';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        // Simpan Spreadsheet ke file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save('php://output');
+
+        exit;
+    }
+
+    public function cetak()
+    {
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        if ($start_date !== null && $end_date !== null) {
+            $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
+        } else {
+            $data['laporan'] = $this->Other_model->getAllLaporanData();
+        }
+        $this->load->view('laporan/laporan', $data);
+    }
+
+
+    public function pdf()
     {
         // Ambil nilai dari form
-        $jenis_laporan = $this->input->post('jenis_laporan');
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        // Setel ke null jika tidak terdefinisi
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        // Ambil data berdasarkan rentang tanggal jika start_date dan end_date terdefinisi
+        if ($start_date !== null && $end_date !== null) {
+            $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
+        } else {
+            // Jika start_date atau end_date kosong, tampilkan semua data
+            $data['laporan'] = $this->Other_model->getAllLaporanData();
+        }
+
+        // Load library DOMPDF
+        $this->load->library('Dompdf_gen');
+
+        // Set konten PDF
+        $html = $this->load->view('laporan/pdf', $data, true);
+        // Buat instance Dompdf
+        $dompdf = new Dompdf();
+
+        $dompdf->loadHtml($html);
+
+        // (Optional) Atur konfigurasi PDF, misalnya ukuran kertas
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render PDF (output)
+        $dompdf->render();
+
+        // Stream PDF ke browser
+        $dompdf->stream('laporan.pdf', array('Attachment' => 0));
+    }
+
+    public function filter()
+    {
+        // Ambil nilai dari form
         $tanggal_awal = $this->input->post('tanggal_awal');
         $tanggal_akhir = $this->input->post('tanggal_akhir');
 
         // Query database sesuai dengan jenis laporan
-        if ($jenis_laporan == 'Barang Masuk') {
-            $query = $this->db->query("SELECT bm.*, b.* FROM barang_masuk bm
-                            JOIN barang b ON bm.barang_id = b.id_barang
-                            WHERE bm.tanggal_masuk BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
-        } elseif ($jenis_laporan == 'Barang Keluar') {
-            $query = $this->db->query("SELECT bk.*, b.* FROM barang_keluar bk
-                            JOIN barang b ON bk.barang_id = b.id_barang
-                            WHERE bk.tanggal_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
-        } else {
-            // Jenis laporan tidak valid, redirect atau berikan pesan error sesuai kebutuhan
-            redirect('laporan/index');
-            return;
-        }
+        $laporanData = $this->Other_model->getFilteredData($tanggal_awal, $tanggal_akhir);
 
-        // Memanggil model untuk mendapatkan data laporan
-        // $data['query'] = $this->Laporan_model->getLaporan($jenis_laporan, $tanggal_awal, $tanggal_akhir);
-
-        // Load view untuk generate HTML
-        $data['jenis_laporan'] = $jenis_laporan;
-        $data['query'] = $query;
-        $html = $this->load->view('laporan/laporan', $data, true);
-
-        // Buat instance Dompdf
-        $dompdf = new Dompdf();
-
-        // Load HTML ke Dompdf
-        $dompdf->loadHtml($html);
-
-        // Render HTML ke PDF
-        $dompdf->render();
-
-        // Set nama file PDF yang akan di-download
-        $filename = 'laporan_' . $jenis_laporan . '.pdf';
-
-        // Outputkan file PDF ke browser untuk di-download
-        $dompdf->stream($filename, array('Attachment' => 0));
+        $data['laporan'] = $laporanData;
+        $this->load->view('laporan_view', $data);
     }
 }
