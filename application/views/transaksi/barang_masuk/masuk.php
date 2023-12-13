@@ -96,13 +96,13 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="room-no-add">ID Barang</label>
+                                        <label class="form-label">ID Barang</label>
                                         <input readonly type="text" value="<?= $id_bmasuk; ?>" class="form-control" name="id_bmasuk">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="room-no-add">Tanggal Masuk</label>
+                                        <label class="form-label">Tanggal Masuk</label>
                                         <input type="date" value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" class="form-control" name="tanggal_masuk" id="tanggal_masuk" placeholder="Nama barang">
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="room-no-add">Supplier</label>
+                                        <label class="form-label">Supplier</label>
                                         <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
                                             <option selected disabled>Pilih Supplier</option>
                                             <?php foreach ($supplier as $s) : ?>
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="room-no-add">Barang</label>
+                                        <label class="form-label">Barang</label>
                                         <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
                                             <option selected disabled>Pilih Barang</option>
                                             <?php foreach ($barang as $key) : ?>
@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="total_stok">Jumlah Masuk</label>
+                                        <label class="form-label" for="jumlah_masuk">Jumlah Masuk</label>
                                         <div class="form-control-wrap">
                                             <div class="input-group">
                                                 <input type="number" class="form-control" name="jumlah_masuk" id="jumlah_masuk" placeholder="Jumlah Masuk">
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <div class="form-control-wrap">
-                                        <label class="form-label" for="basic-url">Total Stok</label>
+                                        <label class="form-label" for="basic-total_stok">Total Stok</label>
                                         <div class="input-group">
                                             <input readonly type="number" id="total_stok" class="form-control">
                                         </div>
@@ -167,7 +167,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
-                            <video id="reader" style="width: 100%; height: 100%"></video>
+                            <div id="reader" style="width: 100%; height: 100%"></div>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12">
