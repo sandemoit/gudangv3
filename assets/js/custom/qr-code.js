@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-    var barangId = document.getElementById('barang_id');
-
     function onScanSuccess(decodedText) {
         // Jika QR code cocok, cari elemen option dengan nilai sesuai dengan hasil pemindaian
         var option = $('#barang_id option[value="' + decodedText + '"]');
@@ -17,13 +14,15 @@ $(document).ready(function () {
     }
 
     function onScanFailure(error) {
-        console.warn(`ID Barang ${error} Tidak Ditemukan`);
+        console.warn(`Gagal membuka kamera: ${error}`);
+        alert(`Gagal membuka kamera: ${error}`);
     }
 
     var html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", { fps: 10, qrbox: 300 }
+        "reader", { fps: 10, qrbox: 300 },
+        // Tambahkan konfigurasi untuk menggunakan kamera belakang
+        { facingMode: "environment" }
     );
 
-    // Modifikasi untuk menggunakan kamera belakang
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 });
