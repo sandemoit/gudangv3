@@ -12,8 +12,7 @@ $(document).ready(function () {
     }
 
     function onScanFailure(error) {
-        console.warn(`Gagal membuka kamera: ${error}`);
-        alert(`Gagal membuka kamera: ${error}`);
+        console.warn(`${error}`);
     }
 
     const html5QrcodeScanner = new Html5QrcodeScanner(
