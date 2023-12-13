@@ -2,15 +2,11 @@ $(document).ready(function () {
     const barangIdSelect = document.getElementById('barang_id');
 
     function onScanSuccess(decodedText) {
-        // Jika QR code cocok, cari elemen option dengan nilai sesuai dengan hasil pemindaian
-        var option = $(barangIdSelect + 'option[value="' + decodedText + '"]');
+        const option = Array.from(barangIdSelect.options).find(option => option.value === decodedText);
 
-        // Periksa apakah option ditemukan
-        if (option.length > 0) {
-            // Pilih option yang sesuai
-            option.prop('selected', true);
+        if (option) {
+            option.selected = true;
         } else {
-            // Tampilkan pesan jika ID Barang tidak ditemukan
             console.warn('ID Barang ' + decodedText + ' Tidak Ditemukan');
         }
     }
