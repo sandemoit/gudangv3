@@ -1,6 +1,5 @@
 // hitung stok
-let page = '<?= $this->uri->segment(1); ?>';
-
+let page = segment;
 let satuan = $('#satuan');
 let stok = $('#stok');
 let total = $('#total_stok');

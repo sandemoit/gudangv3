@@ -17,6 +17,7 @@
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
             <script>
                 const baseurl = '<?= base_url() ?>';
+                const segment = '<?= $this->uri->segment(1); ?>';
             </script>
             <script type="text/javascript">
                 window.setTimeout(function() {

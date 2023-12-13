@@ -5,7 +5,7 @@ $(document).ready(function () {
         const option = Array.from(barangIdSelect.options).find(option => option.value === decodedText);
 
         if (option) {
-            option.selected = true;
+            $('select[name="barang_id"]').val(decodedText).change();
         } else {
             console.warn('ID Barang ' + decodedText + ' Tidak Ditemukan');
         }
@@ -17,7 +17,8 @@ $(document).ready(function () {
 
     const html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", { fps: 10, qrbox: 300 },
-        { facingMode: "environment" }
+        { facingMode: "environment" },
+        { rememberLastUsedCamera: true },
     );
 
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);

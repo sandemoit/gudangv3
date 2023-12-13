@@ -53,9 +53,10 @@
                                                     <th>ID Barang</th>
                                                     <th>Nama Barang</th>
                                                     <th>Jenis Barang</th>
-                                                    <th>Stok Awal</th>
-                                                    <th>Stok Sekarang</th>
                                                     <th>Satuan</th>
+                                                    <th>Stok Awal</th>
+                                                    <th>Stok</th>
+                                                    <th>Total Stok</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -67,9 +68,10 @@
                                                         <td><?= $s['id_barang'] ?></td>
                                                         <td><?= $s['nama_barang'] ?></td>
                                                         <td><?= $s['nama_jenis'] ?></td>
-                                                        <td><?= $s['stok_awal'] ?? '0' ?></td>
-                                                        <td><?= $s['stok'] + $s['stok_awal'] ?></td>
                                                         <td><?= $s['nama_satuan'] ?></td>
+                                                        <td><?= $s['stok_awal'] ?? '0' ?></td>
+                                                        <td><?= $s['stok'] ?></td>
+                                                        <td><?= $s['stok'] + $s['stok_awal'] ?></td>
                                                         <td>
                                                             <div class="drodown">
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>

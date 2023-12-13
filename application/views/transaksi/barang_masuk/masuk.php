@@ -94,13 +94,13 @@
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">ID Barang</label>
                                         <input readonly type="text" value="<?= $id_bmasuk; ?>" class="form-control" name="id_bmasuk">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Tanggal Masuk</label>
                                         <input type="date" value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" class="form-control" name="tanggal_masuk" id="tanggal_masuk" placeholder="Nama barang">
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Supplier</label>
                                         <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
@@ -120,13 +120,13 @@
                                         <p><a href="<?= site_url('supplier') ?>">+ Add Supplier</a></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Barang</label>
                                         <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
                                             <option selected disabled>Pilih Barang</option>
                                             <?php foreach ($barang as $key) : ?>
-                                                <option <?= $this->uri->segment(2) == $key['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
+                                                <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-6 col-sm-12 mt-2">
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="stok">Stok</label>
                                         <div class="input-group">
@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-6 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label" for="jumlah_masuk">Jumlah Masuk</label>
                                         <div class="form-control-wrap">
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-12 col-sm-12 mt-2">
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="basic-total_stok">Total Stok</label>
                                         <div class="input-group">
