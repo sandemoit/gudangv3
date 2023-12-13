@@ -16,139 +16,8 @@
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
             <script src="https://unpkg.com/html5-qrcode"></script>
-            <script>
-                $(document).ready(function() {
-
-                    let scanned = '';
-
-                    setInterval(function() {
-                        var date = new Date();
-                        var h = date.getHours(),
-                            m = date.getMinutes(),
-                            s = date.getSeconds();
-                        h = ("0" + h).slice(-2);
-                        m = ("0" + m).slice(-2);
-                        s = ("0" + s).slice(-2);
-
-                        var time = h + ":" + m + ":" + s;
-                        $('.live-clock').html(time);
-                    }, 1000);
-
-                    function onScanSuccess(decodedText) {
-                        if (scanned !== decodedText) {
-                            scanned = decodedText;
-                            $.ajax({
-                                type: 'post',
-                                url: '/siswa/validate_qrcode',
-                                data: {
-                                    scanned
-                                },
-                                success: function(result) {
-                                    // script here if success
-                                    result = JSON.parse(result);
-
-                                    let today = new Date();
-                                    let dd = String(today.getDate()).padStart(2, '0');
-                                    let mm = String(today.getMonth() + 1).padStart(2, '0');
-                                    let yyyy = today.getFullYear();
-                                    let hh = String(today.getHours()).padStart(2, '0');
-                                    let ii = String(today.getMinutes()).padStart(2, '0');
-                                    let ss = String(today.getSeconds()).padStart(2, '0');
-                                    let waktu = `${dd}-${mm}-${yyyy} ${hh}:${ii}:${ss}`;
-
-                                    if (result.result == 'ngawur') {
-                                        $('#notif').show().removeClass('alert-success').addClass('alert-danger').html("Materi pembelajaran tidak diketahui.");
-                                    } else if (result.result == true) {
-                                        $('#notif').show().removeClass('alert-danger').addClass('alert-success').html("Terimakasih telah melakukan absen pada " + waktu);
-                                    } else {
-                                        $('#notif').show().removeClass('alert-success').addClass('alert-danger').html("Anda sudah melakukan absen.");
-                                    }
-
-                                    $('#mapel').html(result.data.mapel);
-                                    $('#guru').html(result.data.guru);
-                                }
-                            });
-                        }
-                    }
-
-                    var html5QrcodeScanner = new Html5QrcodeScanner(
-                        "reader", {
-                            fps: 10,
-                            qrbox: 300
-                        }
-                    );
-                    html5QrcodeScanner.render(onScanSuccess);
-                });
-            </script>
             <script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script>
-            <script>
-                function resetDates() {
-                    document.getElementsByName('start_date')[0].value = '';
-                    document.getElementsByName('end_date')[0].value = '';
-                    document.getElementById('filterForm').submit();
-                }
-
-                function printData() {
-                    window.print();
-                }
-
-                function generatePDF() {
-                    // Dapatkan nilai start_date dan end_date dari formulir
-                    var startDate = document.getElementsByName("start_date")[0].value;
-                    var endDate = document.getElementsByName("end_date")[0].value;
-
-                    // Jika tanggal tidak diisi, setel nilai default ke kosong atau nilai yang sesuai
-                    startDate = startDate.trim() !== '' ? startDate : '';
-                    endDate = endDate.trim() !== '' ? endDate : '';
-
-                    // Buat URL dengan parameter GET
-                    var pdfURL = '<?= site_url('laporan/pdf') ?>?start_date=' + startDate + '&end_date=' + endDate;
-
-                    // Arahkan pengguna ke URL
-                    window.location.href = pdfURL;
-                }
-
-                function generateCetak() {
-                    // Dapatkan nilai start_date dan end_date dari formulir
-                    var startDate = document.getElementsByName("start_date")[0].value;
-                    var endDate = document.getElementsByName("end_date")[0].value;
-
-                    // Jika tanggal tidak diisi, setel nilai default ke kosong atau nilai yang sesuai
-                    startDate = startDate.trim() !== '' ? startDate : '';
-                    endDate = endDate.trim() !== '' ? endDate : '';
-
-                    // Buat URL dengan parameter GET
-                    var pdfURL = '<?= site_url('laporan/cetak') ?>?start_date=' + startDate + '&end_date=' + endDate;
-
-                    // Arahkan pengguna ke URL
-                    window.location.href = pdfURL;
-                }
-
-                function downloadExcel() {
-                    // Dapatkan nilai start_date dan end_date dari formulir atau tempat lain yang sesuai
-                    var startDate = document.getElementsByName("start_date")[0].value;
-                    var endDate = document.getElementsByName("end_date")[0].value;
-
-                    // Jika tanggal tidak diisi, setel nilai default ke kosong atau nilai yang sesuai
-                    startDate = startDate.trim() !== '' ? startDate : '';
-                    endDate = endDate.trim() !== '' ? endDate : '';
-
-                    // Buat URL dengan parameter GET
-                    var excelURL = '<?= site_url('laporan/excel') ?>?start_date=' + startDate + '&end_date=' + endDate;
-
-                    // Arahkan pengguna ke URL untuk mengunduh file Excel
-                    window.location.href = excelURL;
-                }
-
-                function handleClick(event) {
-                    event.preventDefault(); // menghentikan proses default
-                    // Tambahkan logika tambahan di sini jika diperlukan
-                }
-
-                document.querySelectorAll('a[href="#"]').forEach(function(link) {
-                    link.addEventListener('click', handleClick);
-                });
-            </script>
+            <script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
             <script type="text/javascript">
                 /* Rupiah Edit*/
                 var tanpa_rupiah = document.getElementById('rupiah-edit');
@@ -180,13 +49,6 @@
                 }
             </script>
             <script type="text/javascript">
-                window.setTimeout(function() {
-                    $(".alert").fadeTo(500, 0).slideUp(500, function() {
-                        $(this).remove();
-                    });
-                }, 5000);
-            </script>
-            <script type="text/javascript">
                 // hitung stok
                 let page = '<?= $this->uri->segment(1); ?>';
 
@@ -210,6 +72,13 @@
                     let totalStok = parseInt(stok.val()) - parseInt(this.value);
                     total.val(Number(totalStok));
                 });
+            </script>
+            <script type="text/javascript">
+                window.setTimeout(function() {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                        $(this).remove();
+                    });
+                }, 5000);
             </script>
             </body>
 
