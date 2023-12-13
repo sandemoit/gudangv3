@@ -17,7 +17,7 @@ $(document).ready(function () {
     }
 
     function onScanFailure(error) {
-        console.warn(`Ada kesalahan ${error}`);
+        console.warn(`ID Barang ${error} Tidak Ditemukan`);
     }
 
     var html5QrcodeScanner = new Html5QrcodeScanner(
@@ -25,10 +25,5 @@ $(document).ready(function () {
     );
 
     // Modifikasi untuk menggunakan kamera belakang
-    html5QrcodeScanner.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 300 },
-        onScanSuccess,
-        onScanFailure
-    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 });
