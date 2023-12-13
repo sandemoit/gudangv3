@@ -26,7 +26,7 @@
                     });
                 }, 5000);
             </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/2.0.0-rc.4/instascan.min.js"></script>
+            <script src="<?= base_url('assets') ?>/js/custom/instascan.min.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
             <!-- <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script> -->

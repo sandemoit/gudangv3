@@ -2,6 +2,7 @@ $(document).ready(function() {
     let scanner = new Instascan.Scanner({
         video: document.getElementById('preview'),
         backgroundScan: true,
+        backgroundScan: false,
         mirror: false
     });
     let barangIdSelect = document.getElementById('barang_id');
@@ -41,8 +42,7 @@ $(document).ready(function() {
             alert('No cameras found.');
         }
     }).catch(function(e) {
-        console.error(e);
-        alert(e);
+        console.warn(`${e}`);
     });
 
 });
