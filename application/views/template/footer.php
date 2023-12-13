@@ -16,30 +16,7 @@
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
             <script src="https://unpkg.com/html5-qrcode"></script>
-            <script>
-                function onScanSuccess(decodedText, decodedResult) {
-                    // handle the scanned code as you like, for example:
-                    console.log(`Code matched = ${decodedText}`, decodedResult);
-                }
-
-                function onScanFailure(error) {
-                    // handle scan failure, usually better to ignore and keep scanning.
-                    // for example:
-                    console.warn(`Code scan error = ${error}`);
-                }
-
-                let html5QrcodeScanner = new Html5QrcodeScanner(
-                    "reader", {
-                        fps: 10,
-                        qrbox: {
-                            width: 250,
-                            height: 250
-                        }
-                    },
-                    /* verbose= */
-                    false);
-                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-            </script>
+            <script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script>
             <script>
                 function resetDates() {
                     document.getElementsByName('start_date')[0].value = '';
