@@ -47,7 +47,7 @@
                                             <label class="form-label" for="default-01">Email</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" name="email" id="default-01" placeholder="Enter your email address">
+                                            <input type="text" value="admin@gmail.com" class="form-control form-control-lg" name="email" id="default-01" placeholder="Enter your email address">
                                         </div>
                                         <?= form_error('email', '<small class="text-danger" pl-3>', '</small>'); ?>
                                     </div>
@@ -60,7 +60,7 @@
                                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                                 <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                             </a>
-                                            <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Enter your password">
+                                            <input type="password" value="admin" class="form-control form-control-lg" name="password" id="password" placeholder="Enter your password">
                                         </div>
                                         <?= form_error('password', '<small class="text-danger" pl-3>', '</small>'); ?>
                                     </div>
