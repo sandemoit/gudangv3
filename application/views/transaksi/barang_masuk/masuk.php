@@ -167,7 +167,16 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
-                            <div id="reader" style="width: 100%; height: 100%"></div>
+                            <video id="preview" style="width: 100%; height: 100%"></video>
+                            <br>
+                            <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                    <input type="radio" name="options" value="1" autocomplete="off" checked> 1st Camera
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="options" value="2" autocomplete="off"> 2nd Camera
+                                </label>
+                            </div>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12">
