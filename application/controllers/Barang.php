@@ -25,11 +25,11 @@ class Barang extends CI_Controller
         $data['satuan'] = $this->Admin_model->get('satuan');
 
         // Mengenerate ID Barang
-        $kode_terakhir = $this->Admin_model->getMax('barang', 'id_barang');
-        $kode_tambah = substr($kode_terakhir, -6, 6);
-        $kode_tambah++;
-        $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
-        $data['id_barang'] = 'B' . $number;
+        // $kode_terakhir = $this->Admin_model->getMax('barang', 'id_barang');
+        // $kode_tambah = substr($kode_terakhir, -6, 6);
+        // $kode_tambah++;
+        // $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
+        // $data['id_barang'] = 'B' . $number;
 
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
@@ -45,7 +45,8 @@ class Barang extends CI_Controller
             $data = [
                 'id_barang' => $this->input->post('id_barang', true),
                 'nama_barang' => $this->input->post('nama_barang', true),
-                'stok_awal' => $this->input->post('stok_awal', true),
+                'stok_awal' => !empty($this->input->post('stok_awal', true)) ? "'" . $this->input->post('stok_awal', true) . "'" : NULL,
+                'stok' => 0,
                 'id_jenis' => $this->input->post('id_jenis', true),
                 'id_satuan' => $this->input->post('id_satuan', true)
             ];

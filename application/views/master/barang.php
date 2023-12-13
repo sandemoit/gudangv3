@@ -70,7 +70,7 @@
                                                         <td><?= $s['nama_jenis'] ?></td>
                                                         <td><?= $s['nama_satuan'] ?></td>
                                                         <td><?= $s['stok_awal'] ?? '0' ?></td>
-                                                        <td><?= $s['stok'] ?></td>
+                                                        <td><?= $s['stok'] ?? '0' ?></td>
                                                         <td><?= $s['stok'] + $s['stok_awal'] ?></td>
                                                         <td>
                                                             <div class="drodown">
@@ -117,7 +117,7 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group">
                             <label class="form-label" for="room-no-add">ID Barang</label>
-                            <input readonly type="text" value="<?= set_value('id_barang', $id_barang); ?>" class="form-control" name="id_barang" id="id_barang">
+                            <input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="Masukan ID barang">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
@@ -153,7 +153,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="form-group">
                             <label class="form-label" for="stok_awal">Stok</label>
-                            <input type="text" class="form-control" name="stok_awal" id="stok_awal" placeholder="Stok Awal">
+                            <input type="text" class="form-control" name="stok_awal" id="stok_awal" placeholder="Stok Awal" value="0">
                         </div>
                     </div>
                     <!--col-->

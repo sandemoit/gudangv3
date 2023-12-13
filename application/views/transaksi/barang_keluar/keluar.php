@@ -82,7 +82,7 @@
 
 <!-- Add Room-->
 <div class="modal fade" tabindex="-1" role="dialog" id="add">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
@@ -90,60 +90,68 @@
                 <form action="<?= base_url('keluar') ?>" method="post">
                     <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="room-no-add">ID Barang</label>
-                                <input readonly type="text" value="<?= $id_bkeluar; ?>" class="form-control" name="id_bkeluar">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="room-no-add">Tanggal keluar</label>
-                                <input type="date" value="<?= set_value('tanggal_keluar', date('Y-m-d')); ?>" class="form-control" name="tanggal_keluar" id="tanggal_keluar" placeholder="Nama barang">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="room-no-add">Barang</label>
-                                <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
-                                    <option selected disabled>Pilih Barang</option>
-                                    <?php foreach ($barang as $b) : ?>
-                                        <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-control-wrap">
-                                <label class="form-label" for="stok">Stok</label>
-                                <div class="input-group">
-                                    <input readonly type="number" id="stok" class="form-control">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">ID Barang</label>
+                                        <input readonly type="text" value="<?= $id_bkeluar; ?>" class="form-control" name="id_bkeluar">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="jumlah_keluar">Jumlah Keluar</label>
-                                <div class="form-control-wrap">
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" for="jumlah_keluar" name="jumlah_keluar" id="jumlah_keluar" placeholder="Jumlah Keluar">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="satuan">Satuan</span>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">Tanggal keluar</label>
+                                        <input type="date" value="<?= set_value('tanggal_keluar', date('Y-m-d')); ?>" class="form-control" name="tanggal_keluar" id="tanggal_keluar" placeholder="Nama barang">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">Barang</label>
+                                        <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
+                                            <option selected disabled>Pilih Barang</option>
+                                            <?php foreach ($barang as $b) : ?>
+                                                <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                    <div class="form-control-wrap">
+                                        <label class="form-label" for="stok">Stok</label>
+                                        <div class="input-group">
+                                            <input readonly type="number" id="stok" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="jumlah_keluar">Jumlah Keluar</label>
+                                        <div class="form-control-wrap">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" for="jumlah_keluar" name="jumlah_keluar" id="jumlah_keluar" placeholder="Jumlah Keluar">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="satuan">Satuan</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                    <div class="form-control-wrap">
+                                        <label class="form-label" for="total_stok">Sisa Stok</label>
+                                        <div class="input-group">
+                                            <input readonly type="number" id="total_stok" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-control-wrap">
-                                <label class="form-label" for="total_stok">Sisa Stok</label>
-                                <div class="input-group">
-                                    <input readonly type="number" id="total_stok" class="form-control">
-                                </div>
-                            </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <!-- disini camera reader qr code -->
+                            <div id="reader" style="width: 100%; height: 100%"></div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">Save</button>
