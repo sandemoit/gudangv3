@@ -149,7 +149,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
-                            <video id="scanner" style="width: 100%; height: 100%"></video>
+                            <video id="scanner" class="scann__qr"></video>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
