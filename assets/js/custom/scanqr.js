@@ -1,5 +1,10 @@
 $(document).ready(function() {
-    let scanner = new Instascan.Scanner({ video: document.getElementById('scanner') });
+    let scanner = new Instascan.Scanner({ 
+        video: document.getElementById('scanner') ,
+        backgroundScan: false,
+        // mirror: true
+    });
+    let barangIdSelect = document.getElementById('barang_id');
 
     scanner.addListener('scan', function (content) {
       const option = Array.from(barangIdSelect.options).find(option => option.value === content);
