@@ -2,7 +2,7 @@ $(document).ready(function() {
     let scanner = new Instascan.Scanner({ 
         video: document.getElementById('scanner') ,
         backgroundScan: false,
-        // mirror: true
+        mirror: false
     });
     let barangIdSelect = document.getElementById('barang_id');
 
