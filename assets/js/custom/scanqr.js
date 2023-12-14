@@ -20,19 +20,22 @@ $(document).ready(function() {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
 
-            //ini pakai vanilla js
             if (document.querySelector('input[name="options"]')) {
                 document.querySelectorAll('input[name="options"]').forEach((element) => {
                     element.addEventListener("change", function (event) {
                         const item = event.target.value;
-                        if (item == 1 || item == 2) {
-                            if (cameras[item - 1]) {
-                                scanner.start(cameras[item - 1]);
+                        if (item == 1) {
+                            if (cameras[0] != "") {
+                                scanner.start(cameras[0]);
                             } else {
-                                alert('Selected camera not available!');
+                                alert('No Back camera found!');
                             }
-                        } else {
-                            alert('Invalid camera selection!');
+                        } else if (item == 2) {
+                            if (cameras[1] != "") {
+                                scanner.start(cameras[1]);
+                            } else {
+                                alert('No Front camera found!');
+                            }
                         }
                     });
                 });                
