@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let scanner = new Instascan.Scanner({
-        video: document.getElementById('preview'),
+        video: document.getElementById('reader'),
         backgroundScan: true,
         backgroundScan: false,
         mirror: false
