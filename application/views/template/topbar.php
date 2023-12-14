@@ -9,8 +9,7 @@
                 </div>
                 <div class="nk-header-brand d-xl-none">
                     <a href="html/index.html" class="logo-link">
-                        <img class="logo-light logo-img" src="<?= base_url('assets') ?>/images/logo.png" srcset="<?= base_url('assets') ?>/images/logo2x.png 2x" alt="logo">
-                        <img class="logo-dark logo-img" src="<?= base_url('assets') ?>/images/logo-dark.png" srcset="<?= base_url('assets') ?>/images/logo-dark2x.png 2x" alt="logo-dark">
+                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo">
                     </a>
                 </div><!-- .nk-header-brand -->
                 <!-- <div class="nk-header-news d-none d-xl-block">
@@ -48,7 +47,7 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar">
-                                            <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>" alt="">
+                                            <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>">
                                         </div>
                                         <div class="user-info">
                                             <span class="lead-text"><?= $user['name'] ?></span>

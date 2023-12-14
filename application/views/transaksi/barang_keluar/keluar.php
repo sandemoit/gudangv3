@@ -123,6 +123,7 @@
                                             <input readonly type="number" id="stok" class="form-control">
                                         </div>
                                     </div>
+                                    <p id="stokWarning" class="text-warning"><i>Stok Hampir Habis!</i></p>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">

@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `barang` (
-  `id_barang` char(7) NOT NULL,
+  `id_barang` char(128) NOT NULL,
   `nama_barang` varchar(128) NOT NULL,
   `stok_awal` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `stok` int DEFAULT NULL,
@@ -58,7 +58,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok_awal`, `stok`, `id_satua
 CREATE TABLE `barang_keluar` (
   `id_bkeluar` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_user` int NOT NULL,
-  `barang_id` char(7) NOT NULL,
+  `barang_id` char(128) NOT NULL,
   `jumlah_keluar` int NOT NULL,
   `tanggal_keluar` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -99,7 +99,7 @@ CREATE TABLE `barang_masuk` (
   `id_bmasuk` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_supplier` int NOT NULL,
   `id_user` varchar(50) NOT NULL,
-  `barang_id` char(7) NOT NULL,
+  `barang_id` char(128) NOT NULL,
   `jumlah_masuk` int NOT NULL,
   `tanggal_masuk` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -116,4 +116,18 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getStokBarang($barang_id)
+    {
+        $this->db->select('stok');
+        $this->db->from('barang');
+        $this->db->where('id_barang', $barang_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->stok;
+        } else {
+            return 0; // Jika barang tidak ditemukan, return 0 atau nilai default yang sesuai
+        }
+    }
 }

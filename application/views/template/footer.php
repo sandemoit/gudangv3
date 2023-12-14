@@ -26,6 +26,7 @@
                     });
                 }, 5000);
             </script>
+            <script src="<?= base_url('assets') ?>/js/custom/barang-keluar.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>
 

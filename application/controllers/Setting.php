@@ -36,6 +36,7 @@ class Setting extends CI_Controller
                 'email' => $this->input->post('email'),
                 'notelpon' => $this->input->post('notelpon'),
                 'alamat' => $this->input->post('alamat'),
+                'low_stok' => $this->input->post('low_stok'),
             ];
 
             // cek jika ada gambar yang akan diupload

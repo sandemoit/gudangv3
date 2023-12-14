@@ -57,12 +57,17 @@
                                                     <?= form_error('alamat', '<small class="text-danger">', '</small>'); ?>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="form-label" for="customFileLabel">Upload Logo</label>
-                                                    <div class="form-control-wrap">
-                                                        <div class="form-file">
-                                                            <input type="file" class="form-file-input" id="image" name="image">
-                                                            <label class="form-file-label" for="customFile">Choose file</label>
-                                                        </div>
+                                                    <label class="form-label" for="notelpon">Low Stok</label>
+                                                    <input type="text" class="form-control" id="low_stok" name="low_stok" value="<?= $setting['low_stok'] ?>">
+                                                    <?= form_error('low_stok', '<small class="text-danger">', '</small>'); ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="customFileLabel">Upload Logo</label>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-file">
+                                                        <input type="file" class="form-file-input" id="image" name="image">
+                                                        <label class="form-file-label" for="customFile">Choose file</label>
                                                     </div>
                                                 </div>
                                             </div>

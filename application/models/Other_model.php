@@ -58,4 +58,17 @@ class Other_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getDataBarang()
+    {
+
+        $this->db->select('*');
+        $this->db->from('barang');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
+        $this->db->group_by('barang.id_barang');  // Menghindari duplikasi data
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

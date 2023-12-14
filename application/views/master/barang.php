@@ -21,14 +21,9 @@
                                     </li>
                                     <li>
                                         <div class="drodown">
-                                            <a href="<?= base_url('barang/cetak') ?>" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> Cetak PDF </a>
+                                            <a href="<?= base_url('barang/excel') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Unduh Excel </a>
                                         </div>
                                     </li>
-                                    <!-- <li>
-                                        <div class="drodown">
-                                            <a href="<?= base_url('export/export_data_barang') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Export EXCEL</a>
-                                        </div>
-                                    </li> -->
                                 </ul>
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->

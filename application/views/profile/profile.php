@@ -186,7 +186,7 @@
                                         <div class="form-file">
                                             <input type="file" class="form-file-input" id="image" name="image">
                                             <label class="form-file-label" for="customFile">Choose foto</label>
-                                            <p class="text-orange"><em>Minimal upload 2 MB & Format JPG, PNG.</em></p>
+                                            <p class="text-orange"><em>Maximal upload 2 MB & Format JPG, PNG.</em></p>
                                         </div>
                                     </div>
                                 </div>

@@ -39,31 +39,26 @@ class Profile extends CI_Controller
     public function image()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id_user = $this->input->post('id', true);
 
-        $config['upload_path'] = './assets/images/avatar';
+        $config['upload_path'] = 'assets/images/avatar';
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = 2014;
-        $config['max_width'] = 0;
-        $config['max_height'] = 0;
         $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('image')) {
-            // Handle upload errors
-            $error_msg = $this->upload->display_errors();
-            set_pesan('Photo gagal diupdate: ' . $error_msg, FALSE);
-            redirect('profile');
-        }
+        $this->upload->initialize($config);
 
-        $_data = array('upload_data' => $this->upload->data());
+        if ($this->upload->do_upload('image')) {
+            $old_image = $data['user']['image'];
+            if ($old_image != 'default.jpg') {
+                unlink(FCPATH . 'assets/images/avatar/' . $old_image);
+            }
+            $new_image = $this->upload->data('file_name');
 
-        $data = array(
-            'image' => $_data['upload_data']['file_name'],
-        );
-
-        $this->db->where('email', $this->session->userdata('email'));
-        if (!$this->db->update('user', $data)) {
-            // Handle update errors
+            $this->db->set('image', $new_image);
+            $this->db->where('id', $id_user);
+            $this->db->update('user');
+        } else {
             set_pesan('Gagal mengupdate data user.', FALSE);
             redirect('profile');
         }

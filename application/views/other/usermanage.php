@@ -56,7 +56,7 @@
                                                         <td><?= $no++; ?></td>
                                                         <td>
                                                             <div class="user-avatar">
-                                                                <img src="<?= base_url('assets/images/avatar/') . $user['image'] ?>" alt="">
+                                                                <img src="<?= base_url('assets/images/avatar/') . $um['image'] ?>" alt="">
                                                             </div>
                                                         </td>
                                                         <td><?= $um['name']  ?></td>
