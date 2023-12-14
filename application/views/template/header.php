@@ -14,6 +14,7 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/dashlite.css?ver=3.0.3">
     <link id="skin-default" rel="stylesheet" href="<?= base_url('assets') ?>/css/theme.css?ver=3.0.3">
+    <link id="skin-default" rel="stylesheet" href="<?= base_url('assets') ?>/css/custom.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 

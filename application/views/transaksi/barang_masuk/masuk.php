@@ -167,7 +167,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
-                            <video id="scanner" style="width: 100%;"></video>
+                            <video id="scanner" class="scann__qr"></video>
                             <!-- <br>
                             <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
                                 <label class="btn btn-primary">

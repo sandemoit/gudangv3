@@ -1,0 +1,11 @@
+.scann__qr{
+    width: 100%;
+    height: auto;
+}
+@media screen and (max-width: 747px) {
+    .scann__qr{
+        width: 100%;
+        height: auto;
+    }
+    
+}
