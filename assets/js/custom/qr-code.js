@@ -12,7 +12,7 @@ $(document).ready(function () {
     }
 
     function onScanFailure(error) {
-        console.warn(`${error}`);
+        console.warn(`Gagal melakukan scan QR Code. ${error}`);
     }
 
     const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -20,6 +20,14 @@ $(document).ready(function () {
         { facingMode: { exact: "environment"} },
         { rememberLastUsedCamera: true },
     );
-
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+    $('#html5-qrcode-button-camera-stop').on('click', function() {
+        html5QrcodeScanner.stop().then((ignore) => {
+            alert('Sukses Stop')
+        }).catch((err) => {
+            // Stop failed, handle it.
+            alert('Failed Stop')
+        });
+    });
 });

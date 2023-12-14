@@ -167,3 +167,6 @@
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
+
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script>

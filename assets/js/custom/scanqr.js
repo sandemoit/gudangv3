@@ -1,19 +1,14 @@
 $(document).ready(function() {
-    let scanner = new Instascan.Scanner({
-        video: document.getElementById('reader'),
-        backgroundScan: true,
-        backgroundScan: false,
-        mirror: false
-    });
-    let barangIdSelect = document.getElementById('barang_id');
+    let scanner = new Instascan.Scanner({ video: document.getElementById('scanner') });
 
     scanner.addListener('scan', function (content) {
-        const option = Array.from(barangIdSelect.options).find(option => option.value === content);
-        if (option) {
-            $('select[name="barang_id"]').val(content).change();
-        } else {
-            console.warn('ID Barang ' + content + ' Tidak Ditemukan');
-        }
+      const option = Array.from(barangIdSelect.options).find(option => option.value === content);
+
+      if (option) {
+        $('select[name="barang_id"]').val(content).change();
+      } else {
+        console.warn('ID Barang ' + content + ' Tidak Ditemukan');
+      }
     });
 
     Instascan.Camera.getCameras().then(function(cameras) {
