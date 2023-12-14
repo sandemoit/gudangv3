@@ -168,15 +168,15 @@
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
                             <video id="scanner" style="width: 100%;"></video>
-                            <br>
+                            <!-- <br>
                             <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-                                <label class="btn btn-primary active">
-                                    <input type="radio" name="options" value="1" autocomplete="off" checked> 1st Camera
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" value="1" autocomplete="off" checked> Camera Depan
                                 </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="options" value="2" autocomplete="off"> 2nd Camera
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="options" value="2" autocomplete="off"> Camera Belakang
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12">

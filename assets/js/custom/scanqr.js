@@ -18,28 +18,24 @@ $(document).ready(function() {
 
     Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length > 0) {
-            scanner.start(cameras[0]);
-
-            if (document.querySelector('input[name="options"]')) {
-                document.querySelectorAll('input[name="options"]').forEach((element) => {
-                    element.addEventListener("change", function (event) {
-                        const item = event.target.value;
-                        if (item == 1) {
-                            if (cameras[0] != "") {
-                                scanner.start(cameras[0]);
-                            } else {
-                                alert('No Back camera found!');
-                            }
-                        } else if (item == 2) {
-                            if (cameras[1] != "") {
-                                scanner.start(cameras[1]);
-                            } else {
-                                alert('No Front camera found!');
-                            }
-                        }
-                    });
-                });                
-            }
+            scanner.start(cameras[1]);
+            
+            // if (document.querySelector('input[name="options"]')) {
+            //     document.querySelectorAll('input[name="options"]').forEach((element) => {
+            //         element.addEventListener("change", function (event) {
+            //             const item = event.target.value;
+            //             if (item == 1 || item == 2) {
+            //                 if (cameras[item - 1]) {
+            //                     scanner.start(cameras[item - 1]);
+            //                 } else {
+            //                     alert('Selected camera not available!');
+            //                 }
+            //             } else {
+            //                 alert('Invalid camera selection!');
+            //             }
+            //         });
+            //     });                
+            // }
         } else {
             console.error('No cameras found.');
             alert('No cameras found.');
