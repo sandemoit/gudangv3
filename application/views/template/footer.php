@@ -26,10 +26,10 @@
                     });
                 }, 5000);
             </script>
-            <script src="<?= base_url('assets') ?>/js/custom/instascan.min.js"></script>
-            <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
-            <!-- <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-            <script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script> -->
+            <!-- <script src="<?= base_url('assets') ?>/js/custom/instascan.min.js"></script>
+            <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script> -->
+            <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+            <script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>
 
