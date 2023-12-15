@@ -46,12 +46,16 @@ class Barang extends CI_Controller
                 'id_barang' => $this->input->post('id_barang', true),
                 'nama_barang' => $this->input->post('nama_barang', true),
                 'stok_awal' => $this->input->post('stok_awal', true),
-                'stok' => 0,
+                'stok' => $this->input->post('stok_awal', true),
                 'id_jenis' => $this->input->post('id_jenis', true),
                 'id_satuan' => $this->input->post('id_satuan', true)
             ];
-            $this->Admin_model->insert('barang', $data);
-            set_pesan('data berhasil ditambah!');
+            $insert = $this->Admin_model->insert('barang', $data);
+            if ($insert) {
+                set_pesan('data berhasil ditambah!');
+            } else {
+                set_pesan('data gagal ditambah!', false);
+            }
             redirect('barang');
         }
     }

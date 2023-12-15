@@ -90,7 +90,7 @@
             <div class="modal-body modal-body-md">
                 <h5 class="modal-title">Add <?= $title; ?></h5>
                 <form action="<?= base_url('masuk') ?>" method="post">
-                    <input type="hidden" value="<?= $user['name']; ?>" class="form-control" name="id_user">
+                    <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="row">
@@ -168,7 +168,7 @@
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <!-- disini camera reader qr code -->
                             <video id="scanner" class="scann__qr"></video>
-                            <!-- <br>
+                            <br>
                             <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
                                 <label class="btn btn-primary">
                                     <input type="radio" name="options" value="1" autocomplete="off" checked> Camera Depan
@@ -176,7 +176,7 @@
                                 <label class="btn btn-secondary active">
                                     <input type="radio" name="options" value="2" autocomplete="off"> Camera Belakang
                                 </label>
-                            </div> -->
+                            </div>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12">
