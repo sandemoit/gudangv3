@@ -17,15 +17,15 @@ $(document).ready(function() {
   });
 
   Instascan.Camera.getCameras().then(function(cameras) {
-      let selectedCamera = cameras.find(camera => camera && camera.facingMode === 'environment');
+      let selectedCameraIndex = cameras.findIndex(camera => camera && camera.name.toLowerCase().includes('back'));
 
-      if (!selectedCamera && cameras.length > 0) {
-          // Use the default camera if the back camera is not found
-          selectedCamera = cameras[0];
+      if (selectedCameraIndex === -1 && cameras.length > 0) {
+          // Jika kamera belakang tidak ditemukan, gunakan kamera pertama yang ditemukan
+          selectedCameraIndex = 0;
       }
 
-      if (selectedCamera) {
-          scanner.start(selectedCamera);
+      if (cameras[selectedCameraIndex]) {
+          scanner.start(cameras[selectedCameraIndex]);
           
           if (document.querySelector('input[name="options"]')) {
               document.querySelectorAll('input[name="options"]').forEach((element) => {
