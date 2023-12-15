@@ -31,11 +31,15 @@ class Admin_model extends CI_Model
     // barang
     public function getBarang()
     {
-        $this->db->join('jenis', 'barang.id_jenis = jenis.id');
-        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->select('*');
+        $this->db->from('barang');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
         $this->db->order_by('id_barang');
-        return $this->db->get('barang')->result_array();
+
+        return $this->db->get()->result_array();
     }
+
 
     public function getMax($table, $field, $kode = null)
     {

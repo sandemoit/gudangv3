@@ -169,6 +169,7 @@
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
 
+<script src="<?= base_url('assets') ?>/js/custom/barang-keluar.js"></script>
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
 

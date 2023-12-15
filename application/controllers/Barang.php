@@ -45,7 +45,7 @@ class Barang extends CI_Controller
             $data = [
                 'id_barang' => $this->input->post('id_barang', true),
                 'nama_barang' => $this->input->post('nama_barang', true),
-                'stok_awal' => !empty($this->input->post('stok_awal', true)) ? "'" . $this->input->post('stok_awal', true) . "'" : NULL,
+                'stok_awal' => $this->input->post('stok_awal', true),
                 'stok' => 0,
                 'id_jenis' => $this->input->post('id_jenis', true),
                 'id_satuan' => $this->input->post('id_satuan', true)

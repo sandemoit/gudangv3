@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Tambahkan listener perubahan untuk mengambil perubahan nilai stok saat ini
+    // listener perubahan untuk mengambil perubahan nilai stok saat ini
     stokInput.addEventListener('input', handleStokChange);
 
     // Jalankan fungsi handleStokChange pertama kali untuk menampilkan warning jika diperlukan
