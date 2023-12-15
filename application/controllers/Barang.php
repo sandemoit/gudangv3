@@ -100,7 +100,7 @@ class Barang extends CI_Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         // Setel header kolom
-        $headerColumns = ['No', 'ID Barang', 'Nama Barang', 'Jenis Barang', 'Satuan', 'Stok Awal', 'Stok', 'Total Stok'];
+        $headerColumns = ['No', 'ID Barang', 'Nama Barang', 'Jenis Barang', 'Satuan', 'Stok Awal', 'Stok'];
         foreach ($headerColumns as $key => $header) {
             $column = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
             $sheet->setCellValue($column . '1', $header);
@@ -135,7 +135,6 @@ class Barang extends CI_Controller
             $sheet->setCellValue('E' . $row, $item['nama_satuan']);
             $sheet->setCellValue('F' . $row, $item['stok_awal']);
             $sheet->setCellValue('G' . $row, $item['stok']);
-            $sheet->setCellValue('H' . $row, $item['stok_awal'] + $item['stok']);
 
             // Terapkan gaya baris
             $style_row = [
@@ -147,13 +146,13 @@ class Barang extends CI_Controller
                     'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
                 ]
             ];
-            $sheet->getStyle('A' . $row . ':H' . $row)->applyFromArray($style_row);
+            $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray($style_row);
 
             $row++;
         }
 
         // Tambahkan kolom total di bawah setiap kolom
-        foreach (range('F', 'H') as $column) {
+        foreach (range('F', 'G') as $column) {
             $sheet->setCellValue($column . $row, "=SUM($column:$column$row)");
             $sheet->getStyle($column . $row)->applyFromArray([
                 'font' => ['bold' => true],
@@ -209,10 +208,10 @@ class Barang extends CI_Controller
                 'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
             ]
         ];
-        $sheet->getStyle('A' . $row . ':H' . $row)->applyFromArray($style_row);
+        $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray($style_row);
 
         // Set lebar kolom
-        foreach (range('A', 'H') as $column) {
+        foreach (range('A', 'G') as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
 
