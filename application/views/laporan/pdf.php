@@ -63,7 +63,7 @@
                     <td><?= (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0; ?></td>
                     <td>
                         <?php
-                        $totalStok = $item['stok_awal'] + ((!empty($item['jumlah_masuk'])) ? $item['jumlah_masuk'] : 0) - ((!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0);
+                        $totalStok = ((!empty($item['stok'])) ? $item['stok'] : 0);
                         echo $totalStok;
                         ?>
                     </td>

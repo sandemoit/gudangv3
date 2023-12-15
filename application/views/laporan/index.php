@@ -73,10 +73,10 @@
                                         <th>No</th>
                                         <th>ID Barang</th>
                                         <th>Nama Barang</th>
-                                        <th>Stok Awal</th>
-                                        <th>Jumlah Masuk</th>
-                                        <th>Jumlah Keluar</th>
-                                        <th>Total Stok</th>
+                                        <th>Jumlah stok awal</th>
+                                        <th>Jumlah Barang Masuk</th>
+                                        <th>Jumlah Barang Keluar</th>
+                                        <th>Hasil Akhir</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +91,7 @@
                                             <td><?= (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0; ?></td>
                                             <td>
                                                 <?php
-                                                $totalStok = $item['stok_awal'] + ((!empty($item['jumlah_masuk'])) ? $item['jumlah_masuk'] : 0) - ((!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0);
+                                                $totalStok = ((!empty($item['stok'])) ? $item['stok'] : 0);
                                                 echo $totalStok;
                                                 ?>
                                             </td>

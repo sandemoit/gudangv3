@@ -23,7 +23,7 @@ class Other_model extends CI_Model
 
     public function getLaporanData($start_date = null, $end_date = null)
     {
-        $this->db->select('barang.id_barang, nama_barang, stok_awal');
+        $this->db->select('barang.id_barang, nama_barang, stok_awal, stok');
         $this->db->select('IFNULL(SUM(jumlah_masuk), 0) AS jumlah_masuk', FALSE);
         $this->db->select('IFNULL(SUM(jumlah_keluar), 0) AS jumlah_keluar', FALSE);
 
@@ -42,7 +42,7 @@ class Other_model extends CI_Model
 
         $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
 
-        $this->db->group_by('barang.id_barang, nama_barang, stok_awal');
+        $this->db->group_by('barang.id_barang, nama_barang, stok_awal, stok');
         $query = $this->db->get();
         return $query->result_array();
     }

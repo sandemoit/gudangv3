@@ -87,7 +87,7 @@ class Laporan extends CI_Controller
             $sheet->setCellValue('D' . $row, $item['stok_awal']);
             $sheet->setCellValue('E' . $row, $item['jumlah_masuk']);
             $sheet->setCellValue('F' . $row, $item['jumlah_keluar']);
-            $sheet->setCellValue('G' . $row, $item['stok_awal'] + $item['jumlah_masuk'] - $item['jumlah_keluar']);
+            $sheet->setCellValue('G' . $row, $item['stok']);
 
             // Terapkan gaya baris
             $style_row = [
