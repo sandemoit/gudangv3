@@ -135,6 +135,14 @@
                                     <label class="form-label" for="room-no-add">Nama</label>
                                     <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?= $value['nama'] ?>">
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Kode Toko</label>
+                                    <input type="text" class="form-control" name="kode_toko" id="kode_toko" placeholder="TK123****" value="<?= $value['kode_toko'] ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Cth. Desa Payabakal" value="<?= $value['alamat'] ?>">
+                                </div>
                             </div>
                             <!--col-->
                             <div class="col-12">
