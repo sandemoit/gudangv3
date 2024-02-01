@@ -100,7 +100,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="room-no-add">Alamat</label>
-                                <input type="text" class="form-control" name="lamat" id="lamat" placeholder="Cth. Desa Payabakal">
+                                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Cth. Desa Payabakal">
                             </div>
                         </div>
                         <!--col-->
