@@ -51,7 +51,7 @@
                                                 <?php foreach ($pelanggan as $value) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><a href="pelanggan/laporan"><?= $value['nama'] ?></a></td>
+                                                        <td><a href="<?= site_url('pelanggan/sales/' . $value['id_pelanggan']) ?>"><?= $value['nama'] ?></a></td>
                                                         <td><?= $value['kode_toko'] ?></td>
                                                         <td><?= $value['alamat'] ?></td>
                                                         <td>

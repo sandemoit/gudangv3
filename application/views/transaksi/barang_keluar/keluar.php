@@ -54,7 +54,7 @@
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $bk['id_bkeluar'] ?></td>
-                                                        <td><?= $bk['tanggal_keluar']  ?></td>
+                                                        <td><?= tanggal($bk['tanggal_keluar'])  ?></td>
                                                         <td><?= $bk['nama_barang'] ?></td>
                                                         <td><?= $bk['jumlah_keluar'] ?></td>
                                                         <td><?= $bk['name'] ?></td>
@@ -95,7 +95,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label class="form-label" for="room-no-add">ID Barang</label>
-                                        <input readonly type="text" value="<?= $id_bkeluar; ?>" class="form-control" name="id_bkeluar">
+                                        <input type="text" value="<?= set_value('id_bkeluar') ?>" class="form-control" name="id_bkeluar">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">

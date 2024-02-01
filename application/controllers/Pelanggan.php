@@ -23,8 +23,8 @@ class Pelanggan extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');
-            $this->load->view('template/topbar', $data);
-            $this->load->view('master/pelanggan/data', $data);
+            $this->load->view('template/topbar');
+            $this->load->view('master/pelanggan/data');
             $this->load->view('template/footer');
         } else {
             $save = [
@@ -74,5 +74,23 @@ class Pelanggan extends CI_Controller
         }
 
         redirect('pelanggan');
+    }
+
+    public function trx()
+    {
+        $data['title'] = 'Transaksi Pelanggan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['setting'] = $this->db->get('setting')->row_array();
+        $data['transaksi'] = $this->pelanggan->getTrx();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('transaksi/pelanggan/keluar');
+        $this->load->view('template/footer');
+    }
+
+    public function doTrx()
+    {
     }
 }

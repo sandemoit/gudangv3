@@ -39,4 +39,21 @@ class M_Pelanggan extends CI_Model
             return false;
         }
     }
+
+    public function getTrx($limit = null, $id_barang = null)
+    {
+        $this->db->select('*');
+        $this->db->join('barang', 'barang_keluar.barang_id = barang.id_barang');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = barang_keluar.pelanggan_id');
+        $this->db->where('barang_keluar.pelanggan_id IS NOT NULL');
+
+        if ($id_barang) {
+            $this->db->where('barang_keluar.id_barang', $id_barang);
+        }
+
+        $this->db->order_by('barang_keluar.tanggal_keluar', 'desc');
+        $query = $this->db->get('barang_keluar', $limit);
+        return $query->result_array();
+    }
 }

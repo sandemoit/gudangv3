@@ -41,28 +41,26 @@
                                                 <tr>
                                                     <th>No. </th>
                                                     <th>No Transaksi</th>
-                                                    <th>Tanggal Masuk</th>
+                                                    <th>Tanggal Keluar</th>
                                                     <th>Nama Barang</th>
-                                                    <th>Jumlah Masuk</th>
-                                                    <th>Supplier</th>
-                                                    <th>Petugas</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Pelanggan</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($barangmasuk as $bm) : ?>
+                                                <?php foreach ($transaksi as $bk) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $bm['id_bmasuk'] ?></td>
-                                                        <td><?= tanggal($bm['tanggal_masuk'])  ?></td>
-                                                        <td><?= $bm['nama_barang'] ?></td>
-                                                        <td><?= $bm['jumlah_masuk'] ?></td>
-                                                        <td><?= $bm['nama_supplier'] ?></td>
-                                                        <td><?= $bm['id_user'] ?></td>
+                                                        <td><?= $bk['id_bkeluar'] ?></td>
+                                                        <td><?= tanggal($bk['tanggal_keluar'])  ?></td>
+                                                        <td><?= $bk['nama_barang'] ?></td>
+                                                        <td><?= $bk['jumlah_keluar'] ?></td>
+                                                        <td><?= $bk['nama'] ?></td>
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
-                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('masuk/delete/') . $bm['id_bmasuk'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('keluar/delete/') . $bk['id_bkeluar'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -89,69 +87,50 @@
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
                 <h5 class="modal-title">Add <?= $title; ?></h5>
-                <form action="<?= base_url('masuk') ?>" method="post">
+                <form action="<?= base_url('keluar') ?>" method="post">
                     <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label">ID Barang</label>
-                                        <input type="text" value="<?= set_value('id_bmasuk') ?>" class="form-control" name="id_bmasuk">
+                                        <label class="form-label" for="room-no-add">ID Barang</label>
+                                        <input readonly type="text" value="<?= $id_bkeluar; ?>" class="form-control" name="id_bkeluar">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">Tanggal keluar</label>
+                                        <input type="date" value="<?= set_value('tanggal_keluar', date('Y-m-d')); ?>" class="form-control" name="tanggal_keluar" id="tanggal_keluar" placeholder="Nama barang">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
-                                        <label class="form-label">Tanggal Masuk</label>
-                                        <input type="date" value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" class="form-control" name="tanggal_masuk" id="tanggal_masuk" placeholder="Nama barang">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Supplier</label>
-                                        <div class="form-control-wrap">
-                                            <select name="id_supplier" id="id_supplier" data-search="on" class="form-select js-select2">
-                                                <option selected disabled>Pilih Supplier</option>
-                                                <?php foreach ($supplier as $s) : ?>
-                                                    <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <p><a href="<?= site_url('supplier') ?>">+Add Supplier</a></p>
-                                        </div>
+                                        <label class="form-label" for="room-no-add">Barang</label>
+                                        <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
+                                            <option selected disabled>Pilih Barang</option>
+                                            <?php foreach ($barang as $b) : ?>
+                                                <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Barang</label>
-                                        <div class="form-control-wrap">
-                                            <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
-                                                <option selected disabled>Pilih Barang</option>
-                                                <?php foreach ($barang as $key) : ?>
-                                                    <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                        <p><a href=" <?= site_url('barang') ?>">+Add Barang</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12 mt-2">
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="stok">Stok</label>
                                         <div class="input-group">
                                             <input readonly type="number" id="stok" class="form-control">
                                         </div>
                                     </div>
+                                    <p id="stokWarning" class="text-warning"><i>Stok Hampir Habis!</i></p>
                                 </div>
-                                <div class="col-md-6 col-sm-12 mt-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
-                                        <label class="form-label" for="jumlah_masuk">Jumlah Masuk</label>
+                                        <label class="form-label" for="jumlah_keluar">Jumlah Keluar</label>
                                         <div class="form-control-wrap">
                                             <div class="input-group">
-                                                <input type="number" class="form-control" name="jumlah_masuk" id="jumlah_masuk" placeholder="Jumlah Masuk">
+                                                <input type="number" class="form-control" for="jumlah_keluar" name="jumlah_keluar" id="jumlah_keluar" placeholder="Jumlah Keluar">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="satuan">Satuan</span>
                                                 </div>
@@ -159,9 +138,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 mt-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-control-wrap">
-                                        <label class="form-label" for="basic-total_stok">Total Stok</label>
+                                        <label class="form-label" for="total_stok">Sisa Stok</label>
                                         <div class="input-group">
                                             <input readonly type="number" id="total_stok" class="form-control">
                                         </div>
@@ -172,14 +151,6 @@
                         <div class="col-lg-6 col-md-12 col-sm-12" id="scanner-container">
                             <!-- disini camera reader qr code -->
                             <video id="scanner" class="scann__qr"></video>
-                            <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" value="1" autocomplete="off" checked> Camera Depan
-                                </label>
-                                <label class="btn btn-secondary active">
-                                    <input type="radio" name="options" value="2" autocomplete="off"> Camera Belakang
-                                </label>
-                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
@@ -204,31 +175,6 @@
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
 
-<!-- Skrip yang menggunakan fungsi stopScanner() -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var scannerVideo = document.getElementById('scanner-container');
-        var cameraSwitch = document.getElementById('cameraScanner');
-
-        function toggleScannerVideo() {
-            if (cameraSwitch.checked) {
-                scannerVideo.style.display = 'block';
-                startScanner(); // Fungsi untuk memulai scanner (sesuaikan dengan implementasi Anda)
-            } else {
-                scannerVideo.style.display = 'none';
-                stopScanner(); // Fungsi untuk menghentikan scanner (sesuaikan dengan implementasi Anda)
-            }
-        }
-
-        function stopScanner() {
-            // Logika untuk menghentikan scanner
-            console.log('Scanner stopped'); // Gantilah dengan logika sesuai kebutuhan Anda
-        }
-
-        toggleScannerVideo();
-        cameraSwitch.addEventListener('change', toggleScannerVideo);
-    });
-</script>
-
+<script src="<?= base_url('assets') ?>/js/custom/barang-keluar.js"></script>
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
