@@ -28,18 +28,30 @@ class Admin_model extends CI_Model
         return $this->db->delete($table, [$pk => $id]);
     }
 
-    // barang
     public function getBarang()
     {
-        $this->db->select('*');
-        $this->db->from('barang');
-        $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
-        $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
-        $this->db->order_by('id_barang');
+        $query = "
+            SELECT *
+            FROM barang
+            LEFT JOIN jenis ON barang.id_jenis = jenis.id
+            LEFT JOIN satuan ON barang.id_satuan = satuan.id
+            ORDER BY barang.date_update DESC
+        ";
 
-        return $this->db->get()->result_array();
+        return $this->db->query($query)->result_array();
     }
 
+    public function editImageById($id)
+    {
+        $query = "
+            SELECT *
+            FROM barang
+            WHERE id_barang = $id
+            ORDER BY barang.date_update DESC
+        ";
+
+        return $this->db->query($query)->row_array();
+    }
 
     public function getMax($table, $field, $kode = null)
     {

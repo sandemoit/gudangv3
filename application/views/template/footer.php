@@ -10,7 +10,6 @@
             </div>
             </div>
             </div>
-            <script src="<?= base_url('assets') ?>/js/bundle.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/scripts.js?ver=3.0.3"></script>
             <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
             <!-- Menggunakan versi di-host (CDN) -->
@@ -26,6 +25,7 @@
                     });
                 }, 5000);
             </script>
+
             <script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>
 

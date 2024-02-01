@@ -181,11 +181,11 @@
                             <input type="hidden" name="id" value="<?= $user['id'] ?>">
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="form-label" for="customFileLabel">Upload Foto</label>
+                                    <label class="form-label" for="image">Upload Foto</label>
                                     <div class="form-control-wrap">
                                         <div class="form-file">
                                             <input type="file" class="form-file-input" id="image" name="image">
-                                            <label class="form-file-label" for="customFile">Choose foto</label>
+                                            <label class="form-file-label" for="image">Choose foto</label>
                                             <p class="text-orange"><em>Maximal upload 2 MB & Format JPG, PNG.</em></p>
                                         </div>
                                     </div>

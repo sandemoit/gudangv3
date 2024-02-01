@@ -71,6 +71,10 @@
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li>
+                                                                            <a data-bs-toggle="modal" href="#gambar<?= $s['id_barang'] ?>" class="text-success"><em class="icon ni ni-eye"></em><span>Lihat Gambar</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
                                                                             <a data-bs-toggle="modal" href="#edit<?= $s['id_barang'] ?>" class="text-primary"><em class="icon ni ni-edit"></em><span>Edit</span>
                                                                             </a>
                                                                         </li>
@@ -105,7 +109,7 @@
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
                 <h5 class="modal-title">Add barang</h5>
-                <?= form_open('', [], ['stok' => 0]); ?>
+                <?= form_open_multipart('', [], ['stok' => 0]); ?>
                 <div class="row g-gs">
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group">
@@ -116,7 +120,7 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group">
                             <label class="form-label" for="room-no-add">Nama Barang</label>
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="Nama barang">
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="Nama barang" value="<?= set_value('nama_barang') ?>">
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12">
@@ -137,7 +141,7 @@
                             <select name="id_jenis" id="id_jenis" class="form-select js-select2 js-select2-sm">
                                 <option selected disabled>Pilih Jenis Barang</option>
                                 <?php foreach ($jenis as $key) : ?>
-                                    <option value="<?= $key['id'] ?>"><?= $key['nama_jenis'] ?></option>
+                                    <option <?= set_select('id_jenis', $key['id']) ?> value="<?= $key['id'] ?>"><?= $key['nama_jenis'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <p><a href="<?= site_url('jenis') ?>">+ Add Jenis Barang</a></p>
@@ -146,7 +150,19 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="form-group">
                             <label class="form-label" for="stok_awal">Stok</label>
-                            <input type="text" class="form-control" name="stok_awal" id="stok_awal" placeholder="Stok Awal" value="0">
+                            <input type="text" class="form-control" name="stok_awal" id="stok_awal" placeholder="Stok Awal" value="<?= set_value('stok_awal', 0) ?>">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label">Upload Gambar</label>
+                            <div class="form-control-wrap">
+                                <div class="form-file">
+                                    <input type="file" class="form-file-input" id="image" name="image">
+                                    <label class="form-file-label" for="customFile">Choose foto</label>
+                                    <p class="text-orange"><em>Maximal upload 2 MB & Format JPG, PNG.</em></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--col-->
@@ -175,7 +191,7 @@
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
                     <h5 class="modal-title">Edit barang</h5>
-                    <?= form_open('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
+                    <?= form_open_multipart('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
@@ -213,6 +229,18 @@
                                 <input type="text" class="form-control" value="<?= $b['stok_awal'] ?>" name="stok_awal" id="rupiah-edit" placeholder="123456789">
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Upload Gambar</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-file">
+                                        <input type="file" class="form-file-input" id="image" name="image">
+                                        <label class="form-file-label" for="customFile">Choose foto</label>
+                                        <p class="text-orange"><em>Maximal upload 2 MB & Format JPG, PNG.</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!--col-->
                         <div class="col-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
@@ -226,6 +254,35 @@
                         </div>
                     </div>
                     <?= form_close(); ?>
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+<?php endforeach; ?>
+
+<!-- Edit Room-->
+<?php foreach ($barang as $b) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="gambar<?= $b['id_barang'] ?>">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-md">
+                    <h5 class="modal-title">Gambar barang</h5>
+                    <div class="row g-gs">
+                        <div class="col">
+                            <div class="form-group">
+                                <img src="<?= base_url('assets/images/barang/') . $b['image'] ?>" style="width: auto; height: 100%">
+                            </div>
+                        </div>
+                        <!--col-->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div><!-- .modal-body -->
             </div><!-- .modal-content -->
         </div><!-- .modal-dialog -->

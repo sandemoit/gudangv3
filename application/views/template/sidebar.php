@@ -24,14 +24,14 @@
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('dashboard') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
-                                    <span class="nk-menu-text">Dashboard</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Dashboard</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <?php if (is_admin()) : ?>
                                 <li class="nk-menu-item">
                                     <a href="<?= site_url('usermanage') ?>" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
-                                        <span class="nk-menu-text">User Management</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        <span class="nk-menu-text">User Management</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
                             <?php endif; ?>
@@ -39,7 +39,7 @@
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('setting') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
-                                    <span class="nk-menu-text">Setting Aplikasi</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Setting Aplikasi</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
@@ -48,7 +48,7 @@
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('supplier') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                    <span class="nk-menu-text">Supplier</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Supplier</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
@@ -74,13 +74,19 @@
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('masuk') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-in-fill"></em></span>
-                                    <span class="nk-menu-text">Barang Masuk</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Barang Masuk</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('keluar') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-out-fill"></em></span>
-                                    <span class="nk-menu-text">Barang Keluar</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Barang Keluar</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('pelanggan') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-add"></em></span>
+                                    <span class="nk-menu-text">Data Pelanggan</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
@@ -89,13 +95,13 @@
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('laporan') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
-                                    <span class="nk-menu-text">Laporan Transaksi</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Laporan Transaksi</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('database') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-server"></em></span>
-                                    <span class="nk-menu-text">Back Up Database</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    <span class="nk-menu-text">Back Up Database</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->

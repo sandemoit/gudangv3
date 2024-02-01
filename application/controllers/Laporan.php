@@ -12,6 +12,7 @@ class Laporan extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Other_model');
+        $this->load->model('Laporan_model');
         $this->load->library('Dompdf_gen');
     }
 
@@ -21,9 +22,12 @@ class Laporan extends CI_Controller
         $data['title'] = 'Laporan Barang Masuk & Keluar';
         $data['setting'] = $this->Other_model->getSetting();
 
+        // Periksa apakah ada input start_date dan end_date dari POST
         $start_date = $this->input->post('start_date');
         $end_date = $this->input->post('end_date');
-        $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
+
+        // Panggil model untuk mendapatkan data laporan berdasarkan tanggal
+        $data['laporan'] = $this->Laporan_model->getLaporanData($start_date, $end_date);
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
@@ -43,9 +47,9 @@ class Laporan extends CI_Controller
 
         // Ambil data laporan dari model
         if ($start_date !== null && $end_date !== null) {
-            $laporan = $this->Other_model->getLaporanData($start_date, $end_date);
+            $laporan = $this->Laporan_model->getLaporanData($start_date, $end_date);
         } else {
-            $laporan = $this->Other_model->getAllLaporanData();
+            $laporan = $this->Laporan_model->getAllLaporanData();
         }
 
         // Load library PHPSpreadsheet
@@ -134,10 +138,15 @@ class Laporan extends CI_Controller
         $end_date = isset($end_date) ? $end_date : null;
 
         if ($start_date !== null && $end_date !== null) {
-            $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
+            $data['laporan'] = $this->Laporan_model->getLaporanData($start_date, $end_date);
         } else {
-            $data['laporan'] = $this->Other_model->getAllLaporanData();
+            $data['laporan'] = $this->Laporan_model->getAllLaporanData();
         }
+
+        $data['title'] = 'Laporan Barang';
+        $data['start_date'] = tanggal($start_date);
+        $data['end_date'] = tanggal($end_date);
+
         $this->load->view('laporan/laporan', $data);
     }
 
@@ -154,11 +163,15 @@ class Laporan extends CI_Controller
 
         // Ambil data berdasarkan rentang tanggal jika start_date dan end_date terdefinisi
         if ($start_date !== null && $end_date !== null) {
-            $data['laporan'] = $this->Other_model->getLaporanData($start_date, $end_date);
+            $data['laporan'] = $this->Laporan_model->getLaporanData($start_date, $end_date);
         } else {
             // Jika start_date atau end_date kosong, tampilkan semua data
-            $data['laporan'] = $this->Other_model->getAllLaporanData();
+            $data['laporan'] = $this->Laporan_model->getAllLaporanData();
         }
+
+        $data['title'] = 'Laporan Barang';
+        $data['start_date'] = tanggal($start_date);
+        $data['end_date'] = tanggal($end_date);
 
         // Load library DOMPDF
         $this->load->library('Dompdf_gen');
@@ -180,16 +193,16 @@ class Laporan extends CI_Controller
         $dompdf->stream('laporan.pdf', array('Attachment' => 0));
     }
 
-    public function filter()
-    {
-        // Ambil nilai dari form
-        $tanggal_awal = $this->input->post('tanggal_awal');
-        $tanggal_akhir = $this->input->post('tanggal_akhir');
+    // public function filter()
+    // {
+    //     // Ambil nilai dari form
+    //     $tanggal_awal = $this->input->post('tanggal_awal');
+    //     $tanggal_akhir = $this->input->post('tanggal_akhir');
 
-        // Query database sesuai dengan jenis laporan
-        $laporanData = $this->Other_model->getFilteredData($tanggal_awal, $tanggal_akhir);
+    //     // Query database sesuai dengan jenis laporan
+    //     $laporanData = $this->Other_model->getFilteredData($tanggal_awal, $tanggal_akhir);
 
-        $data['laporan'] = $laporanData;
-        $this->load->view('laporan_view', $data);
-    }
+    //     $data['laporan'] = $laporanData;
+    //     $this->load->view('laporan_view', $data);
+    // }
 }

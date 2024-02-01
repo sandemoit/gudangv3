@@ -29,25 +29,16 @@
                                 <label class="form-label">Filter Tanggal</label>
                                 <form action="<?= site_url('laporan') ?>" method="post" class="form-inline" id="filterForm">
                                     <div class="form-group mb-0">
-                                        <div class="form-control-wrap focused">
-                                            <div class="form-icon form-icon-left"><em class="icon ni ni-calendar"></em></div>
-                                            <input type="text" name="start_date" class="form-control date-picker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Awal" value="<?= set_value('start_date', isset($start_date) ? $start_date : ''); ?>">
+                                        <div id="reportrange">
+                                            <em class="icon ni ni-caret-down-fill"></em>&nbsp;
+                                            <span></span> <em class="icon ni ni-calendar-alt"></em>
                                         </div>
-                                        <?= form_error('start_date', '<span class="text-danger small">', '</span>'); ?>
-                                    </div>
-                                    <div class="form-group mx-sm-3 mb-0">
-                                        <div class="form-control-wrap focused">
-                                            <div class="form-icon form-icon-left"><em class="icon ni ni-calendar"></em></div>
-                                            <input type="text" name="end_date" id="end_date" class="form-control date-picker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Keluar" value="<?= set_value('end_date', isset($end_date) ? $end_date : ''); ?>">
-                                        </div>
-                                        <?= form_error('end_date', '<span class="text-danger small">', '</span>'); ?>
+                                        <input type="hidden" id="selectedStartDate" name="start_date">
+                                        <input type="hidden" id="selectedEndDate" name="end_date">
                                     </div>
                                     <div class="col-3">
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
-                                                <li>
-                                                    <button type="submit" class="btn btn-icon btn-secondary"><em class="icon ni ni-filter"></em> Filter</button>
-                                                </li>
                                                 <li>
                                                     <button type="button" class="btn btn-icon btn-warning" onclick="resetDates()"><em class="icon ni ni-reload-alt"></em> Reset </button>
                                                 </li>
@@ -89,12 +80,7 @@
                                             <td><?= $item['stok_awal']; ?></td>
                                             <td><?= (!empty($item['jumlah_masuk'])) ? $item['jumlah_masuk'] : 0; ?></td>
                                             <td><?= (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0; ?></td>
-                                            <td>
-                                                <?php
-                                                $totalStok = ((!empty($item['stok'])) ? $item['stok'] : 0);
-                                                echo $totalStok;
-                                                ?>
-                                            </td>
+                                            <td><?= ((!empty($item['stok'])) ? $item['stok'] : 0); ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -106,3 +92,6 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

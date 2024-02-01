@@ -28,4 +28,40 @@ class Laporan_model extends CI_Model
             return null;
         }
     }
+
+    public function getLaporanData($startDate = null, $endDate = null)
+    {
+        $this->db->select('barang.id_barang, nama_barang, stok_awal, stok');
+        $this->db->select('IFNULL(SUM(jumlah_masuk), 0) AS jumlah_masuk', false);
+        $this->db->select('IFNULL(SUM(jumlah_keluar), 0) AS jumlah_keluar', false);
+
+        $this->db->from('barang');
+        $this->db->join('barang_masuk', 'barang.id_barang = barang_masuk.barang_id', 'left');
+        $this->db->join('barang_keluar', 'barang.id_barang = barang_keluar.barang_id', 'left');
+
+        if ($startDate && $endDate) {
+            $this->db->group_start()
+                ->where('tanggal_masuk >=', $startDate)
+                ->where('tanggal_masuk <=', $endDate)
+                ->or_where('tanggal_keluar >=', $startDate)
+                ->where('tanggal_keluar <=', $endDate)
+                ->group_end();
+        }
+
+        $this->db->group_by('barang.id_barang, nama_barang, stok_awal, stok');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getAllLaporanData()
+    {
+        $this->db->select('*');
+        $this->db->from('barang');
+        $this->db->join('barang_masuk', 'barang.id_barang = barang_masuk.barang_id', 'left');
+        $this->db->join('barang_keluar', 'barang.id_barang = barang_keluar.barang_id', 'left');
+        $this->db->group_by('barang.id_barang');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

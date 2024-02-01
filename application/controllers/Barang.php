@@ -11,7 +11,7 @@ class Barang extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Admin_model');
+        $this->load->model('Admin_model', 'admin');
         $this->load->model('Other_model');
     }
 
@@ -19,19 +19,20 @@ class Barang extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Data Barang";
-        $data['barang'] = $this->Admin_model->getBarang();
+        $data['barang'] = $this->admin->getBarang();
         $data['setting'] = $this->Other_model->getSetting();
-        $data['jenis'] = $this->Admin_model->get('jenis');
-        $data['satuan'] = $this->Admin_model->get('satuan');
+        $data['jenis'] = $this->admin->get('jenis');
+        $data['satuan'] = $this->admin->get('satuan');
 
         // Mengenerate ID Barang
-        // $kode_terakhir = $this->Admin_model->getMax('barang', 'id_barang');
+        // $kode_terakhir = $this->admin->getMax('barang', 'id_barang');
         // $kode_tambah = substr($kode_terakhir, -6, 6);
         // $kode_tambah++;
         // $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
-        // $data['id_barang'] = 'B' . $number;
+        // $data['id_barang'] = 'B' . $number; //tinggal panggil variabel di view "id_barang"
 
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
+        $this->form_validation->set_rules('id_barang', 'ID Barang', 'required');
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
 
@@ -42,20 +43,39 @@ class Barang extends CI_Controller
             $this->load->view('master/barang', $data);
             $this->load->view('template/footer', $data);
         } else {
-            $data = [
+            $input_data = [
                 'id_barang' => $this->input->post('id_barang', true),
                 'nama_barang' => $this->input->post('nama_barang', true),
                 'stok_awal' => $this->input->post('stok_awal', true),
                 'stok' => $this->input->post('stok_awal', true),
                 'id_jenis' => $this->input->post('id_jenis', true),
-                'id_satuan' => $this->input->post('id_satuan', true)
+                'id_satuan' => $this->input->post('id_satuan', true),
+                'date_add' => date('Y-m-d H:i:s'),
+                'date_update' => date('Y-m-d H:i:s')
             ];
-            $insert = $this->Admin_model->insert('barang', $data);
-            if ($insert) {
-                set_pesan('data berhasil ditambah!');
+            $upload_config['upload_path'] = 'assets/images/barang';
+            $upload_config['allowed_types'] = 'jpg|png|jpeg';
+            $upload_config['max_size'] = 2014;
+            $upload_config['encrypt_name'] = true;
+
+            $this->upload->initialize($upload_config);
+
+            // Lakukan upload file
+            if ($this->upload->do_upload('image')) {
+                $image = $this->upload->data('file_name');
+                $this->db->set('image', $image);
             } else {
-                set_pesan('data gagal ditambah!', false);
+                $image = null;
             }
+
+            $insert_result = $this->admin->insert('barang', $input_data);
+
+            if ($insert_result) {
+                set_pesan('Data berhasil ditambah!');
+            } else {
+                set_pesan('Data gagal ditambah!', false);
+            }
+
             redirect('barang');
         }
     }
@@ -63,15 +83,43 @@ class Barang extends CI_Controller
     public function edit()
     {
         $id = $this->input->post('id_barang');
+        $barang = $this->admin->editImageById($id);
 
         $data = [
             'nama_barang' => $this->input->post('nama_barang'),
             'id_jenis' => $this->input->post('id_jenis'),
             'stok_awal' => $this->input->post('stok_awal'),
-            'id_satuan' => $this->input->post('id_satuan')
+            'id_satuan' => $this->input->post('id_satuan'),
+            'date_update' => date('Y-m-d H:i:s')
         ];
 
-        $this->Admin_model->update('barang', 'id_barang', $id, $data);
+        // cek jika ada gambar yang akan diupload
+        $upload_image = $_FILES['image']['name'];
+
+        if ($upload_image) {
+            $upload_config['upload_path'] = FCPATH .  'assets/images/barang';
+            $upload_config['allowed_types'] = 'jpg|png|jpeg';
+            $upload_config['max_size'] = 2014;
+            $upload_config['encrypt_name'] = true;
+
+            $this->upload->initialize($upload_config);
+
+            // Lakukan upload file
+            if ($this->upload->do_upload('image')) {
+                $old_image = $barang['image'];
+                if ($old_image) {
+                    unlink(FCPATH . 'assets/images/barang/' . $old_image);
+                }
+                $image = $this->upload->data('file_name');
+                $this->db->set('image', $image);
+            } else {
+                $error = $this->upload->dispay_errors();;
+                set_pesan($error, false);
+            }
+        }
+
+        $this->admin->update('barang', 'id_barang', $id, $data);
+
         set_pesan('Data berhasil diubah!');
         redirect('barang');
     }
@@ -79,7 +127,7 @@ class Barang extends CI_Controller
     public function delete($id)
     {
         $id = encode_php_tags($id);
-        $this->Admin_model->delete('barang', 'id_barang', $id);
+        $this->admin->delete('barang', 'id_barang', $id);
         set_pesan('Data berhasil dihapus!');
         redirect('barang');
     }
@@ -238,7 +286,7 @@ class Barang extends CI_Controller
     //     // $data['query'] = $this->Laporan_model->getLaporan($jenis_laporan, $tanggal_awal, $tanggal_akhir);
 
     //     // Load view untuk generate HTML
-    //     $data['barang'] = $this->Admin_model->cetak();
+    //     $data['barang'] = $this->admin->cetak();
     //     $html = $this->load->view('master/cetak', $data, true);
 
     //     // Buat instance Dompdf

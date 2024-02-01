@@ -107,7 +107,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label" for="room-no-add">Barang</label>
-                                        <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
+                                        <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
                                             <option selected disabled>Pilih Barang</option>
                                             <?php foreach ($barang as $b) : ?>
                                                 <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="scanner-container">
                             <!-- disini camera reader qr code -->
                             <video id="scanner" class="scann__qr"></video>
                         </div>
@@ -159,6 +159,12 @@
                                 </li>
                                 <li>
                                     <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
+                                </li>
+                                <li>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="cameraScanner">
+                                        <label class="custom-control-label" for="cameraScanner">Camera Scanner</label>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -172,6 +178,3 @@
 <script src="<?= base_url('assets') ?>/js/custom/barang-keluar.js"></script>
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
-
-<!-- <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-<script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script> -->

@@ -111,25 +111,29 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Supplier</label>
-                                        <select name="id_supplier" id="id_supplier" class="form-select js-select2 js-select2-sm">
-                                            <option selected disabled>Pilih Supplier</option>
-                                            <?php foreach ($supplier as $s) : ?>
-                                                <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <p><a href="<?= site_url('supplier') ?>">+ Add Supplier</a></p>
+                                        <div class="form-control-wrap">
+                                            <select name="id_supplier" id="id_supplier" data-search="on" class="form-select js-select2">
+                                                <option selected disabled>Pilih Supplier</option>
+                                                <?php foreach ($supplier as $s) : ?>
+                                                    <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <p><a href="<?= site_url('supplier') ?>">+Add Supplier</a></p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label">Barang</label>
-                                        <select name="barang_id" id="barang_id" class="form-select js-select2 js-select2-sm">
-                                            <option selected disabled>Pilih Barang</option>
-                                            <?php foreach ($barang as $key) : ?>
-                                                <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
+                                        <div class="form-control-wrap">
+                                            <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
+                                                <option selected disabled>Pilih Barang</option>
+                                                <?php foreach ($barang as $key) : ?>
+                                                    <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <p><a href=" <?= site_url('barang') ?>">+Add Barang</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -165,10 +169,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="scanner-container">
                             <!-- disini camera reader qr code -->
                             <video id="scanner" class="scann__qr"></video>
-                            <br>
                             <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
                                 <label class="btn btn-primary">
                                     <input type="radio" name="options" value="1" autocomplete="off" checked> Camera Depan
@@ -178,7 +181,6 @@
                                 </label>
                             </div>
                         </div>
-
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
@@ -186,6 +188,12 @@
                                 </li>
                                 <li>
                                     <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
+                                </li>
+                                <li>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="cameraScanner">
+                                        <label class="custom-control-label" for="cameraScanner">Camera Scanner</label>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -195,9 +203,32 @@
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
-<!-- <script src="<?= base_url('assets') ?>/js/custom/instascan.min.js"></script> -->
+
+<!-- Skrip yang menggunakan fungsi stopScanner() -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var scannerVideo = document.getElementById('scanner-container');
+        var cameraSwitch = document.getElementById('cameraScanner');
+
+        function toggleScannerVideo() {
+            if (cameraSwitch.checked) {
+                scannerVideo.style.display = 'block';
+                startScanner(); // Fungsi untuk memulai scanner (sesuaikan dengan implementasi Anda)
+            } else {
+                scannerVideo.style.display = 'none';
+                stopScanner(); // Fungsi untuk menghentikan scanner (sesuaikan dengan implementasi Anda)
+            }
+        }
+
+        function stopScanner() {
+            // Logika untuk menghentikan scanner
+            console.log('Scanner stopped'); // Gantilah dengan logika sesuai kebutuhan Anda
+        }
+
+        toggleScannerVideo();
+        cameraSwitch.addEventListener('change', toggleScannerVideo);
+    });
+</script>
+
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
-
-<!-- <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-<script src="<?= base_url('assets') ?>/js/custom/qr-code.js"></script> -->

@@ -37,7 +37,8 @@
 
 <body>
 
-    <h2>Laporan Cetak</h2>
+    <h2 style="text-align: center;"><?= $title; ?></h2>
+    <p style="text-align: center;">Periode: <?= $start_date . ' - ' . $end_date ?></p>
 
     <table>
         <thead>
