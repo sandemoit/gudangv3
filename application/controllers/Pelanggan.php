@@ -16,9 +16,9 @@ class Pelanggan extends CI_Controller
         $data['setting'] = $this->db->get('setting')->row_array();
         $data['pelanggan'] = $this->pelanggan->get('pelanggan');
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('kode_toko', 'Kode Toko', 'required|trim');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', ['required' => 'Nama tidak boleh kosong']);
+        $this->form_validation->set_rules('kode_toko', 'Kode Toko', 'required|trim', ['required' => 'Kode Toko tidak boleh kosong']);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', ['required' => 'Alamat tidak boleh kosong']);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
