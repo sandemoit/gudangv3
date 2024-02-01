@@ -46,6 +46,12 @@
                                 <h6 class="overline-title text-primary-alt">Data Master</h6>
                             </li><!-- .nk-menu-heading -->
                             <li class="nk-menu-item">
+                                <a href="<?= site_url('pelanggan') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                    <span class="nk-menu-text">Pelanggan</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
                                 <a href="<?= site_url('supplier') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                                     <span class="nk-menu-text">Supplier</span>
