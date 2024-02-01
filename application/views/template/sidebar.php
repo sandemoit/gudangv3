@@ -83,12 +83,6 @@
                                     <span class="nk-menu-text">Barang Keluar</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a href="<?= site_url('pelanggan') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-add"></em></span>
-                                    <span class="nk-menu-text">Data Pelanggan</span>
-                                </a>
-                            </li><!-- .nk-menu-item -->
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Lainnya</h6>
                             </li><!-- .nk-menu-item -->
@@ -96,6 +90,12 @@
                                 <a href="<?= site_url('laporan') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
                                     <span class="nk-menu-text">Laporan Transaksi</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="<?= site_url('LaporanPelanggan') ?>" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
+                                    <span class="nk-menu-text">Laporan Pelanggan</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">

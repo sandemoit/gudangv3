@@ -133,7 +133,7 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <p><a href=" <?= site_url('barang') ?>">+ Add Barang</a></p>
+                                        <p><a href=" <?= site_url('barang') ?>">+Add Barang</a></p>
                                     </div>
                                 </div>
                             </div>

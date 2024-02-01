@@ -147,7 +147,7 @@ class Laporan extends CI_Controller
         $data['start_date'] = tanggal($start_date);
         $data['end_date'] = tanggal($end_date);
 
-        $this->load->view('laporan/laporan', $data);
+        $this->load->view('laporan/print', $data);
     }
 
 

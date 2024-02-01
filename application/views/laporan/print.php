@@ -53,22 +53,30 @@
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; ?>
-            <?php foreach ($laporan as $item) : ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $item['id_barang']; ?></td>
-                    <td><?= $item['nama_barang']; ?></td>
-                    <td><?= $item['stok_awal']; ?></td>
-                    <td><?= (!empty($item['jumlah_masuk'])) ? $item['jumlah_masuk'] : 0; ?></td>
-                    <td><?= (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0; ?></td>
-                    <td>
-                        <?php
-                        $totalStok = ((!empty($item['stok'])) ? $item['stok'] : 0);
-                        echo $totalStok;
-                        ?>
-                    </td>
-                </tr>
+            <?php
+            $no = 1;
+            foreach ($laporan as $item) :
+            ?>
+                <?php if (empty($item)) : ?>
+                    <tr>
+                        <td colspan="7">Data Tidak Ditemukan</td>
+                    </tr>
+                <?php else : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $item['id_barang']; ?></td>
+                        <td><?= $item['nama_barang']; ?></td>
+                        <td><?= $item['stok_awal']; ?></td>
+                        <td><?= (!empty($item['jumlah_masuk'])) ? $item['jumlah_masuk'] : 0; ?></td>
+                        <td><?= (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0; ?></td>
+                        <td>
+                            <?php
+                            $totalStok = ((!empty($item['stok'])) ? $item['stok'] : 0);
+                            echo $totalStok;
+                            ?>
+                        </td>
+                    </tr>
+                <?php endif ?>
             <?php endforeach ?>
         </tbody>
     </table>
