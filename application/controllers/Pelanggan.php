@@ -14,7 +14,7 @@ class Pelanggan extends CI_Controller
         $data['title'] = 'Data Pelanggan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['setting'] = $this->db->get('setting')->row_array();
-        $data['pelanggan'] = $this->pelanggan->getPelanggan();
+        $data['pelanggan'] = $this->pelanggan->get('pelanggan');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('kode_toko', 'Kode Toko', 'required|trim');
@@ -38,5 +38,41 @@ class Pelanggan extends CI_Controller
 
             redirect('pelanggan');
         }
+    }
+
+    public function edit($id)
+    {
+        $nama = $this->input->post('nama', true);
+        $kode_toko = $this->input->post('kode_toko', true);
+        $alamat = $this->input->post('alamat', true);
+
+        if (empty($nama) || empty($kode_toko) || empty($alamat)) {
+            set_pesan('Semua kolom harus diisi.', false);
+        } else {
+            $save = [
+                'nama' => $nama,
+                'kode_toko' => $kode_toko,
+                'alamat' => $alamat,
+            ];
+
+            $this->pelanggan->update('pelanggan', 'id_pelanggan', $id, $save);
+            set_pesan('Data Pelanggan Berhasil diedit.');
+        }
+
+        redirect('pelanggan');
+    }
+
+    public function delete($id)
+    {
+        $existing_data = $this->pelanggan->get_by_id('pelanggan', 'id_pelanggan', $id);
+
+        if (!$existing_data) {
+            set_pesan('Data Pelanggan tidak ditemukan.', false);
+        } else {
+            $this->pelanggan->delete('pelanggan', 'id_pelanggan', $id);
+            set_pesan('Data Pelanggan Berhasil dihapus.');
+        }
+
+        redirect('pelanggan');
     }
 }

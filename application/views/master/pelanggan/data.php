@@ -123,7 +123,7 @@
 <!-- Add Room-->
 <?php foreach ($pelanggan as $value) : ?>
     <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $value['id_pelanggan'] ?>">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
