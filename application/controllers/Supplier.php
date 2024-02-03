@@ -33,6 +33,7 @@ class Supplier extends CI_Controller
             ]
         );
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -65,11 +66,13 @@ class Supplier extends CI_Controller
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required|trim');
         $this->form_validation->set_rules('nohp', 'No Telphone', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email');
 
         $data = [
             'nama_supplier' => $this->input->post('nama_supplier'),
             'nohp' => $this->input->post('nohp'),
             'alamat' => $this->input->post('alamat'),
+            'email' => $this->input->post('email'),
         ];
         $this->Admin_model->update('suplier', 'id', $id, $data);
         set_pesan('data berhasil disimpan!');

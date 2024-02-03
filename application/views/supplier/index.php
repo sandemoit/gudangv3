@@ -106,7 +106,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="room-no-add">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Alamat Email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Alamat Email">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -155,10 +155,16 @@
                                     <input type="number" class="form-control" name="nohp" id="nohp" placeholder="No Telphone" value="<?= $s['nohp'] ?>">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="room-no-add">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?= $s['email'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="room-no-add">Alamat</label>
-                                    <textarea class="form-control" name="alamat" id="alamat" rows="2" placeholder="Alamat supplier"><?= $s['alamat'] ?></textarea>
+                                    <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?= $s['alamat'] ?>">
                                 </div>
                             </div>
                             <!--col-->

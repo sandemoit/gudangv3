@@ -16,7 +16,8 @@
                                 <ul class="nk-block-tools g-3">
                                     <li>
                                         <div class="drodown">
-                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add <?= $title; ?></a>
+                                            <a href="<?= site_url('pelanggan') ?>" class="btn btn-icon btn-primary"><em class="icon ni ni-plus"></em>Add Pelanggan</a>
+                                            <a href="#add" class="btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add <?= $title; ?></a>
                                         </div>
                                     </li>
                                 </ul>

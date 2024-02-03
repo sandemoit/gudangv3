@@ -136,7 +136,7 @@ class Pelanggan extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar');
-        $this->load->view('pelanggan/sales');
+        $this->load->view('master/pelanggan/sales');
         $this->load->view('template/footer');
     }
 }
