@@ -1,4 +1,3 @@
-// Button laporan
 $(function() {
     // Inisialisasi tanggal awal dan akhir
     var start = moment().startOf('month');
@@ -78,47 +77,3 @@ $(function() {
         window.location.replace(baseurl + 'laporan?start_date=' + startDate + '&end_date=' + endDate);
     }
 });
-
-function resetDates() {
-    const reportUrl = baseurl + `laporan`;
-    window.location.replace(reportUrl);
-}
-
-function generatePDF() {
-    // Dapatkan nilai start_date dan end_date dari formulir
-    var startDate = document.getElementsByName("start_date")[0].value;
-    var endDate = document.getElementsByName("end_date")[0].value;
-
-    // Jika tanggal tidak diisi, setel nilai default ke kosong atau nilai yang sesuai
-    startDate = startDate.trim() !== '' ? startDate : '';
-    endDate = endDate.trim() !== '' ? endDate : '';
-
-    // Buat URL dengan parameter GET
-    var pdfURL = baseurl + 'laporan/pdf?start_date=' + startDate + '&end_date=' + endDate;
-
-    // Arahkan pengguna ke URL
-    window.location.href = pdfURL;
-}
-
-function generateCetak() {
-    const startDate = document.getElementsByName("start_date")[0].value.trim() || '';
-    const endDate = document.getElementsByName("end_date")[0].value.trim() || '';
-
-    const pdfURL = `${baseurl}laporan/cetak?start_date=${startDate}&end_date=${endDate}`;
-    console.log('PDF URL:', pdfURL);
-
-    window.location.href = pdfURL;
-}
-
-function downloadExcel() {
-    var startDate = document.getElementsByName("start_date")[0].value.trim();
-    var endDate = document.getElementsByName("end_date")[0].value.trim();
-
-    var excelURL = `${baseurl}laporan/excel?start_date=${startDate}&end_date=${endDate}`;
-
-    window.location.href = excelURL;
-}
-
-function handleClick(event) {
-    event.preventDefault(); // menghentikan proses default
-}

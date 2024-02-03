@@ -93,5 +93,6 @@
     </div>
 </div>
 
+<script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

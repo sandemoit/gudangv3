@@ -11,7 +11,6 @@
             </div>
             </div>
             <script src="<?= base_url('assets') ?>/js/scripts.js?ver=3.0.3"></script>
-            <script src="<?= base_url('assets') ?>/js/charts/gd-default.js?ver=3.0.3"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
             <script>
@@ -26,9 +25,7 @@
                 }, 5000);
             </script>
 
-            <script src="<?= base_url('assets') ?>/js/custom/laporan.js"></script>
             <script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>
-
             </body>
 
             </html>

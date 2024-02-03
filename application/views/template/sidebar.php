@@ -105,12 +105,6 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
-                                <a href="<?= site_url('LaporanPelanggan') ?>" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-printer-fill"></em></span>
-                                    <span class="nk-menu-text">Laporan Pelanggan</span>
-                                </a>
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
                                 <a href="<?= site_url('database') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-server"></em></span>
                                     <span class="nk-menu-text">Back Up Database</span>

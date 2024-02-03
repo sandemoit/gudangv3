@@ -56,4 +56,30 @@ class M_Pelanggan extends CI_Model
         $query = $this->db->get('barang_keluar', $limit);
         return $query->result_array();
     }
+
+    public function getDataPelanggan($id)
+    {
+        $this->db->where('id_pelanggan', $id);
+        $query = $this->db->get('pelanggan');
+        return $query->row_array();
+    }
+
+    public function getTotalTrx($id)
+    {
+        $this->db->where('pelanggan_id', $id);
+        $query = $this->db->get('barang_keluar');
+        return $query->num_rows();
+    }
+
+    public function getSales($id)
+    {
+        $this->db->select('*');
+        $this->db->join('barang', 'barang.id_barang = barang_keluar.barang_id');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->where('pelanggan_id', $id);
+        $query = $this->db->get('barang_keluar');
+
+        return $query->result_array();
+    }
 }

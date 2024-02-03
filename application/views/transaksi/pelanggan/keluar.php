@@ -87,15 +87,24 @@
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
                 <h5 class="modal-title">Add <?= $title; ?></h5>
-                <form action="<?= base_url('keluar') ?>" method="post">
+                <form action="<?= base_url('pelanggan/trx') ?>" method="post">
                     <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Pelanggan</label>
+                                <select name="pelanggan_id" id="pelanggan_id" data-search="on" class="form-select js-select2">
+                                    <option selected disabled>Pilih Pelanggan</option>
+                                    <?php foreach ($pelanggan as $value) : ?>
+                                        <option value="<?= $value['id_pelanggan']; ?>"><?= $value['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label class="form-label" for="room-no-add">ID Barang</label>
-                                        <input readonly type="text" value="<?= $id_bkeluar; ?>" class="form-control" name="id_bkeluar">
+                                        <input type="text" value="<?= set_value('id_bkeluar') ?>" class="form-control" name="id_bkeluar">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
