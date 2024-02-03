@@ -42,6 +42,7 @@
                                                     <th>No</th>
                                                     <th>Nama</th>
                                                     <th>No Telphone</th>
+                                                    <th>Email</th>
                                                     <th>Alamat</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -53,6 +54,7 @@
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $s['nama_supplier'] ?></td>
                                                         <td><?= $s['nohp'] ?></td>
+                                                        <td><?= $s['email'] ?></td>
                                                         <td><?= $s['alamat'] ?></td>
                                                         <td>
                                                             <div class="drodown">
@@ -101,10 +103,16 @@
                                 <input type="number" class="form-control" name="nohp" id="nohp" placeholder="No Telphone">
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="room-no-add">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Alamat Email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="room-no-add">Alamat</label>
-                                <textarea class="form-control" name="alamat" id="alamat" rows="2" placeholder="Alamat supplier"></textarea>
+                                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat lengkap">
                             </div>
                         </div>
                         <!--col-->

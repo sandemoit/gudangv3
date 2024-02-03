@@ -32,10 +32,7 @@ class Supplier extends CI_Controller
                 'max_length' => 'No Telphone maximal 13 angka!'
             ]
         );
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]|max_length[100]', [
-            'min_length' => 'Alamat minimal 10 karakter!',
-            'max_length' => 'Alamat maximal 100 karakter!'
-        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -48,6 +45,7 @@ class Supplier extends CI_Controller
                 'nama_supplier' => $this->input->post('nama_supplier'),
                 'nohp' => $this->input->post('nohp'),
                 'alamat' => $this->input->post('alamat'),
+                'email' => $this->input->post('email'),
             ];
             $save = $this->Admin_model->insert('suplier', $data);
             if ($save) {

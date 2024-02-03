@@ -51,7 +51,7 @@
                                                 <?php foreach ($pelanggan as $value) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><a href="<?= site_url('pelanggan/sales/' . $value['id_pelanggan']) ?>"><?= $value['nama'] ?></a></td>
+                                                        <td><a href="<?= site_url('pelanggan/sales/' . $value['id_pelanggan']) ?>"><?= $value['nama'] ?> <em class="icon ni ni-cart"></em></a></td>
                                                         <td><?= $value['kode_toko'] ?></td>
                                                         <td><?= $value['alamat'] ?></td>
                                                         <td>
@@ -86,7 +86,7 @@
         <div class="modal-content">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
-                <h5 class="modal-title">Tambah pelanggan</h5>
+                <h5 class="modal-title">Tambah user</h5>
                 <form action="<?= site_url('pelanggan') ?>" method="POST" class="mt-2">
                     <div class="row g-gs">
                         <div class="col">
@@ -107,7 +107,7 @@
                         <div class="col-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">Add satuan</button>
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Add user</button>
                                 </li>
                                 <li>
                                     <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>

@@ -13,18 +13,18 @@
                     </a>
                 </div><!-- .nk-header-brand -->
                 <!-- <div class="nk-header-news d-none d-xl-block">
-                                <div class="nk-news-list">
-                                    <a class="nk-news-item" href="#">
-                                        <div class="nk-news-icon">
-                                            <em class="icon ni ni-card-view"></em>
-                                        </div>
-                                        <div class="nk-news-text">
-                                            <p>Do you know the latest update of 2022? <span> A overview of our is now available on YouTube</span></p>
-                                            <em class="icon ni ni-external"></em>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div> -->
+                    <div class="nk-news-list">
+                        <a class="nk-news-item" href="#">
+                            <div class="nk-news-icon">
+                                <em class="icon ni ni-card-view"></em>
+                            </div>
+                            <div class="nk-news-text">
+                                <p>Do you know the latest update of 2022? <span> A overview of our is now available on YouTube</span></p>
+                                <em class="icon ni ni-external"></em>
+                            </div>
+                        </a>
+                    </div>
+                </div> -->
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav">
                         <li class="dropdown user-dropdown">
@@ -58,9 +58,7 @@
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
                                         <li><a href="<?= site_url('profile') ?>"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                        <!-- <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                        <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                        <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> -->
+                                        <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-inner">
