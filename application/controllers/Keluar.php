@@ -42,26 +42,43 @@ class Keluar extends CI_Controller
         } else {
             // Cek stok barang sebelum memproses transaksi
             $barang_id = $this->input->post('barang_id');
+            $noTransaksi = $this->input->post('id_bkeluar');
             $jumlah_keluar = $this->input->post('jumlah_keluar');
 
             $stok_barang = $this->Admin_model->getStokBarang($barang_id);
             if ($stok_barang >= $jumlah_keluar) {
                 // Jika stok mencukupi, lanjutkan transaksi
                 $data = [
-                    'id_bkeluar' => $this->input->post('id_bkeluar'),
+                    'id_bkeluar' => $noTransaksi,
                     'id_user' => $this->input->post('id_user'),
                     'barang_id' => $barang_id,
                     'jumlah_keluar' => $jumlah_keluar,
                     'tanggal_keluar' => $this->input->post('tanggal_keluar')
                 ];
+
+                // surat jalan
+                $config['upload_path'] = 'assets/documents/surat_jalan/';
+                $config['allowed_types'] = 'pdf|xls|xlsx';
+                $config['max_size'] = 2048;
+                $config['file_name'] = $noTransaksi . '-' . date('Y-m-d');
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('surat_jalan')) {
+                    $error = $this->upload->display_errors();
+                    set_pesan($error, false);
+                } else {
+                    $file = $this->upload->data('file_name');
+                    $this->db->set('surat_jalan', $file);
+                }
+
                 $this->db->insert('barang_keluar', $data);
                 set_pesan('Data berhasil disimpan.');
-                redirect('keluar');
             } else {
                 // Jika stok tidak mencukupi, beri pesan kesalahan
                 set_pesan('Stok barang tidak mencukupi.', false);
-                redirect('keluar');
             }
+            redirect('keluar');
         }
     }
 

@@ -146,6 +146,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group mt-2">
+                                    <label class="form-label" for="room-no-add">Surat Jalan</label>
+                                    <input type="file" value="<?= set_value('surat_jalan') ?>" class="form-control" name="surat_jalan" id="surat_jalan">
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12" id="scanner-container">
