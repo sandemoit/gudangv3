@@ -9,7 +9,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="<?= base_url('assets/images') ?>/favicon.png">
     <!-- Page Title  -->
-    <title>Login | <?= $setting['nama_aplikasi'] ?></title>
+    <title>Login | <?= setting('nama_aplikasi'); ?></title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/dashlite.css?ver=3.0.3">
     <link id="skin-default" rel="stylesheet" href="<?= base_url('assets') ?>/css/theme.css?ver=3.0.3">
@@ -36,7 +36,7 @@
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Sign-In <?= $setting['nama_perusahaan'] ?></h4>
                                         <div class="nk-block-des">
-                                            <p>Access <?= $setting['nama_aplikasi'] ?></p>
+                                            <p>Access <?= setting('nama_aplikasi'); ?></p>
                                         </div>
                                     </div>
                                 </div>

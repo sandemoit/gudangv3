@@ -96,8 +96,8 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
-                                        <label class="form-label">ID Barang</label>
-                                        <input type="text" value="<?= set_value('id_bmasuk') ?>" class="form-control" name="id_bmasuk">
+                                        <label class="form-label">No Transaksi</label>
+                                        <input readonly type="text" value="<?= $id_bmasuk ?>" class="form-control" name="id_bmasuk">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">

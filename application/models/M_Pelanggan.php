@@ -82,4 +82,11 @@ class M_Pelanggan extends CI_Model
 
         return $query->result_array();
     }
+
+    public function getKeluar($id)
+    {
+        $this->db->where('id_bkeluar', $id);
+        $query = $this->db->get('barang_keluar');
+        return $query->row_array();
+    }
 }

@@ -16,7 +16,7 @@
                                 <ul class="nk-block-tools g-3">
                                     <li>
                                         <div class="drodown">
-                                            <a href="<?= site_url('pelanggan') ?>" class="btn btn-icon btn-primary"><em class="icon ni ni-plus"></em>Add Pelanggan</a>
+                                            <a href="<?= site_url('pelanggan') ?>" class="btn btn-icon btn-info"><em class="icon ni ni-plus"></em>Add Pelanggan</a>
                                             <a href="#add" class="btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em>Add <?= $title; ?></a>
                                         </div>
                                     </li>
@@ -46,6 +46,7 @@
                                                     <th>Nama Barang</th>
                                                     <th>Jumlah</th>
                                                     <th>Pelanggan</th>
+                                                    <th>Surat Jalan</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -59,9 +60,10 @@
                                                         <td><?= $bk['nama_barang'] ?></td>
                                                         <td><?= $bk['jumlah_keluar'] ?></td>
                                                         <td><?= $bk['nama'] ?></td>
+                                                        <td><?= '<a href="' . base_url('keluar/download_surat/') . $bk['surat_jalan'] . '">Download <em class="icon ni ni-download-cloud"></em></a>' ?></td>
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
-                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('keluar/delete/') . $bk['id_bkeluar'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
+                                                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('pelanggan/delete/') . $bk['id_bkeluar'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -88,24 +90,34 @@
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
                 <h5 class="modal-title">Add <?= $title; ?></h5>
-                <form action="<?= base_url('pelanggan/trx') ?>" method="post">
+                <form action="<?= base_url('pelanggan/trx') ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12 col-sm-12">
-                            <div class="form-group">
-                                <label class="form-label" for="room-no-add">Pelanggan</label>
-                                <select name="pelanggan_id" id="pelanggan_id" data-search="on" class="form-select js-select2">
-                                    <option selected disabled>Pilih Pelanggan</option>
-                                    <?php foreach ($pelanggan as $value) : ?>
-                                        <option value="<?= $value['id_pelanggan']; ?>"><?= $value['nama']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="room-no-add">ID Barang</label>
-                                        <input type="text" value="<?= set_value('id_bkeluar') ?>" class="form-control" name="id_bkeluar">
+                                        <label class="form-label" for="room-no-add">Pelanggan</label>
+                                        <select name="pelanggan_id" id="pelanggan_id" data-search="on" class="form-select js-select2">
+                                            <option selected disabled>Pilih Pelanggan</option>
+                                            <?php foreach ($pelanggan as $value) : ?>
+                                                <option value="<?= $value['id_pelanggan']; ?>"><?= $value['nama']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">Surat Jalan</label>
+                                        <input type="file" value="<?= set_value('surat_jalan') ?>" class="form-control" name="surat_jalan" id="surat_jalan">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="room-no-add">No Transaksi</label>
+                                        <input readonly type="text" value="<?= $id_bkeluar ?>" class="form-control" name="id_bkeluar">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">

@@ -10,7 +10,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="<?= base_url('assets') ?>/images/favicon.png">
     <!-- Page Title  -->
-    <title><?= $title; ?> - SISTEM INFORMASI GUDANG</title>
+    <title><?= $title; ?> - <?= setting('nama_aplikasi'); ?></title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/dashlite.css?ver=3.0.3">
     <link id="skin-default" rel="stylesheet" href="<?= base_url('assets') ?>/css/theme.css?ver=3.0.3">

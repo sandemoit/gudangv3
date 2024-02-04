@@ -49,3 +49,15 @@ function output_json($data) //ini untuk mengubah data menjadi json
     $ci = get_instance();
     $ci->output->set_content_type('application/json')->set_output(json_encode($data));
 }
+
+if (!function_exists('setting')) {
+    function setting($column_name)
+    {
+        $CI = &get_instance();
+        $CI->load->library('Other_model');
+
+        $managements = $CI->Other_model->getSetting();
+
+        return isset($managements[$column_name]) ? $managements[$column_name] : '';
+    }
+}

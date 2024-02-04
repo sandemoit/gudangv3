@@ -22,16 +22,16 @@ class Keluar extends CI_Controller
         $this->form_validation->set_rules('barang_id', 'Barang', 'required|trim');
         $this->form_validation->set_rules('jumlah_keluar', 'Barang', 'required|trim');
 
-        // $kode = 'T-BK-' . date('dmY');
-        // $kode_terakhir = $this->Admin_model->getMax('barang_keluar', 'id_bkeluar', $kode);
-        // if ($kode_terakhir) {
-        //     $kode_tambah = substr($kode_terakhir, -4, 4);
-        //     $kode_tambah++;
-        // } else {
-        //     $kode_tambah = 1;
-        // }
-        // $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
-        // $data['id_bkeluar'] = $kode . $number;
+        $kode = 'T-BK-' . date('dmY');
+        $kode_terakhir = $this->Admin_model->getMax('barang_keluar', 'id_bkeluar', $kode);
+        if ($kode_terakhir) {
+            $kode_tambah = substr($kode_terakhir, -4, 4);
+            $kode_tambah++;
+        } else {
+            $kode_tambah = 1;
+        }
+        $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
+        $data['id_bkeluar'] = $kode . $number;
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -71,5 +71,17 @@ class Keluar extends CI_Controller
         $this->Admin_model->delete('barang_keluar', 'id_bkeluar', $id);
         set_pesan('Data berhasil dihapus!');
         redirect('keluar');
+    }
+
+    public function download_surat($surat = null)
+    {
+        if ($surat === null) {
+            set_pesan('File tidak valid atau tidak ditemukan.', false);
+            redirect('pelanggan/trx');
+        } else {
+            $file_path = base_url('assets/documents/surat_jalan/' . $surat);
+            $data = file_get_contents($file_path);
+            force_download($surat, $data);
+        }
     }
 }
