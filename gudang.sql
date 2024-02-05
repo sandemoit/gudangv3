@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 01, 2024 at 04:14 AM
+-- Generation Time: Feb 05, 2024 at 10:55 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `gudang`
@@ -30,21 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `barang` (
   `id_barang` char(128) NOT NULL,
   `nama_barang` varchar(128) NOT NULL,
-  `stok_awal` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `stok_awal` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `stok` int DEFAULT NULL,
   `id_satuan` int NOT NULL,
   `id_jenis` int NOT NULL,
-  `image` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `image` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `date_add` datetime DEFAULT NULL,
   `date_update` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `barang`
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok_awal`, `stok`, `id_satuan`, `id_jenis`, `image`, `date_add`, `date_update`) VALUES
-('98842512301', 'Kardus', '50', 61, 3, 1, '87b3626282b69629fa535c13894bfa98.jpg', '2024-01-24 23:19:48', '2024-01-24 23:19:48'),
+('98842512301', 'Kardus', '50', 65, 3, 1, '68f01f5903457bb5cde8fa7fb8306c9d.jpeg', '2024-01-24 23:19:48', '2024-02-03 16:40:01'),
 ('9884251233', 'Chictato Lite Rasa Rumput Laut 68gram', '0', 0, 1, 1, '4667ab5315f9981c0a519ec6ed1c129c.jpg', '2024-01-24 23:37:13', '2024-01-24 23:55:18'),
 ('B01284328', 'RICHEESE SIIP KEJU 50 GR', '0', 10, 1, 1, 'b81b6d201927aef3b86dfe09b312638a.jpg', '2024-01-24 23:20:51', '2024-01-24 23:20:51');
 
@@ -55,19 +55,23 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok_awal`, `stok`, `id_satua
 --
 
 CREATE TABLE `barang_keluar` (
-  `id_bkeluar` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id_bkeluar` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_user` int NOT NULL,
   `barang_id` char(128) NOT NULL,
+  `pelanggan_id` int DEFAULT NULL,
+  `surat_jalan` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jumlah_keluar` int NOT NULL,
   `tanggal_keluar` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `barang_keluar`
 --
 
-INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES
-('T-BK-240120240001', 18, '98842512301', 21, '2024-01-24');
+INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `pelanggan_id`, `surat_jalan`, `jumlah_keluar`, `tanggal_keluar`) VALUES
+('T-BK-050220240001', 18, '98842512301', 3, 'T-BK-050220240001-2024-02-05.pdf', 2, '2024-02-04'),
+('T-BK-050220240003', 18, '98842512301', 3, 'T-BK-050220240003-2024-02-05.pdf', 10, '2024-02-05'),
+('T-BK-050220240004', 18, '98842512301', 3, 'T-BK-050220240004-2024-02-05.pdf', 5, '2024-02-03');
 
 --
 -- Triggers `barang_keluar`
@@ -92,13 +96,13 @@ DELIMITER ;
 --
 
 CREATE TABLE `barang_masuk` (
-  `id_bmasuk` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id_bmasuk` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_supplier` int NOT NULL,
   `id_user` varchar(50) NOT NULL,
   `barang_id` char(128) NOT NULL,
   `jumlah_masuk` int NOT NULL,
   `tanggal_masuk` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `barang_masuk`
@@ -133,7 +137,7 @@ DELIMITER ;
 CREATE TABLE `jenis` (
   `id` int NOT NULL,
   `nama_jenis` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `jenis`
@@ -149,13 +153,35 @@ INSERT INTO `jenis` (`id`, `nama_jenis`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pelanggan`
+--
+
+CREATE TABLE `pelanggan` (
+  `id_pelanggan` int NOT NULL,
+  `nama` varchar(128) NOT NULL,
+  `kode_toko` varchar(128) NOT NULL,
+  `alamat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `nama`, `kode_toko`, `alamat`) VALUES
+(3, 'Sandi Maulidika', 'TOK213190', 'Gelumbang'),
+(5, 'Meri Rosita', 'TOK213194', 'Gelumbang'),
+(6, 'Voni Puspita Sari', 'TOK213193', 'Prabumulih');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `satuan`
 --
 
 CREATE TABLE `satuan` (
   `id` int NOT NULL,
   `nama_satuan` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `satuan`
@@ -183,14 +209,14 @@ CREATE TABLE `setting` (
   `notelpon` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `low_stok` varchar(50) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `setting`
 --
 
 INSERT INTO `setting` (`id`, `nama_aplikasi`, `nama_perusahaan`, `alamat`, `image`, `notelpon`, `email`, `low_stok`) VALUES
-(1, 'Sistem Informasi Gudang', 'PT. SANDEMO INDO TEKNOLOGI', 'Palembang, Ulu 2 NO 76', '65706025d80fa.png', '087801751656', 'infosandemo@gmail.com', '3');
+(1, 'Sistem Informasi Gudang', 'SANDEMO INDO TEKNOLOGI', 'Palembang, Ulu 2 NO 76', '65706025d80fa.png', '087801751656', 'info@sandemoindoteknologi.com', '3');
 
 -- --------------------------------------------------------
 
@@ -202,17 +228,19 @@ CREATE TABLE `suplier` (
   `id` int NOT NULL,
   `nama_supplier` varchar(128) NOT NULL,
   `nohp` varchar(128) NOT NULL,
-  `alamat` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `alamat` varchar(225) NOT NULL,
+  `email` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `suplier`
 --
 
-INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`) VALUES
-(1, 'Sandi Maulidika', '087801751656', 'Jambi'),
-(2, 'Voni', '087801751633', 'Bandung'),
-(10, 'Rian', '081271838821', 'Jakarta Selatan');
+INSERT INTO `suplier` (`id`, `nama_supplier`, `nohp`, `alamat`, `email`) VALUES
+(1, 'Sandi Maulidika', '087801751656', 'Jambi', NULL),
+(2, 'Voni', '087801751633', 'Bandung', NULL),
+(10, 'Rian', '081271838821', 'Jakarta Selatan', NULL),
+(11, 'Bejok', '081271838892', 'Gelumbang', '');
 
 -- --------------------------------------------------------
 
@@ -231,7 +259,7 @@ CREATE TABLE `user` (
   `date_created` int NOT NULL,
   `last_change_pw` int NOT NULL,
   `is_active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
@@ -239,7 +267,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `role`, `image`, `nohp`, `password`, `date_created`, `last_change_pw`, `is_active`) VALUES
 (1, 'Sandi Maulidika', 'sandimaulidika@gmail.com', 'admin', 'default.jpg', '081271838892', '$2y$10$jPtj2JoIn0oH8jaq2txH1.OWH.KsRVZ6OXOLD4IDjKfQM9UO5Wqa2', 1661189930, 1670397987, 1),
-(18, 'Administrators', 'admin@gmail.com', 'admin', 'default.jpg', '', '$2y$10$0z4o4Ky//pZDC1oBAkGPFO0uh069t0MK/1q35FpfHWp2Qsf6qOeTa', 1681284332, 0, 1),
+(18, 'Administrators', 'admin@gmail.com', 'admin', 'f8a7fe4d0ebe14ce5d3e1acdc1534c56.png', '', '$2y$10$0z4o4Ky//pZDC1oBAkGPFO0uh069t0MK/1q35FpfHWp2Qsf6qOeTa', 1681284332, 0, 1),
 (19, 'Voni', 'voni@gmail.com', 'gudang', 'default.jpg', '', '$2y$10$4Y7oaxu0L66c.ZuqytG6h.p/PbSgaF1wqK..aFwvn/BRb7N1da0xu', 1681284644, 0, 1);
 
 --
@@ -278,6 +306,12 @@ ALTER TABLE `jenis`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  ADD PRIMARY KEY (`id_pelanggan`);
+
+--
 -- Indexes for table `satuan`
 --
 ALTER TABLE `satuan`
@@ -312,6 +346,12 @@ ALTER TABLE `jenis`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `satuan`
 --
 ALTER TABLE `satuan`
@@ -327,7 +367,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `suplier`
 --
 ALTER TABLE `suplier`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`

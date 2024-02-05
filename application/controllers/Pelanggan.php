@@ -177,4 +177,10 @@ class Pelanggan extends CI_Controller
         $this->load->view('master/pelanggan/sales');
         $this->load->view('template/footer');
     }
+
+    public function salesChart($id)
+    {
+        $data = $this->pelanggan->salesChart($id);
+        output_json($data);
+    }
 }

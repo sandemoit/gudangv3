@@ -1,14 +1,28 @@
 "use strict";
 
 !function (NioApp, $) {
-  "use strict"; //////// for developer - User Balance //////// 
+  "User Balance"; //////// for developer - User Balance //////// 
   // Avilable options to pass from outside 
   // labels: array,
   // legend: false - boolean,
   // dataUnit: string, (Used in tooltip or other section for display) 
   // datasets: [{label : string, color: string (color code with # or other format), data: array}]
 
-  function salesBarChart(selector, set_data) {
+  // Membuat objek Date yang merepresentasikan waktu saat ini
+  var tanggalSaatIni = new Date();
+
+  // Mendapatkan informasi bulan dan tahun saat ini
+  var bulanIni = tanggalSaatIni.getMonth();
+  var tahunIni = tanggalSaatIni.getFullYear();
+
+  // Mendapatkan jumlah hari dalam bulan ini
+  var jumlahHari = new Date(tahunIni, bulanIni + 1, 0).getDate();
+
+  // Membuat array untuk menampung tanggal
+  var tanggalArray = Array.from({ length: jumlahHari }, (_, i) => (i + 1).toString().padStart(2, '0'));
+  var chart_data = [];
+  
+  function salesLineChart(selector, set_data) {
     var $selector = selector ? $(selector) : $('.sales-bar-chart');
     $selector.each(function () {
       var $self = $(this),
@@ -17,7 +31,6 @@
           _d_legend = typeof _get_data.legend === 'undefined' ? false : _get_data.legend;
 
       var selectCanvas = document.getElementById(_self_id).getContext("2d");
-      var chart_data = [];
 
       for (var i = 0; i < _get_data.datasets.length; i++) {
         chart_data.push({
@@ -33,80 +46,21 @@
           categoryPercentage: .7
         });
       }
-
-      var chart = new Chart(selectCanvas, {
-        type: 'bar',
-        data: {
-          labels: _get_data.labels,
-          datasets: chart_data
-        },
-        options: {
-          legend: {
-            display: _get_data.legend ? _get_data.legend : false,
-            labels: {
-              boxWidth: 30,
-              padding: 20,
-              fontColor: '#6783b8'
-            }
-          },
-          maintainAspectRatio: false,
-          tooltips: {
-            enabled: true,
-            rtl: NioApp.State.isRTL,
-            callbacks: {
-              title: function title(tooltipItem, data) {
-                return false;
-              },
-              label: function label(tooltipItem, data) {
-                return data['labels'][tooltipItem['index']] + ' ' + data.datasets[tooltipItem.datasetIndex]['data'][tooltipItem['index']];
-              }
-            },
-            backgroundColor: '#eff6ff',
-            titleFontSize: 11,
-            titleFontColor: '#6783b8',
-            titleMarginBottom: 4,
-            bodyFontColor: '#9eaecf',
-            bodyFontSize: 10,
-            bodySpacing: 3,
-            yPadding: 8,
-            xPadding: 8,
-            footerMarginTop: 0,
-            displayColors: false
-          },
-          scales: {
-            yAxes: [{
-              display: false,
-              stacked: _get_data.stacked ? _get_data.stacked : false,
-              ticks: {
-                beginAtZero: true
-              }
-            }],
-            xAxes: [{
-              display: false,
-              stacked: _get_data.stacked ? _get_data.stacked : false,
-              ticks: {
-                reverse: NioApp.State.isRTL
-              }
-            }]
-          }
-        }
-      });
     });
   } // init chart
 
-
   NioApp.coms.docReady.push(function () {
-    salesBarChart();
+    salesLineChart();
   });
   var salesOverview = {
-    labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-    dataUnit: 'BTC',
+    labels: tanggalArray,
+    dataUnit: 'Sales',
     lineTension: 0.1,
     datasets: [{
       label: "Sales Overview",
       color: "#798bff",
       background: NioApp.hexRGB('#798bff', .3),
-      data: [8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690]
+      data: chart_data
     }]
   };
 
@@ -121,6 +75,31 @@
       var chart_data = [];
 
       for (var i = 0; i < _get_data.datasets.length; i++) {
+        var currentData = [];
+        var fixData = [];
+
+        tanggalArray.forEach(tanggal => {
+          currentData[tanggal] = 0;
+        });
+
+
+        // Fetch data from server
+        fetch('/pelanggan/saleschart/3')
+        .then(response => response.json())
+        .then(data => {
+          // Update chart_data with fetched data
+          data.forEach(element => {
+            var date_from_db = element.tanggal.slice(-2);
+            currentData[date_from_db] = parseInt(element.total_keluar);
+          });
+        });
+        console.log(currentData);
+
+        currentData.map(({a}) => (a))
+        // for(var x=0;x<currentData.length;x++){
+        //   console.log(currentData[x]);
+        //   fixData.push(currentData[x]);
+        // }
         chart_data.push({
           label: _get_data.datasets[i].label,
           tension: _get_data.lineTension,
@@ -136,7 +115,7 @@
           pointHoverBorderWidth: 2,
           pointRadius: 3,
           pointHitRadius: 3,
-          data: _get_data.datasets[i].data
+          data: fixData
         });
       }
 
@@ -190,9 +169,9 @@
                 fontColor: '#9eaecf',
                 padding: 10,
                 callback: function callback(value, index, values) {
-                  return '$ ' + value;
+                  return value;
                 },
-                min: 100,
+                min: 0,
                 stepSize: 3000
               },
               gridLines: {
@@ -209,7 +188,10 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 10,
-                reverse: NioApp.State.isRTL
+                reverse: NioApp.State.isRTL,
+                callback: function callback(value, index, values) {
+                  return value;
+                },
               },
               gridLines: {
                 color: "transparent",

@@ -74,10 +74,21 @@ class M_Pelanggan extends CI_Model
     public function getSales($id)
     {
         $this->db->select('*');
-        $this->db->join('barang', 'barang.id_barang = barang_keluar.barang_id');
-        $this->db->join('jenis', 'barang.id_jenis = jenis.id');
-        $this->db->join('satuan', 'barang.id_satuan = satuan.id');
+        $this->db->join('barang', 'barang.id_barang = barang_keluar.barang_id', 'left');
+        $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
+        $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
         $this->db->where('pelanggan_id', $id);
+        $query = $this->db->get('barang_keluar');
+
+        return $query->result_array();
+    }
+
+    public function salesChart($id)
+    {
+        $this->db->select('DATE(tanggal_keluar) as tanggal, SUM(jumlah_keluar) as total_keluar');
+        $this->db->where('pelanggan_id', $id);
+        $this->db->group_by('tanggal');
+
         $query = $this->db->get('barang_keluar');
 
         return $query->result_array();

@@ -83,12 +83,12 @@
                                     <span class="nk-menu-text">Barang Masuk</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
+                            <!-- <li class="nk-menu-item">
                                 <a href="<?= site_url('keluar') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-out-fill"></em></span>
                                     <span class="nk-menu-text">Barang Keluar</span>
                                 </a>
-                            </li><!-- .nk-menu-item -->
+                            </li> -->
                             <li class="nk-menu-item">
                                 <a href="<?= site_url('pelanggan/trx') ?>" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-inbox-out-fill"></em></span>
