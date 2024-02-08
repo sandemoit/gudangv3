@@ -74,6 +74,6 @@ $(function() {
     function fetchData() {
         var startDate = $('#selectedStartDate').val();
         var endDate = $('#selectedEndDate').val();
-        window.location.replace(baseurl + 'pelanggan/sales?start_date=' + startDate + '&end_date=' + endDate + '&id=' + $('#id_pelanggan').val());
+        window.location.replace(baseurl + 'pelanggan/sales/' + $('#id_pelanggan').val() + '?start_date=' + startDate + '&end_date=' + endDate);
     }
 });
