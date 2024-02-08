@@ -34,7 +34,7 @@
                                                                     </div>
                                                                     <input type="hidden" id="selectedStartDate" name="start_date">
                                                                     <input type="hidden" id="selectedEndDate" name="end_date">
-                                                                    <input type="hidden" id="id_pelanggan" value="<?= $sales['id_pelanggan'] ?>">
+                                                                    <input type="hidden" id="id_pelanggan" value="<?= $pelanggan['id_pelanggan'] ?>">
                                                                 </div>
                                                                 <div class="col-3">
                                                                     <div class="nk-block-head-content">
@@ -59,7 +59,7 @@
                                                     </div>
                                                     <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
                                                         <div class="nk-sale-data">
-                                                            <span class="amount"><?= $sales['kode_toko'] ?></span>
+                                                            <span class="amount"><?= $pelanggan['kode_toko'] ?></span>
                                                         </div>
                                                         <div class="nk-sale-data">
                                                             <span class="amount sm"><?= $total_trx; ?> <small>Transaksi</small></span>

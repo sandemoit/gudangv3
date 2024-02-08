@@ -71,15 +71,30 @@ class M_Pelanggan extends CI_Model
         return $query->num_rows();
     }
 
-    public function getSales($id)
+    public function getSales($startDate = null, $endDate = null, $id = null)
     {
-        $this->db->select('*');
+        $this->db->select('barang_keluar.id_bkeluar, nama_barang, nama_jenis, jumlah_keluar, tanggal_keluar');
+
+        $this->db->from('barang_keluar');
         $this->db->join('barang', 'barang.id_barang = barang_keluar.barang_id', 'left');
         $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
         $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
-        $this->db->where('pelanggan_id', $id);
-        $query = $this->db->get('barang_keluar');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = barang_keluar.pelanggan_id', 'left');
 
+        // Tambahkan kondisi WHERE untuk filter pelanggan_id
+        if ($id) {
+            $this->db->where('barang_keluar.pelanggan_id', $id);
+        }
+
+        if ($startDate && $endDate) {
+            $this->db->group_start()
+                ->where('tanggal_keluar >=', $startDate)
+                ->where('tanggal_keluar <=', $endDate)
+                ->group_end();
+        }
+
+        // $this->db->group_by('barang.id_barang, nama_barang, stok_awal, stok');
+        $query = $this->db->get();
         return $query->result_array();
     }
 
@@ -99,32 +114,5 @@ class M_Pelanggan extends CI_Model
         $this->db->where('id_bkeluar', $id);
         $query = $this->db->get('barang_keluar');
         return $query->row_array();
-    }
-
-    public function filterSalesPelanggan($startDate = null, $endDate = null, $id = null)
-    {
-        $this->db->select('barang.id_barang, nama_barang, stok_awal, stok');
-        $this->db->select('IFNULL(SUM(jumlah_keluar), 0) AS jumlah_keluar', false);
-
-        $this->db->from('barang');
-        $this->db->join('barang_keluar', 'barang.id_barang = barang_keluar.barang_id', 'left');
-        $this->db->join('jenis', 'barang.id_jenis = jenis.id', 'left');
-        $this->db->join('satuan', 'barang.id_satuan = satuan.id', 'left');
-        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = barang_keluar.pelanggan_id', 'left');
-        // Tambahkan kondisi WHERE untuk filter pelanggan_id
-        if ($id) {
-            $this->db->where('barang_keluar.pelanggan_id', $id);
-        }
-
-        if ($startDate && $endDate) {
-            $this->db->group_start()
-                ->where('tanggal_keluar >=', $startDate)
-                ->where('tanggal_keluar <=', $endDate)
-                ->group_end();
-        }
-
-        $this->db->group_by('barang.id_barang, nama_barang, stok_awal, stok');
-        $query = $this->db->get();
-        return $query->result_array();
     }
 }
