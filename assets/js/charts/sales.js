@@ -79,27 +79,42 @@
         var fixData = [];
 
         tanggalArray.forEach(tanggal => {
-          currentData[tanggal] = 0;
+          currentData.push({tanggal: tanggal.toString(), total: 0});
         });
 
+        // Mendapatkan URL saat ini
+        var currentURL = window.location.href;
+
+        // Mendapatkan id_pelanggan dari URL
+        var id_pelanggan = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+        // Membuat URL untuk fetch
+        var fetchURL = '/pelanggan/saleschart/' + id_pelanggan;
 
         // Fetch data from server
-        fetch('/pelanggan/saleschart/3')
+        fetch(fetchURL)
         .then(response => response.json())
         .then(data => {
           // Update chart_data with fetched data
           data.forEach(element => {
             var date_from_db = element.tanggal.slice(-2);
-            currentData[date_from_db] = parseInt(element.total_keluar);
+						currentData.forEach((element2, index) => {
+							if(element2.tanggal === date_from_db){
+								delete currentData[index]
+								currentData.push({tanggal: date_from_db.toString(), total: parseInt(element.total_keluar)});
+							}
+						});
           });
-        });
-        console.log(currentData);
 
-        currentData.map(({a}) => (a))
-        // for(var x=0;x<currentData.length;x++){
-        //   console.log(currentData[x]);
-        //   fixData.push(currentData[x]);
-        // }
+					let sortedArr = currentData.sort((a, b) => a.tanggal - b.tanggal)
+					for(var x=0;x<sortedArr.length;x++){
+						if(sortedArr[x] != undefined){
+							fixData.push(sortedArr[x].total);
+						}
+					}
+        });
+
+
         chart_data.push({
           label: _get_data.datasets[i].label,
           tension: _get_data.lineTension,
@@ -202,6 +217,10 @@
           }
         }
       });
+
+			setTimeout(function() {
+				chart.update();
+		},1000);
     });
   } // init chart
 

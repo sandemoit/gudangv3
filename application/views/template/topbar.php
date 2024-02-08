@@ -9,22 +9,9 @@
                 </div>
                 <div class="nk-header-brand d-xl-none">
                     <a href="html/index.html" class="logo-link">
-                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo">
+                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . setting('image') ?>" srcset="<?= base_url('assets/images/') . setting('image') ?>" alt="logo">
                     </a>
-                </div><!-- .nk-header-brand -->
-                <!-- <div class="nk-header-news d-none d-xl-block">
-                    <div class="nk-news-list">
-                        <a class="nk-news-item" href="#">
-                            <div class="nk-news-icon">
-                                <em class="icon ni ni-card-view"></em>
-                            </div>
-                            <div class="nk-news-text">
-                                <p>Do you know the latest update of 2022? <span> A overview of our is now available on YouTube</span></p>
-                                <em class="icon ni ni-external"></em>
-                            </div>
-                        </a>
-                    </div>
-                </div> -->
+                </div>
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav">
                         <li class="dropdown user-dropdown">

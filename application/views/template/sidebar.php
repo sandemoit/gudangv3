@@ -10,7 +10,7 @@
                 </div>
                 <div class="nk-sidebar-brand">
                     <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . $setting['image'] ?>" srcset="<?= base_url('assets/images/') . $setting['image'] ?>" alt="logo">
+                        <img class="logo-light logo-img" src="<?= base_url('assets/images/') . setting('image') ?>" srcset="<?= base_url('assets/images/') . setting('image') ?>" alt="logo">
                     </a>
                 </div>
             </div><!-- .nk-sidebar-element -->

@@ -15,7 +15,6 @@ class Pelanggan extends CI_Controller
     {
         $data['title'] = 'Data Pelanggan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['setting'] = $this->db->get('setting')->row_array();
         $data['pelanggan'] = $this->pelanggan->get('pelanggan');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim', ['required' => 'Nama tidak boleh kosong']);
@@ -89,7 +88,6 @@ class Pelanggan extends CI_Controller
     {
         $data['title'] = 'Transaksi Pelanggan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['setting'] = $this->db->get('setting')->row_array();
         $data['transaksi'] = $this->pelanggan->getTrx();
         $data['pelanggan'] = $this->pelanggan->get('pelanggan');
         $data['barang'] = $this->db->get('barang')->result_array();
@@ -166,7 +164,6 @@ class Pelanggan extends CI_Controller
     {
         $data['title'] = 'Sales Pelanggan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['setting'] = $this->db->get('setting')->row_array();
         $data['pelanggan'] = $this->pelanggan->getDataPelanggan($id);
         $data['sales'] = $this->pelanggan->getSales($id);
         $data['total_trx'] = $this->pelanggan->getTotalTrx($id);
@@ -182,5 +179,26 @@ class Pelanggan extends CI_Controller
     {
         $data = $this->pelanggan->salesChart($id);
         output_json($data);
+    }
+
+    public function filter()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Laporan Barang Masuk & Keluar';
+
+        // Periksa apakah ada input start_date dan end_date dari POST
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $id = $this->input->post('id_pelanggan');
+
+        // Panggil model untuk mendapatkan data laporan berdasarkan tanggal
+        $data['total_trx'] = $this->pelanggan->getTotalTrx($id);
+        $data['sales'] = $this->pelanggan->filterSalesPelanggan($start_date, $end_date, $id);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('master/pelanggan/sales');
+        $this->load->view('template/footer');
     }
 }
