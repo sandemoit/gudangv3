@@ -23,10 +23,10 @@
                                                     <div class="card-title-group align-start gx-3 mb-3">
                                                         <div class="card-title">
                                                             <h6 class="title">Ikhtisar Penjualan</h6>
-                                                            <p>Dalam 30 hari penjualan langganan produk.</p>
+                                                            <p>Dalam 1 bulan penjualan langganan produk.</p>
                                                         </div>
                                                         <div class="card-tools">
-                                                            <form action="<?= site_url('laporan') ?>" method="post" class="form-inline" id="filterForm">
+                                                            <form action="<?= site_url('pelanggan/sales/' . encode_php_tags($pelanggan['id_pelanggan'])) ?>" method="post" class="form-inline" id="filterForm">
                                                                 <div class="form-group mb-0">
                                                                     <div id="reportrange">
                                                                         <em class="icon ni ni-caret-down-fill"></em>&nbsp;

@@ -23,8 +23,8 @@ class Laporan extends CI_Controller
         $data['setting'] = $this->Other_model->getSetting();
 
         // Periksa apakah ada input start_date dan end_date dari POST
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
 
         // Panggil model untuk mendapatkan data laporan berdasarkan tanggal
         $data['laporan'] = $this->Laporan_model->getLaporanData($start_date, $end_date);

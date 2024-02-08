@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
+use Dompdf\Dompdf;
+
 class Pelanggan extends CI_Controller
 {
     public function __construct()
@@ -166,12 +169,12 @@ class Pelanggan extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         // Periksa apakah ada input start_date dan end_date dari POST
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
 
-        $data['sales'] = $this->pelanggan->getSales($start_date, $end_date, $id);
         $data['pelanggan'] = $this->pelanggan->getDataPelanggan($id);
         $data['total_trx'] = $this->pelanggan->getTotalTrx($id);
+        $data['sales'] = $this->pelanggan->getSales($start_date, $end_date, $id);
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
@@ -184,5 +187,160 @@ class Pelanggan extends CI_Controller
     {
         $data = $this->pelanggan->salesChart($id);
         output_json($data);
+    }
+
+    public function excel($id = null)
+    {
+        // Dapatkan nilai start_date dan end_date dari permintaan GET
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        // Ambil data laporan dari model
+        if ($start_date !== null && $end_date !== null) {
+            $pelanggan = $this->pelanggan->getSales($start_date, $end_date, $id);
+        } else {
+            $pelanggan = $this->pelanggan->getAllLaporanData($id);
+        }
+
+        // Load library PHPSpreadsheet
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Setel header kolom
+        $headerColumns = ['No', 'ID Barang', 'Nama Barang', 'Jenis', 'Total', 'Tanggal Keluar'];
+        foreach ($headerColumns as $key => $header) {
+            $column = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+            $sheet->setCellValue($column . '1', $header);
+
+            // Terapkan gaya header
+            $sheet->getStyle($column . '1')->applyFromArray([
+                'font' => ['bold' => true],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ],
+                'borders' => [
+                    'top' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'right' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'bottom' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
+                ],
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'color' => ['argb' => 'F0F0F0']
+                ]
+            ]);
+        }
+
+        // Isi data ke dalam Spreadsheet
+        $row = 2;
+        foreach ($pelanggan as $key => $item) {
+            $sheet->setCellValue('A' . $row, $key + 1);
+            $sheet->setCellValue('B' . $row, $item['id_barang']);
+            $sheet->setCellValue('C' . $row, $item['nama_barang']);
+            $sheet->setCellValue('D' . $row, $item['nama_jenis']);
+            $sheet->setCellValue('E' . $row, (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0);
+            $sheet->setCellValue('F' . $row, tanggal($item['tanggal_keluar']));
+
+            // Terapkan gaya baris
+            $style_row = [
+                'alignment' => ['vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER],
+                'borders' => [
+                    'top' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'right' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'bottom' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                    'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
+                ]
+            ];
+            $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray($style_row);
+
+            $row++;
+        }
+
+        // Set lebar kolom
+        foreach (range('A', 'E') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        // Set orientasi kertas jadi LANDSCAPE
+        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+        // Atur header untuk file Excel
+        $filename = 'Laporan-pelanggan.xlsx';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        // Simpan Spreadsheet ke file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save('php://output');
+
+        exit;
+    }
+
+    public function cetak($id)
+    {
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        if ($start_date !== null && $end_date !== null) {
+            $data['pelanggan'] = $this->pelanggan->getSales($start_date, $end_date, $id);
+        } else {
+            $data['pelanggan'] = $this->pelanggan->getAllLaporanData($id);
+        }
+
+        $data['title'] = 'Laporan Barang Keluar Pelanggan';
+        $data['start_date'] = tanggal($start_date);
+        $data['end_date'] = tanggal($end_date);
+
+        $this->load->view('laporan/pelanggan/print', $data);
+    }
+
+
+    public function pdf($id)
+    {
+        // Ambil nilai dari form
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+
+        // Setel ke null jika tidak terdefinisi
+        $start_date = isset($start_date) ? $start_date : null;
+        $end_date = isset($end_date) ? $end_date : null;
+
+        // Ambil data berdasarkan rentang tanggal jika start_date dan end_date terdefinisi
+        if ($start_date !== null && $end_date !== null) {
+            $data['pelanggan'] = $this->pelanggan->getSales($start_date, $end_date, $id);
+        } else {
+            $data['pelanggan'] = $this->pelanggan->getAllLaporanData($id);
+        }
+
+        $data['title'] = 'Laporan Barang';
+        $data['start_date'] = tanggal($start_date);
+        $data['end_date'] = tanggal($end_date);
+
+        // Load library DOMPDF
+        $this->load->library('Dompdf_gen');
+
+        // Set konten PDF
+        $html = $this->load->view('laporan/pelanggan/pdf', $data, true);
+        // Buat instance Dompdf
+        $dompdf = new Dompdf();
+
+        $dompdf->loadHtml($html);
+
+        // (Optional) Atur konfigurasi PDF, misalnya ukuran kertas
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render PDF (output)
+        $dompdf->render();
+
+        // Stream PDF ke browser
+        $dompdf->stream('laporan.pdf', array('Attachment' => 0));
     }
 }

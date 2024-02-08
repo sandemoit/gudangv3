@@ -1,3 +1,5 @@
+var id_pelanggan = $('#id_pelanggan').val();
+
 $(function() {
     // Inisialisasi tanggal awal dan akhir
     var start = moment().startOf('month');
@@ -40,20 +42,20 @@ $(function() {
         $('#reportrange span').html(formattedDateRange);
         $('#selectedStartDate').val(start.format('YYYY-MM-DD'));
         $('#selectedEndDate').val(end.format('YYYY-MM-DD'));
-        
+    
         $('ul#dateRanges li').removeClass('active');
-        
+    
         const selectedRange = formattedDateRange.trim();
-        
-        $('ul#dateRanges li').each(function() {
+    
+        $('ul#dateRanges li').each(function () {
             const rangeKey = $(this).data('range-key');
-            
+    
             if (rangeKey === selectedRange || (rangeKey === 'Bulan ini' && selectedRange.includes('Hari ini'))) {
                 $(this).addClass('active');
                 return false;
             }
         });
-        
+    
         fetchData();
     }
 
@@ -69,11 +71,52 @@ $(function() {
             'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, cb);
-
-    // Fungsi untuk mengirim permintaan AJAX
+    
     function fetchData() {
         var startDate = $('#selectedStartDate').val();
         var endDate = $('#selectedEndDate').val();
-        window.location.replace(baseurl + 'pelanggan/sales/' + $('#id_pelanggan').val() + '?start_date=' + startDate + '&end_date=' + endDate);
+        window.location.replace(baseurl + 'pelanggan/sales/' + id_pelanggan + '?start_date=' + startDate + '&end_date=' + endDate);
     }
 });
+function resetDates() {
+    const reportUrl = baseurl + 'pelanggan/sales/' + id_pelanggan;
+    window.location.replace(reportUrl);
+}
+
+function generatePDF() {
+    // Dapatkan nilai start_date dan end_date dari formulir
+    var startDate = document.getElementsByName("start_date")[0].value;
+    var endDate = document.getElementsByName("end_date")[0].value;
+
+    // Jika tanggal tidak diisi, setel nilai default ke kosong atau nilai yang sesuai
+    startDate = startDate.trim() !== '' ? startDate : '';
+    endDate = endDate.trim() !== '' ? endDate : '';
+
+    // Buat URL dengan parameter GET
+    var pdfURL = baseurl + 'pelanggan/pdf/' + id_pelanggan + '?start_date=' + startDate + '&end_date=' + endDate;
+
+    // Arahkan pengguna ke URL
+    window.location.href = pdfURL;
+}
+
+function generateCetak() {
+    const startDate = document.getElementsByName("start_date")[0].value.trim() || '';
+    const endDate = document.getElementsByName("end_date")[0].value.trim() || '';
+
+    const cetakURL = baseurl + 'pelanggan/cetak/' + id_pelanggan + '?start_date=' + startDate + '&end_date=' + endDate;
+
+    window.location.href = cetakURL;
+}
+
+function downloadExcel() {
+    var startDate = document.getElementsByName("start_date")[0].value.trim();
+    var endDate = document.getElementsByName("end_date")[0].value.trim();
+
+    var excelURL = baseurl + 'pelanggan/excel/' + id_pelanggan + '?start_date=' + startDate + '&end_date=' + endDate;
+
+    window.location.href = excelURL;
+}
+
+function handleClick(event) {
+    event.preventDefault(); // menghentikan proses default
+}
