@@ -77,24 +77,25 @@
       for (var i = 0; i < _get_data.datasets.length; i++) {
         var currentData = [];
         var fixData = [];
-
+        
         tanggalArray.forEach(tanggal => {
           currentData.push({tanggal: tanggal.toString(), total: 0});
         });
-
+        
         // Mendapatkan URL saat ini
         var currentURL = window.location.href;
-
+        
         // Mendapatkan id_pelanggan dari URL
         var id_pelanggan = currentURL.substring(currentURL.lastIndexOf('/') + 1);
 
         // Membuat URL untuk fetch
-        var fetchURL = '/pelanggan/saleschart/' + id_pelanggan;
+        var fetchURL = '/pelanggan/saleschart/' + id_pelanggan+'?start_date=' + start_date_range + '&end_date=' + end_date_range;
 
         // Fetch data from server
         fetch(fetchURL)
         .then(response => response.json())
         .then(data => {
+
           // Update chart_data with fetched data
           data.forEach(element => {
             var date_from_db = element.tanggal.slice(-2);

@@ -64,9 +64,14 @@ class M_Pelanggan extends CI_Model
         return $query->row_array();
     }
 
-    public function getTotalTrx($id)
+    public function getTotalTrx($id, $startDate=null, $endDate=null)
     {
         $this->db->where('pelanggan_id', $id);
+        if ($startDate && $endDate) {
+            $this->db->where('tanggal_keluar >=', $startDate);
+            $this->db->where('tanggal_keluar <=', $endDate);
+        }
+
         $query = $this->db->get('barang_keluar');
         return $query->num_rows();
     }
@@ -108,10 +113,14 @@ class M_Pelanggan extends CI_Model
         return $query->result_array();
     }
 
-    public function salesChart($id)
+    public function salesChart($id, $startDate = null, $endDate = null)
     {
         $this->db->select('DATE(tanggal_keluar) as tanggal, SUM(jumlah_keluar) as total_keluar');
         $this->db->where('pelanggan_id', $id);
+        if($startDate && $endDate) {
+            $this->db->where('DATE(tanggal_keluar) >=', $startDate);
+            $this->db->where('DATE(tanggal_keluar) <=', $endDate);
+        }
         $this->db->group_by('tanggal');
 
         $query = $this->db->get('barang_keluar');

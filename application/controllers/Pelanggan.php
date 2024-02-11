@@ -173,7 +173,7 @@ class Pelanggan extends CI_Controller
         $end_date = $this->input->get('end_date');
 
         $data['pelanggan'] = $this->pelanggan->getDataPelanggan($id);
-        $data['total_trx'] = $this->pelanggan->getTotalTrx($id);
+        $data['total_trx'] = $this->pelanggan->getTotalTrx($id, $start_date, $end_date);
         $data['sales'] = $this->pelanggan->getSales($start_date, $end_date, $id);
 
         $this->load->view('template/header', $data);
@@ -185,7 +185,10 @@ class Pelanggan extends CI_Controller
 
     public function salesChart($id)
     {
-        $data = $this->pelanggan->salesChart($id);
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $data = $this->pelanggan->salesChart($id, $start_date, $end_date);
+        
         output_json($data);
     }
 

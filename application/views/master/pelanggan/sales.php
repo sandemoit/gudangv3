@@ -118,6 +118,10 @@
         </div>
     </div>
 </div>
+<script>
+    var start_date_range = '<?=isset($_GET['start_date'])?$_GET['start_date']:''?>';
+    var end_date_range = '<?=isset($_GET['end_date'])?$_GET['end_date']:''?>';
+</script>
 <script src="<?= base_url('assets') ?>/js/charts/sales.js"></script>
 <script src="<?= base_url('assets') ?>/js/custom/sales.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
