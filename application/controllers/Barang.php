@@ -113,7 +113,7 @@ class Barang extends CI_Controller
                 $image = $this->upload->data('file_name');
                 $this->db->set('image', $image);
             } else {
-                $error = $this->upload->dispay_errors();;
+                $error = $this->upload->dispay_errors();
                 set_pesan($error, false);
             }
         }

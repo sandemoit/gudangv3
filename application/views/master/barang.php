@@ -192,6 +192,7 @@
                 <div class="modal-body modal-body-md">
                     <h5 class="modal-title">Edit barang</h5>
                     <?= form_open_multipart('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
+                    <input type="hidden" name="id_barang" value="<?= $b['id_barang'] ?>">
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
