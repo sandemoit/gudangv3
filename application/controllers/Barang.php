@@ -80,9 +80,8 @@ class Barang extends CI_Controller
         }
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $id = $this->input->post('id_barang');
         $barang = $this->admin->editImageById($id);
 
         $data = [

@@ -191,13 +191,18 @@
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
                     <h5 class="modal-title">Edit barang</h5>
-                    <?= form_open_multipart('barang/edit', [], ['stok' => 0, 'id_barang' => $b['id_barang']]); ?>
-                    <input type="hidden" name="id_barang" value="<?= $b['id_barang'] ?>">
+                    <?= form_open_multipart('barang/edit/' . $b['id_barang']); ?>
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
+                                <label class="form-label" for="room-no-add">ID Barang</label>
+                                <input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="Masukan ID barang" value="<?= $b['id_barang'] ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
                                 <label class="form-label" for="room-no-add">Nama Barang</label>
-                                <input type="text" class="form-control" value="<?= $b['nama_barang'] ?>" name="nama_barang" id="nama_barang" placeholder="Nama barang">
+                                <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="<?= $b['nama_barang'] ?>" placeholder="Nama barang" value="<?= set_value('nama_barang') ?>">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
