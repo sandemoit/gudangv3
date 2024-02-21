@@ -112,7 +112,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Supplier</label>
                                         <div class="form-control-wrap">
-                                            <select name="id_supplier" id="id_supplier" data-search="on" class="form-select js-select2">
+                                            <select name="id_supplier" id="id_supplier" data-search="on" class="js-select2">
                                                 <option selected disabled>Pilih Supplier</option>
                                                 <?php foreach ($supplier as $s) : ?>
                                                     <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
@@ -126,7 +126,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Barang</label>
                                         <div class="form-control-wrap">
-                                            <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
+                                            <select name="barang_id" id="barang_id" data-search="on" class="js-select2">
                                                 <option selected disabled>Pilih Barang</option>
                                                 <?php foreach ($barang as $key) : ?>
                                                     <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>

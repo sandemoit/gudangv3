@@ -98,7 +98,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label class="form-label" for="room-no-add">Pelanggan</label>
-                                        <select name="pelanggan_id" id="pelanggan_id" data-search="on" class="form-select js-select2">
+                                        <select name="pelanggan_id" id="pelanggan_id" data-search="on" class="js-select2">
                                             <option selected disabled>Pilih Pelanggan</option>
                                             <?php foreach ($pelanggan as $value) : ?>
                                                 <option value="<?= $value['id_pelanggan']; ?>"><?= $value['nama']; ?></option>
@@ -129,7 +129,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <div class="form-group">
                                         <label class="form-label" for="room-no-add">Barang</label>
-                                        <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
+                                        <select name="barang_id" id="barang_id" data-search="on" class="js-select2">
                                             <option selected disabled>Pilih Barang</option>
                                             <?php foreach ($barang as $b) : ?>
                                                 <option data-stok="<?= $b['stok']; ?>" value="<?= $b['id_barang']; ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang']; ?></option>
