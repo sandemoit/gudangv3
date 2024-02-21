@@ -32,7 +32,7 @@ class Barang extends CI_Controller
         // $data['id_barang'] = 'B' . $number; //tinggal panggil variabel di view "id_barang"
 
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
-        $this->form_validation->set_rules('id_barang', 'ID Barang', 'required');
+        $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
         $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('id_satuan', 'Satuan Barang', 'required');
 
@@ -44,7 +44,7 @@ class Barang extends CI_Controller
             $this->load->view('template/footer', $data);
         } else {
             $input_data = [
-                'id_barang' => $this->input->post('id_barang', true),
+                'kode_barang' => $this->input->post('kode_barang', true),
                 'nama_barang' => $this->input->post('nama_barang', true),
                 'stok_awal' => $this->input->post('stok_awal', true),
                 'stok' => $this->input->post('stok_awal', true),
@@ -117,7 +117,9 @@ class Barang extends CI_Controller
             }
         }
 
-        $this->admin->update('barang', 'id_barang', $id, $data);
+        // $this->admin->update('barang', 'id_barang', $id, $data);
+        $this->db->where('id_barang', $id);
+        $this->db->update('barang', $data);
 
         set_pesan('Data berhasil diubah!');
         redirect('barang');

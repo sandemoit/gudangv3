@@ -59,7 +59,7 @@
                                                 <?php foreach ($barang as $s) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $s['id_barang'] ?></td>
+                                                        <td><?= $s['kode_barang'] ?></td>
                                                         <td><?= $s['nama_barang'] ?></td>
                                                         <td><?= $s['nama_jenis'] ?></td>
                                                         <td><?= $s['nama_satuan'] ?></td>
@@ -113,8 +113,8 @@
                 <div class="row g-gs">
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label class="form-label" for="room-no-add">ID Barang</label>
-                            <input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="Masukan ID barang">
+                            <label class="form-label" for="room-no-add">Kode Barang</label>
+                            <input type="text" class="form-control" name="kode_barang" id="kode_barang" placeholder="Masukan Kode barang">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
@@ -195,8 +195,8 @@
                     <div class="row g-gs">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label class="form-label" for="room-no-add">ID Barang</label>
-                                <input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="Masukan ID barang" value="<?= $b['id_barang'] ?>" readonly>
+                                <label class="form-label" for="room-no-add">Kode Barang</label>
+                                <input type="text" class="form-control" placeholder="Masukan ID barang" value="<?= $b['kode_barang'] ?>" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">

@@ -17,10 +17,14 @@ class Admin_model extends CI_Model
         return $batch ? $this->db->insert_batch($table, $data) : $this->db->insert($table, $data);
     }
 
-    public function update($table, $pk, $id, $data)
+    public function update($table, $column, $id, $data)
     {
-        $this->db->where($pk, $id);
-        return $this->db->update($table, $data);
+        // Membuat query untuk melakukan update data dengan klausa WHERE yang ditentukan
+        $this->db->where($column, $id);
+        $this->db->update($table, $data);
+
+        // Mengembalikan hasil query
+        return $this->db->affected_rows();
     }
 
     public function delete($table, $pk, $id)
