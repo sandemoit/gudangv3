@@ -53,19 +53,25 @@ class Barang extends CI_Controller
                 'date_add' => date('Y-m-d H:i:s'),
                 'date_update' => date('Y-m-d H:i:s')
             ];
-            $upload_config['upload_path'] = 'assets/images/barang';
-            $upload_config['allowed_types'] = 'jpg|png|jpeg';
-            $upload_config['max_size'] = 2014;
-            $upload_config['encrypt_name'] = true;
 
-            $this->upload->initialize($upload_config);
+            //cek jika ada gambar di upload
+            $upload_image = $_FILES['image']['name'];
+            if ($upload_image) {
+                $upload_config['upload_path'] = 'assets/images/barang';
+                $upload_config['allowed_types'] = 'jpg|png|jpeg';
+                $upload_config['max_size'] = 2014;
+                $upload_config['encrypt_name'] = true;
 
-            // Lakukan upload file
-            if ($this->upload->do_upload('image')) {
-                $image = $this->upload->data('file_name');
-                $this->db->set('image', $image);
-            } else {
-                $image = null;
+                $this->upload->initialize($upload_config);
+
+                // Lakukan upload file
+                if ($this->upload->do_upload('image')) {
+                    $image = $this->upload->data('file_name');
+                    $this->db->set('image', $image);
+                } else {
+                    $error = $this->upload->display_errors();
+                    set_pesan($error);
+                }
             }
 
             $insert_result = $this->admin->insert('barang', $input_data);
