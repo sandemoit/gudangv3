@@ -5,8 +5,8 @@
         <div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu">
             <div class="nk-sidebar-element nk-sidebar-head">
                 <div class="nk-menu-trigger">
-                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
-                    <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                    <a href="javascript:;" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
+                    <a href="javascript:;" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                 </div>
                 <div class="nk-sidebar-brand">
                     <a href="html/index.html" class="logo-link nk-sidebar-logo">
@@ -58,7 +58,7 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <a href="javascript:;" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-folders"></em></em></span>
                                     <span class="nk-menu-text">Master Barang</span>
                                 </a>

@@ -61,7 +61,7 @@ class Barang extends CI_Controller
             $this->upload->initialize($upload_config);
 
             // Lakukan upload file
-            if ($this->upload->do_upload('image')) {
+            if ($this->upload->do_image_upload('image')) {
                 $image = $this->upload->data('file_name');
                 $this->db->set('image', $image);
             } else {
