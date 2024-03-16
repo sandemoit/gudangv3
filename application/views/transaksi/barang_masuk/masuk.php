@@ -59,7 +59,7 @@
                                                         <td><?= $bm['nama_barang'] ?></td>
                                                         <td><?= $bm['jumlah_masuk'] ?></td>
                                                         <td><?= $bm['nama_supplier'] ?></td>
-                                                        <td><?= $bm['id_user'] ?></td>
+                                                        <td><?= $bm['name'] ?></td>
                                                         <td>
                                                             <div class="tb-odr-btns d-none d-md-inline">
                                                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('masuk/delete/') . $bm['id_bmasuk'] ?>" class="btn btn-sm btn-danger"><em class="icon ni ni-trash"></em>Delete</a>
@@ -84,52 +84,38 @@
 
 <!-- Add Room-->
 <div class="modal fade" tabindex="-1" role="dialog" id="add">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-            <div class="modal-body modal-body-md">
+            <div class="modal-header">
                 <h5 class="modal-title">Add <?= $title; ?></h5>
-                <form action="<?= base_url('masuk') ?>" method="post">
+            </div>
+            <form action="<?= base_url('masuk') ?>" method="post">
+                <div class="modal-body">
                     <input type="hidden" value="<?= $user['id']; ?>" class="form-control" name="id_user">
                     <div class="row g-gs">
-                        <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="colg-lg-6 col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="form-label">No Transaksi</label>
                                         <input readonly type="text" value="<?= $id_bmasuk ?>" class="form-control" name="id_bmasuk">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-label">Tanggal Masuk</label>
                                         <input type="date" value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" class="form-control" name="tanggal_masuk" id="tanggal_masuk" placeholder="Nama barang">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Supplier</label>
-                                        <div class="form-control-wrap">
-                                            <select name="id_supplier" id="id_supplier" data-search="on" class="js-select2">
-                                                <option selected disabled>Pilih Supplier</option>
-                                                <?php foreach ($supplier as $s) : ?>
-                                                    <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <p><a href="<?= site_url('supplier') ?>">+Add Supplier</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+                                <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-label">Barang</label>
                                         <div class="form-control-wrap">
-                                            <select name="barang_id" id="barang_id" data-search="on" class="js-select2">
+                                            <select name="barang_id" id="barang_id" data-search="on" class="form-select js-select2">
                                                 <option selected disabled>Pilih Barang</option>
                                                 <?php foreach ($barang as $key) : ?>
-                                                    <option <?= set_select('barang_id', $key['id_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['id_barang'] ?>"><?= $key['id_barang'] . ' | ' . $key['nama_barang'] ?></option>
+                                                    <option <?= set_select('barang_id', $key['kode_barang']) ?> data-stok="<?= $key['stok']; ?>" value="<?= $key['kode_barang'] ?>"><?= $key['kode_barang'] . ' | ' . $key['nama_barang'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -137,16 +123,20 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="colg-lg-6 col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-6 col-sm-12 mt-2">
-                                    <div class="form-control-wrap">
+                                <div class="col-12">
+                                    <div class="form-group">
                                         <label class="form-label" for="stok">Stok</label>
-                                        <div class="input-group">
-                                            <input readonly type="number" id="stok" class="form-control">
+                                        <div class="form-control-wrap">
+                                            <div class="input-group">
+                                                <input readonly type="number" id="stok" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12 mt-2">
+                                <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-label" for="jumlah_masuk">Jumlah Masuk</label>
                                         <div class="form-control-wrap">
@@ -159,7 +149,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 mt-2">
+                                <div class="col-12 mt-3">
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="basic-total_stok">Total Stok</label>
                                         <div class="input-group">
@@ -169,66 +159,35 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12" id="scanner-container">
-                            <!-- disini camera reader qr code -->
-                            <video id="scanner" class="scann__qr"></video>
-                            <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" value="1" autocomplete="off" checked> Camera Depan
-                                </label>
-                                <label class="btn btn-secondary active">
-                                    <input type="radio" name="options" value="2" autocomplete="off"> Camera Belakang
-                                </label>
+                        <div class="form-group">
+                            <label class="form-label">Supplier</label>
+                            <div class="form-control-wrap">
+                                <select name="id_supplier" id="id_supplier" data-search="on" class="form-select js-select2">
+                                    <option selected disabled>Pilih Supplier</option>
+                                    <?php foreach ($supplier as $s) : ?>
+                                        <option value="<?= $s['id']; ?>"><?= $s['nama_supplier']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p><a href="<?= site_url('supplier') ?>">+Add Supplier</a></p>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12">
-                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                <li>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                                </li>
-                                <li>
-                                    <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
-                                </li>
-                                <li>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="cameraScanner">
-                                        <label class="custom-control-label" for="cameraScanner">Camera Scanner</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
-                </form>
-            </div><!-- .modal-body -->
+                </div><!-- .modal-body -->
+                <div class="modal-footer bg-light">
+                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                        <li>
+                            <button class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </li>
+                        <li>
+                            <a href="#" class="link" data-bs-dismiss="modal">Cancel</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
 
-<!-- Skrip yang menggunakan fungsi stopScanner() -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var scannerVideo = document.getElementById('scanner-container');
-        var cameraSwitch = document.getElementById('cameraScanner');
-
-        function toggleScannerVideo() {
-            if (cameraSwitch.checked) {
-                scannerVideo.style.display = 'block';
-                startScanner(); // Fungsi untuk memulai scanner (sesuaikan dengan implementasi Anda)
-            } else {
-                scannerVideo.style.display = 'none';
-                stopScanner(); // Fungsi untuk menghentikan scanner (sesuaikan dengan implementasi Anda)
-            }
-        }
-
-        function stopScanner() {
-            // Logika untuk menghentikan scanner
-            console.log('Scanner stopped'); // Gantilah dengan logika sesuai kebutuhan Anda
-        }
-
-        toggleScannerVideo();
-        cameraSwitch.addEventListener('change', toggleScannerVideo);
-    });
-</script>
-
-<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-<script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script>
+<!-- <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="<?= base_url('assets') ?>/js/custom/scanqr.js"></script> -->
+<script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>

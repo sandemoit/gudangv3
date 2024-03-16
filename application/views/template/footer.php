@@ -13,10 +13,7 @@
             <script src="<?= base_url('assets') ?>/js/scripts.js?ver=3.0.3"></script>
             <!-- Menggunakan versi di-host (CDN) -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-            <script>
-                const baseurl = '<?= base_url() ?>';
-                const segment = '<?= $this->uri->segment(1); ?>';
-            </script>
+            
             <script type="text/javascript">
                 window.setTimeout(function() {
                     $(".alert").fadeTo(500, 0).slideUp(500, function() {
@@ -25,7 +22,6 @@
                 }, 5000);
             </script>
 
-            <script src="<?= base_url('assets') ?>/js/custom/count-stok.js"></script>
             </body>
 
             </html>

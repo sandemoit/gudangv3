@@ -12,21 +12,21 @@
                                     <p>Data <?= $title; ?></p>
                                 </div>
                             </div><!-- .nk-block-head-content -->
-                            <div class="nk-block-head-content">
-                                <ul class="nk-block-tools g-3">
-                                    <li>
-                                        <div class="drodown">
-                                            <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em> Tambah Barang</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="drodown">
-                                            <a href="<?= base_url('barang/excel') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Unduh Excel </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
+                        <div class="nk-block-head-content">
+                            <ul class="nk-block-tools g-3">
+                                <li>
+                                    <div class="drodown">
+                                        <a href="#add" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="modal"><em class="icon ni ni-plus"></em> Tambah Barang</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="drodown">
+                                        <a href="<?= base_url('barang/excel') ?>" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Unduh Excel </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-head -->
 
                     <?php if (validation_errors()) : ?>
@@ -114,7 +114,7 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group">
                             <label class="form-label" for="room-no-add">Kode Barang</label>
-                            <input type="text" class="form-control" name="kode_barang" id="kode_barang" placeholder="Masukan Kode barang">
+                            <input type="text" class="form-control" name="kode_barang" id="kode_barang" value="<?= $kode_barang ?>" readonly>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">

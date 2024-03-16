@@ -40,13 +40,13 @@
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
                                                 <li>
-                                                    <button type="button" class="btn btn-icon btn-warning" onclick="resetDates()"><em class="icon ni ni-reload-alt"></em> Reset </button>
+                                                    <a class="btn btn-icon btn-warning" onclick="resetDates()"><em class="icon ni ni-reload-alt"></em> Reset </a>
                                                 </li>
                                                 <li>
                                                     <a onclick="generateCetak()" class="btn btn-icon btn-light"><em class="icon ni ni-printer"></em> Print</a>
                                                 </li>
                                                 <li>
-                                                    <butto onclick="generatePDF()" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> PDF</butto>
+                                                    <a onclick="generatePDF()" class="btn btn-icon btn-danger"><em class="icon ni ni-file-pdf"></em> PDF</a>
                                                 </li>
                                                 <li>
                                                     <a onclick="downloadExcel()" class="btn btn-icon btn-success"><em class="icon ni ni-file-xls"></em> Excel</a>

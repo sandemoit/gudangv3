@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="form-group mt-2">
                                     <label class="form-label" for="room-no-add">Surat Jalan</label>
-                                    <input type="file" value="<?= set_value('surat_jalan') ?>" class="form-control" name="surat_jalan" id="surat_jalan">
+                                    <input type="file" value="<?= set_value('no_surat') ?>" class="form-control" name="no_surat" id="no_surat">
                                 </div>
                             </div>
                         </div>

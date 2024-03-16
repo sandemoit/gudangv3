@@ -117,7 +117,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="room-no-add">Role</label>
-                            <select name="role" id="role" class="form-select js-select2 js-select2-sm">
+                            <select name="role" id="role" class="form-select">
                                 <option value="admin">Admin</option>
                                 <option value="gudang">Gudang</option>
                             </select>

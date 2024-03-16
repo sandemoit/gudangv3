@@ -43,7 +43,7 @@ class M_Pelanggan extends CI_Model
     public function getTrx($limit = null, $id_barang = null)
     {
         $this->db->select('*');
-        $this->db->join('barang', 'barang_keluar.barang_id = barang.id_barang');
+        $this->db->join('barang', 'barang_keluar.barang_id = barang.kode_barang');
         $this->db->join('satuan', 'barang.id_satuan = satuan.id');
         $this->db->join('pelanggan', 'pelanggan.id_pelanggan = barang_keluar.pelanggan_id');
         $this->db->where('barang_keluar.pelanggan_id IS NOT NULL');
@@ -64,7 +64,7 @@ class M_Pelanggan extends CI_Model
         return $query->row_array();
     }
 
-    public function getTotalTrx($id, $startDate=null, $endDate=null)
+    public function getTotalTrx($id, $startDate = null, $endDate = null)
     {
         $this->db->where('pelanggan_id', $id);
         if ($startDate && $endDate) {
@@ -117,7 +117,7 @@ class M_Pelanggan extends CI_Model
     {
         $this->db->select('DATE(tanggal_keluar) as tanggal, SUM(jumlah_keluar) as total_keluar');
         $this->db->where('pelanggan_id', $id);
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $this->db->where('DATE(tanggal_keluar) >=', $startDate);
             $this->db->where('DATE(tanggal_keluar) <=', $endDate);
         }

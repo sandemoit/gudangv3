@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 05, 2024 at 10:55 AM
+-- Generation Time: Mar 11, 2024 at 08:54 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -28,7 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `barang` (
-  `id_barang` char(128) NOT NULL,
+  `id_barang` int NOT NULL,
+  `kode_barang` varchar(125) NOT NULL,
   `nama_barang` varchar(128) NOT NULL,
   `stok_awal` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `stok` int DEFAULT NULL,
@@ -43,10 +44,10 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok_awal`, `stok`, `id_satuan`, `id_jenis`, `image`, `date_add`, `date_update`) VALUES
-('98842512301', 'Kardus', '50', 65, 3, 1, '68f01f5903457bb5cde8fa7fb8306c9d.jpeg', '2024-01-24 23:19:48', '2024-02-03 16:40:01'),
-('9884251233', 'Chictato Lite Rasa Rumput Laut 68gram', '0', 0, 1, 1, '4667ab5315f9981c0a519ec6ed1c129c.jpg', '2024-01-24 23:37:13', '2024-01-24 23:55:18'),
-('B01284328', 'RICHEESE SIIP KEJU 50 GR', '0', 10, 1, 1, 'b81b6d201927aef3b86dfe09b312638a.jpg', '2024-01-24 23:20:51', '2024-01-24 23:20:51');
+INSERT INTO `barang` (`id_barang`, `kode_barang`, `nama_barang`, `stok_awal`, `stok`, `id_satuan`, `id_jenis`, `image`, `date_add`, `date_update`) VALUES
+(1, 'BSD234923', 'Chictato Lite Rasa Rumput Laut 68gram', '0', 5, 1, 2, 'e61dfec8877eac40017450392e2969c9.jpeg', '2024-02-21 13:31:25', '2024-02-28 17:27:33'),
+(2, 'B234924', 'RICHEESE SIIP KEJU 50 GR', '10', 10, 3, 1, NULL, '2024-03-02 15:06:18', '2024-03-02 15:06:18'),
+(3, 'FS-4924', 'Kardus', '2', 2, 1, 2, NULL, '2024-03-04 16:50:02', '2024-03-04 16:50:02');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,7 @@ CREATE TABLE `barang_keluar` (
   `id_user` int NOT NULL,
   `barang_id` char(128) NOT NULL,
   `pelanggan_id` int DEFAULT NULL,
-  `surat_jalan` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `no_surat` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jumlah_keluar` int NOT NULL,
   `tanggal_keluar` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -68,10 +69,8 @@ CREATE TABLE `barang_keluar` (
 -- Dumping data for table `barang_keluar`
 --
 
-INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `pelanggan_id`, `surat_jalan`, `jumlah_keluar`, `tanggal_keluar`) VALUES
-('T-BK-050220240001', 18, '98842512301', 3, 'T-BK-050220240001-2024-02-05.pdf', 2, '2024-02-04'),
-('T-BK-050220240003', 18, '98842512301', 3, 'T-BK-050220240003-2024-02-05.pdf', 10, '2024-02-05'),
-('T-BK-050220240004', 18, '98842512301', 3, 'T-BK-050220240004-2024-02-05.pdf', 5, '2024-02-03');
+INSERT INTO `barang_keluar` (`id_bkeluar`, `id_user`, `barang_id`, `pelanggan_id`, `no_surat`, `jumlah_keluar`, `tanggal_keluar`) VALUES
+('T-BK-210220240001', 18, 'BSD234923', 3, 'T-BK-210220240001-2024-02-21.pdf', 5, '2024-02-21');
 
 --
 -- Triggers `barang_keluar`
@@ -109,8 +108,8 @@ CREATE TABLE `barang_masuk` (
 --
 
 INSERT INTO `barang_masuk` (`id_bmasuk`, `id_supplier`, `id_user`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES
-('T-BM-240120240001', 1, '18', '98842512301', 32, '2024-01-24'),
-('T-BM-240120240002', 2, '18', 'B01284328', 10, '2024-01-24');
+('T-BM-210220240001', 1, '18', 'BSD234923', 10, '2024-02-21'),
+('T-BM-280220240001', 1, '18', 'BSD234923', 7, '2024-02-28');
 
 --
 -- Triggers `barang_masuk`
@@ -216,7 +215,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `nama_aplikasi`, `nama_perusahaan`, `alamat`, `image`, `notelpon`, `email`, `low_stok`) VALUES
-(1, 'Sistem Informasi Gudang', 'SANDEMO INDO TEKNOLOGI', 'Palembang, Ulu 2 NO 76', '65706025d80fa.png', '087801751656', 'info@sandemoindoteknologi.com', '3');
+(1, 'Sistem Informasi Gudang', 'SANDEMO INDO TEKNOLOGI', 'Palembang, Ulu 2 NO 76', '65e59888d2c7e.png', '087801751656', 'info@sandemoindoteknologi.com', '3');
 
 -- --------------------------------------------------------
 
@@ -340,6 +339,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `id_barang` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
@@ -385,21 +390,6 @@ ALTER TABLE `user`
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `barang_keluar`
---
-ALTER TABLE `barang_keluar`
-  ADD CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `barang_masuk`
---
-ALTER TABLE `barang_masuk`
-  ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `suplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_masuk_ibfk_3` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id_barang`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

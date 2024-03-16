@@ -32,6 +32,7 @@ class Keluar extends CI_Controller
         }
         $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
         $data['id_bkeluar'] = $kode . $number;
+        $data['no_surat'] = 'ST ' . $number;
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -55,22 +56,6 @@ class Keluar extends CI_Controller
                     'jumlah_keluar' => $jumlah_keluar,
                     'tanggal_keluar' => $this->input->post('tanggal_keluar')
                 ];
-
-                // surat jalan
-                $config['upload_path'] = 'assets/documents/surat_jalan/';
-                $config['allowed_types'] = 'pdf|xls|xlsx';
-                $config['max_size'] = 2048;
-                $config['file_name'] = $noTransaksi . '-' . date('Y-m-d');
-
-                $this->upload->initialize($config);
-
-                if (!$this->upload->do_upload('surat_jalan')) {
-                    $error = $this->upload->display_errors();
-                    set_pesan($error, false);
-                } else {
-                    $file = $this->upload->data('file_name');
-                    $this->db->set('surat_jalan', $file);
-                }
 
                 $this->db->insert('barang_keluar', $data);
                 set_pesan('Data berhasil disimpan.');
@@ -96,7 +81,7 @@ class Keluar extends CI_Controller
             set_pesan('File tidak valid atau tidak ditemukan.', false);
             redirect('pelanggan/trx');
         } else {
-            $file_path = base_url('assets/documents/surat_jalan/' . $surat);
+            $file_path = base_url('assets/documents/no_surat/' . $surat);
             $data = file_get_contents($file_path);
             force_download($surat, $data);
         }

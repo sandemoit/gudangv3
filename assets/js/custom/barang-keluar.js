@@ -29,25 +29,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Skrip yang menggunakan fungsi stopScanner()
-document.addEventListener('DOMContentLoaded', function() {
-    var scannerVideo = document.getElementById('scanner-container');
-    var cameraSwitch = document.getElementById('cameraScanner');
+// document.addEventListener('DOMContentLoaded', function() {
+//     var scannerVideo = document.getElementById('scanner-container');
+//     var cameraSwitch = document.getElementById('cameraScanner');
 
-    function toggleScannerVideo() {
-        if (cameraSwitch.checked) {
-            scannerVideo.style.display = 'block';
-            startScanner(); // Fungsi untuk memulai scanner (sesuaikan dengan implementasi Anda)
-        } else {
-            scannerVideo.style.display = 'none';
-            stopScanner(); // Fungsi untuk menghentikan scanner (sesuaikan dengan implementasi Anda)
-        }
-    }
+//     function toggleScannerVideo() {
+//         if (cameraSwitch.checked) {
+//             scannerVideo.style.display = 'block';
+//         } else {
+//             scannerVideo.style.display = 'none';
+//         }
+//     } 
 
-    function stopScanner() {
-        // Logika untuk menghentikan scanner
-        console.log('Scanner stopped'); // Gantilah dengan logika sesuai kebutuhan Anda
-    }
-
-    toggleScannerVideo();
-    cameraSwitch.addEventListener('change', toggleScannerVideo);
-});
+//     toggleScannerVideo();
+//     cameraSwitch.addEventListener('change', toggleScannerVideo);
+// });

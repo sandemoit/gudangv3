@@ -39,9 +39,9 @@ class Masuk extends CI_Controller
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');
-            $this->load->view('template/topbar', $data);
-            $this->load->view('transaksi/barang_masuk/masuk', $data);
-            $this->load->view('template/footer', $data);
+            $this->load->view('template/topbar');
+            $this->load->view('transaksi/barang_masuk/masuk');
+            $this->load->view('template/footer');
         } else {
             $data = [
                 'id_bmasuk' => $this->input->post('id_bmasuk'),

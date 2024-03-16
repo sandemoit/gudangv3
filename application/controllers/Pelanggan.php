@@ -72,8 +72,8 @@ class Pelanggan extends CI_Controller
         $existing_data = $this->pelanggan->delete('barang_keluar', 'id_bkeluar', $id);
 
         $keluar = $this->pelanggan->getKeluar($id);
-        $path = FCPATH . 'assets/documents/surat_jalan/';
-        $file = $keluar['surat_jalan'];
+        $path = FCPATH . 'assets/documents/no_surat/';
+        $file = $keluar['no_surat'];
         $file_path = $path . $file;
 
         if (!$existing_data) {
@@ -95,72 +95,82 @@ class Pelanggan extends CI_Controller
         $data['pelanggan'] = $this->pelanggan->get('pelanggan');
         $data['barang'] = $this->db->get('barang')->result_array();
 
-        $this->form_validation->set_rules('tanggal_keluar', 'Tanggal keluar', 'required|trim');
-        $this->form_validation->set_rules('pelanggan_id', 'Pelanggan', 'required|trim');
-        $this->form_validation->set_rules('barang_id', 'Barang', 'required|trim');
-        $this->form_validation->set_rules('jumlah_keluar', 'Barang', 'required|trim');
+        $data['no_surat'] = 'SJ-' . random_string('numeric', 9);
 
-        // no transaksi generate
-        $kode = 'T-BK-' . date('dmY');
-        $kode_terakhir = $this->admin->getMax('barang_keluar', 'id_bkeluar', $kode);
-        if ($kode_terakhir) {
-            $kode_tambah = substr($kode_terakhir, -4, 4);
-            $kode_tambah++;
-        } else {
-            $kode_tambah = 1;
-        }
-        $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
-        $data['id_bkeluar'] = $kode . $number;
-
-        if ($this->form_validation->run() == false) {
+        if ($this->input->post() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');
             $this->load->view('template/topbar');
             $this->load->view('transaksi/pelanggan/keluar');
             $this->load->view('template/footer');
         } else {
-            $barang_id = $this->input->post('barang_id');
-            $noTransaksi = $this->input->post('id_bkeluar');
-            $pelanggan_id = $this->input->post('pelanggan_id');
-            $jumlah_keluar = $this->input->post('jumlah_keluar');
+            $this->db->trans_begin();
 
-            // Cek stok barang sebelum memproses transaksi
-            $stok_barang = $this->admin->getStokBarang($barang_id);
-            if ($stok_barang >= $jumlah_keluar) {
-                // Jika stok mencukupi, lanjutkan transaksi
-                $data = [
-                    'id_bkeluar' => $noTransaksi,
-                    'id_user' => $this->input->post('id_user'),
-                    'barang_id' => $barang_id,
-                    'pelanggan_id' => $pelanggan_id,
-                    'jumlah_keluar' => $jumlah_keluar,
-                    'tanggal_keluar' => $this->input->post('tanggal_keluar')
-                ];
+            $barang_ids = $this->input->post('barang_id');
+            $pelanggan_ids = $this->input->post('pelanggan_id');
+            $jumlah_keluars = $this->input->post('jumlah_keluar');
+            $id_users = $this->input->post('id_user');
+            $no_surats = $this->input->post('no_surat');
+            $tanggal_keluar = $this->input->post('tanggal_keluar');
 
-                // surat jalan
-                $config['upload_path'] = 'assets/documents/surat_jalan/';
-                $config['allowed_types'] = 'pdf|xls|xlsx';
-                $config['max_size'] = 2048;
-                $config['file_name'] = $noTransaksi . '-' . date('Y-m-d');
+            var_dump($barang_ids);
+            var_dump($pelanggan_ids);
+            var_dump($jumlah_keluars);
+            var_dump($id_users);
+            var_dump($no_surats);
+            var_dump($tanggal_keluar);
+            die;
 
-                $this->upload->initialize($config);
-
-                if (!$this->upload->do_upload('surat_jalan')) {
-                    $error = $this->upload->display_errors();
-                    set_pesan($error, false);
-                } else {
-                    $file = $this->upload->data('file_name');
-                    $this->db->set('surat_jalan', $file);
-                }
-
-                $this->db->insert('barang_keluar', $data);
-                set_pesan('Data berhasil disimpan.');
+            // no transaksi generate
+            $kode = 'T-BK-' . date('dmY');
+            $kode_terakhir = $this->admin->getMax('barang_keluar', 'id_bkeluar', $kode);
+            if ($kode_terakhir) {
+                $kode_tambah = substr($kode_terakhir, -4, 4);
+                $kode_tambah++;
             } else {
-                // Jika stok tidak mencukupi, beri pesan kesalahan
-                set_pesan('Stok barang tidak mencukupi.', false);
+                $kode_tambah = 1;
+            }
+
+            // Data transaksi yang akan dimasukkan
+            $data = array();
+            foreach ($barang_ids as $key => $barang_id) {
+                $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
+
+                // Gunakan nomor yang telah dihasilkan untuk membuat ID unik
+                $id_bkeluar = $kode . $number;
+
+                $data[] = array(
+                    'id_bkeluar' => $id_bkeluar[$key],
+                    'id_user' => $id_users[$key],
+                    'barang_id' => $barang_id,
+                    'pelanggan_id' => $pelanggan_ids[$key],
+                    'jumlah_keluar' => $jumlah_keluars[$key],
+                    'no_surat' => $no_surats[$key],
+                    'tanggal_keluar' => $tanggal_keluar[$key]
+                );
+            }
+
+            // Masukkan data transaksi ke dalam tabel menggunakan insert_batch()
+            $this->db->insert_batch('barang_keluar', $data);
+
+            if ($this->db->trans_status() === false) {
+                // Rollback transaksi jika terjadi kesalahan saat memasukkan data
+                $this->db->trans_rollback();
+                set_pesan('Gagal menyimpan data transaksi.', false);
+            } else {
+                // Commit transaksi jika semuanya berhasil
+                $this->db->trans_commit();
+                set_pesan('Data berhasil disimpan.');
             }
             redirect('pelanggan/trx');
         }
+    }
+
+    public function getstok($getKode)
+    {
+        $kode = encode_php_tags($getKode);
+        $query = $this->admin->cekStok($kode);
+        output_json($query);
     }
 
     public function sales($id)
@@ -188,7 +198,7 @@ class Pelanggan extends CI_Controller
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
         $data = $this->pelanggan->salesChart($id, $start_date, $end_date);
-        
+
         output_json($data);
     }
 
@@ -242,7 +252,7 @@ class Pelanggan extends CI_Controller
         $row = 2;
         foreach ($pelanggan as $key => $item) {
             $sheet->setCellValue('A' . $row, $key + 1);
-            $sheet->setCellValue('B' . $row, $item['id_barang']);
+            $sheet->setCellValue('B' . $row, $item['kode_barang']);
             $sheet->setCellValue('C' . $row, $item['nama_barang']);
             $sheet->setCellValue('D' . $row, $item['nama_jenis']);
             $sheet->setCellValue('E' . $row, (!empty($item['jumlah_keluar'])) ? $item['jumlah_keluar'] : 0);

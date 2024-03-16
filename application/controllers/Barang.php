@@ -25,11 +25,11 @@ class Barang extends CI_Controller
         $data['satuan'] = $this->admin->get('satuan');
 
         // Mengenerate ID Barang
-        // $kode_terakhir = $this->admin->getMax('barang', 'id_barang');
-        // $kode_tambah = substr($kode_terakhir, -6, 6);
-        // $kode_tambah++;
-        // $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
-        // $data['id_barang'] = 'B' . $number; //tinggal panggil variabel di view "id_barang"
+        $kode_terakhir = $this->admin->getMax('barang', 'kode_barang');
+        $kode_tambah = substr($kode_terakhir, -4, 4);
+        $kode_tambah++;
+        $number = str_pad($kode_tambah, 4, '0', STR_PAD_LEFT);
+        $data['kode_barang'] = 'FS-' . $number; //tinggal panggil variabel di view "kode_barang"
 
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
@@ -57,7 +57,7 @@ class Barang extends CI_Controller
             //cek jika ada gambar di upload
             $upload_image = $_FILES['image']['name'];
             if ($upload_image) {
-                $upload_config['upload_path'] = 'assets/images/barang';
+                $upload_config['upload_path'] = FCPATH . 'assets/images/barang';
                 $upload_config['allowed_types'] = 'jpg|png|jpeg';
                 $upload_config['max_size'] = 2014;
                 $upload_config['encrypt_name'] = true;
@@ -184,7 +184,7 @@ class Barang extends CI_Controller
         $row = 2;
         foreach ($dataBarang as $key => $item) {
             $sheet->setCellValue('A' . $row, $key + 1);
-            $sheet->setCellValue('B' . $row, $item['id_barang']);
+            $sheet->setCellValue('B' . $row, $item['kode_barang']);
             $sheet->setCellValue('C' . $row, $item['nama_barang']);
             $sheet->setCellValue('D' . $row, $item['nama_jenis']);
             $sheet->setCellValue('E' . $row, $item['nama_satuan']);

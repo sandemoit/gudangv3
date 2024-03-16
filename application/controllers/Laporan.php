@@ -86,7 +86,7 @@ class Laporan extends CI_Controller
         $row = 2;
         foreach ($laporan as $key => $item) {
             $sheet->setCellValue('A' . $row, $key + 1);
-            $sheet->setCellValue('B' . $row, $item['id_barang']);
+            $sheet->setCellValue('B' . $row, $item['kode_barang']);
             $sheet->setCellValue('C' . $row, $item['nama_barang']);
             $sheet->setCellValue('D' . $row, $item['stok_awal']);
             $sheet->setCellValue('E' . $row, $item['jumlah_masuk']);

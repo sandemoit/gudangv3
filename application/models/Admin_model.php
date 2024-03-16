@@ -67,14 +67,15 @@ class Admin_model extends CI_Model
     }
 
     // barang masuk
-    public function getBarangMasuk($limit = null, $id_barang = null)
+    public function getBarangMasuk($limit = null, $kode_barang = null)
     {
         $this->db->select('*');
         $this->db->join('suplier sp', 'barang_masuk.id_supplier = sp.id');
-        $this->db->join('barang b', 'barang_masuk.barang_id = b.id_barang');
+        $this->db->join('barang b', 'barang_masuk.barang_id = b.kode_barang');
+        $this->db->join('user u', 'barang_masuk.id_user = u.id');
         $this->db->join('satuan s', 'b.id_satuan = s.id');
-        if ($id_barang != null) {
-            $this->db->where('id_barang', $id_barang);
+        if ($kode_barang != null) {
+            $this->db->where('kode_barang', $kode_barang);
         }
         // if ($range != null) {
         //     $this->db->where('tanggal_masuk >=', $range['start']);
@@ -85,28 +86,25 @@ class Admin_model extends CI_Model
     }
 
     // barang keluar
-    public function getBarangKeluar($limit = null, $id_barang = null)
+    public function getBarangKeluar($limit = null, $kode_barang = null)
     {
         $this->db->select('barang_keluar.*, u.*, b.*, s.*');
         $this->db->join('user u', 'barang_keluar.id_user = u.id');
-        $this->db->join('barang b', 'barang_keluar.barang_id = b.id_barang');
+        $this->db->join('barang b', 'barang_keluar.barang_id = b.kode_barang');
         $this->db->join('satuan s', 'b.id_satuan = s.id');
-        if ($id_barang) {
-            $this->db->where('id_barang', $id_barang);
+        if ($kode_barang) {
+            $this->db->where('kode_barang', $kode_barang);
         }
-        // if ($date_range) {
-        //     $this->db->where('tanggal_keluar >=', $date_range['start']);
-        //     $this->db->where('tanggal_keluar <=', $date_range['end']);
-        // }
+
         $this->db->order_by('tanggal_keluar', 'desc');
         $query = $this->db->get('barang_keluar', $limit);
         return $query->result_array();
     }
 
-    public function cekStok($id)
+    public function cekStok($kode)
     {
-        $this->db->join('satuan s', 'barang.id_satuan=s.id');
-        return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
+        $stok = $this->db->get_where('barang', ['kode_barang' => $kode])->row('stok');
+        return ($stok !== null) ? $stok : null;
     }
 
     public function get_low_stock_products()
@@ -141,7 +139,7 @@ class Admin_model extends CI_Model
     {
         $this->db->select('stok');
         $this->db->from('barang');
-        $this->db->where('id_barang', $barang_id);
+        $this->db->where('kode_barang', $barang_id);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
